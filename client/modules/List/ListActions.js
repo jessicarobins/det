@@ -3,23 +3,23 @@ import callApi from '../../util/apiCaller';
 // Export Constants
 export const ADD_LIST = 'ADD_LIST';
 export const ADD_LISTS = 'ADD_LISTS';
-export const DELETE_POST = 'DELETE_POST';
+export const DELETE_LIST = 'DELETE_LIST';
 
 // Export Actions
-export function addPost(list) {
+export function addList(list) {
   return {
     type: ADD_LIST,
     list,
   };
 }
 
-export function addPostRequest(post) {
+export function addListRequest(list) {
   return (dispatch) => {
-    return callApi('lists', 'post', {
+    return callApi('lists', 'list', {
       list: {
-        name: post.name,
+        name: list.name,
       },
-    }).then(res => dispatch(addPost(res.list)));
+    }).then(res => dispatch(addList(res.list)));
   };
 }
 
@@ -30,7 +30,7 @@ export function addLists(lists) {
   };
 }
 
-export function fetchPosts() {
+export function fetchLists() {
   return (dispatch) => {
     return callApi('lists').then(res => {
       dispatch(addLists(res.lists));
@@ -38,21 +38,21 @@ export function fetchPosts() {
   };
 }
 
-export function fetchPost(cuid) {
+export function fetchList(cuid) {
   return (dispatch) => {
-    return callApi(`posts/${cuid}`).then(res => dispatch(addPost(res.post)));
+    return callApi(`lists/${cuid}`).then(res => dispatch(addList(res.list)));
   };
 }
 
-export function deletePost(cuid) {
+export function deleteList(cuid) {
   return {
-    type: DELETE_POST,
+    type: DELETE_LIST,
     cuid,
   };
 }
 
-export function deletePostRequest(cuid) {
+export function deleteListRequest(cuid) {
   return (dispatch) => {
-    return callApi(`posts/${cuid}`, 'delete').then(() => dispatch(deletePost(cuid)));
+    return callApi(`lists/${cuid}`, 'delete').then(() => dispatch(deleteList(cuid)));
   };
 }

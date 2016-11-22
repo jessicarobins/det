@@ -1,24 +1,26 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 
 // Import Style
 import styles from './ListItem.css';
 
 function ListItem(props) {
   return (
-    <div className={styles['single-post']}>
-      <h3 className={styles['post-title']}>
-        <Link to={`/posts/${props.post.cuid}`} >
-          {props.post.name}
+    <div className={styles['single-list']}>
+      <h3 className={styles['list-title']}>
+        <Link to={`/lists/${props.list.cuid}`} >
+          {props.list.name}
         </Link>
       </h3>
+      <p className={styles['list-action']}><a href="#" onClick={props.onDelete}><FormattedMessage id="deleteList" /></a></p>
       <hr className={styles.divider} />
     </div>
   );
 }
 
 ListItem.propTypes = {
-  post: PropTypes.shape({
+  list: PropTypes.shape({
     name: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
   }).isRequired,

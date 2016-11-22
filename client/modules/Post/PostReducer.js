@@ -1,18 +1,18 @@
-import { ADD_POST, ADD_POSTS, DELETE_POST } from './PostActions';
+import { ADD_LIST, ADD_LISTS, DELETE_POST } from './PostActions';
 
 // Initial State
 const initialState = { data: [] };
 
 const PostReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_POST :
+    case ADD_LIST :
       return {
-        data: [action.post, ...state.data],
+        data: [action.list, ...state.data],
       };
 
-    case ADD_POSTS :
+    case ADD_LISTS :
       return {
-        data: action.posts,
+        data: action.lists,
       };
 
     case DELETE_POST :

@@ -4,7 +4,6 @@ var postcssFocus = require('postcss-focus');
 var postcssReporter = require('postcss-reporter');
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
 
   entry: {
     app: [
