@@ -1,27 +1,38 @@
 import React, { Component, PropTypes } from 'react';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
 
 // Import Style
-import styles from './PostCreateWidget.css';
+import styles from './ListCreateWidget.css';
 
 export class PostCreateWidget extends Component {
   addPost = () => {
-    const nameRef = this.refs.name;
-    if (nameRef.value) {
-      this.props.addPost(nameRef.value);
-      nameRef.value = '';
+    // const verbRef = this.refs.verb;
+    // const actionRef = this.refs.action;
+    if (this.verbRef.value && this.actionRef.value) {
+      this.props.addPost(this.verbRef.value, this.actionRef.value);
+      this.verbRef.value = this.actionRef.value = '';
     }
   };
 
   render() {
-    const cls = `${styles.form} ${(this.props.showAddPost ? styles.appear : '')}`;
+    const cls = `${(this.props.showAddPost ? styles.appear : '')}`;
     return (
       <div className={cls}>
-        <div className={styles['form-content']}>
-          <h2 className={styles['form-title']}><FormattedMessage id="createNewPost" /></h2>
-          <input placeholder={this.props.intl.messages.authorName} className={styles['form-field']} ref="name" />
-          <a className={styles['post-submit-button']} href="#" onClick={this.addPost}><FormattedMessage id="submit" /></a>
-        </div>
+        <Form inline>
+          {'I want to '}
+          <FormGroup>
+            <FormControl inputRef={ref => {this.verbRef = ref}} type="text" placeholder="climb" />
+          </FormGroup>
+          {' every '}
+          <FormGroup>
+            <FormControl inputRef={ref => {this.actionRef = ref}} type="text" placeholder="mountain" />
+          </FormGroup>
+          {' '}
+          <Button onClick={this.addPost}>
+            Submit
+          </Button>
+        </Form>
       </div>
     );
   }

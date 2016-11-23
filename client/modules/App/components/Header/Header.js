@@ -12,14 +12,6 @@ export function Header(props, context) {
         <h1 className={styles['site-title']}>
           <Link to="/" ><FormattedMessage id="siteTitle" /></Link>
         </h1>
-        {
-          context.router.isActive('/', true)
-            ? <a href="#" onClick={props.toggleAddPost}>Add Link</a>
-            : null
-        }
-        <Link to={'/liststuff'} >
-          list stuff
-        </Link>
       </div>
     </div>
   );

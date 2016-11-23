@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const listItemSchema = new Schema({
-  name: { type: 'String', required: true },
+  text: { type: 'String', required: true },
   complete: { type: 'Boolean', default: false, required: false },
   dateAdded: { type: 'Date', default: Date.now, required: true },
   dateModified: { type: 'Date', default: Date.now, required: false },

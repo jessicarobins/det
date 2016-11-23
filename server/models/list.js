@@ -1,12 +1,20 @@
 import mongoose from 'mongoose';
-// import ListItem from './listItem';
+import ListItem from './listItem';
 const Schema = mongoose.Schema;
 
 const listSchema = new Schema({
   cuid: { type: 'String', required: true },
-  name: { type: 'String', required: true },
+  verb: { type: 'String', required: true },
+  action: { type: 'String', required: true },
+  items: [ListItem.schema],
   dateAdded: { type: 'Date', default: Date.now, required: true },
   dateModified: { type: 'Date', default: Date.now, required: false },
 });
+
+listSchema.virtual('name').get( function() {
+  return `I want to ${this.verb} every ${this.action}`;
+});
+
+listSchema.set('toJSON', { virtuals: true });
 
 export default mongoose.model('List', listSchema);

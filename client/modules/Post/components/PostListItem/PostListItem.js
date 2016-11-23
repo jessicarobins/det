@@ -6,13 +6,12 @@ import styles from './ListItem.css';
 
 function ListItem(props) {
   return (
-    <div className={styles['single-post']}>
-      <h3 className={styles['post-title']}>
-        <Link to={`/posts/${props.post.cuid}`} >
+    <div>
+      <h3>
+        <Link to={`/lists/${props.post.cuid}`} >
           {props.post.name}
         </Link>
       </h3>
-      <hr className={styles.divider} />
     </div>
   );
 }

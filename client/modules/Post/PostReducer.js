@@ -1,4 +1,4 @@
-import { ADD_LIST, ADD_LISTS, DELETE_POST } from './PostActions';
+import { ADD_LIST, ADD_LIST_ITEM, ADD_LISTS, DELETE_POST } from './PostActions';
 
 // Initial State
 const initialState = { data: [] };
@@ -9,7 +9,12 @@ const PostReducer = (state = initialState, action) => {
       return {
         data: [action.list, ...state.data],
       };
-
+      
+    case ADD_LIST_ITEM :
+      return {
+        data: [action.list],
+      };
+      
     case ADD_LISTS :
       return {
         data: action.lists,

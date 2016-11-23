@@ -46,6 +46,9 @@ export class App extends Component {
                 content: 'width=device-width, initial-scale=1',
               },
             ]}
+            link={[
+              {"rel": "stylesheet", "href": "https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"}
+            ]}
           />
           <Header
             switchLanguage={lang => this.props.dispatch(switchLanguage(lang))}

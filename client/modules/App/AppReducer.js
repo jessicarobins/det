@@ -3,7 +3,7 @@ import { TOGGLE_ADD_POST, TOGGLE_ADD_LIST } from './AppActions';
 
 // Initial State
 const initialState = {
-  showAddPost: false,
+  showAddPost: true,
   showAddList: false,
 };
 

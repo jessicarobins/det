@@ -6,7 +6,7 @@ import PostList from '../../components/PostList';
 import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget';
 
 // Import Actions
-import { addPostRequest, fetchPosts, deletePostRequest } from '../../PostActions';
+import { addListRequest, fetchPosts, deletePostRequest } from '../../PostActions';
 import { toggleAddPost } from '../../../App/AppActions';
 
 // Import Selectors
@@ -24,9 +24,9 @@ class PostListPage extends Component {
     }
   };
 
-  handleAddPost = (name) => {
+  handleAddPost = (verb, action) => {
     this.props.dispatch(toggleAddPost());
-    this.props.dispatch(addPostRequest({ name }));
+    this.props.dispatch(addListRequest({ verb, action }));
   };
 
   render() {

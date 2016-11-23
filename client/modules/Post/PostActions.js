@@ -2,6 +2,7 @@ import callApi from '../../util/apiCaller';
 
 // Export Constants
 export const ADD_LIST = 'ADD_LIST';
+export const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
 export const ADD_LISTS = 'ADD_LISTS';
 export const DELETE_POST = 'DELETE_POST';
 
@@ -13,13 +14,31 @@ export function addPost(list) {
   };
 }
 
-export function addPostRequest(post) {
+export function addListRequest(list) {
   return (dispatch) => {
     return callApi('lists', 'post', {
       list: {
-        name: post.name,
+        verb: list.verb,
+        action: list.action,
       },
     }).then(res => dispatch(addPost(res.list)));
+  };
+}
+
+export function addListItem(list) {
+  return {
+    type: ADD_LIST_ITEM,
+    list,
+  };
+}
+
+export function addListItemRequest(props) {
+  return (dispatch) => {
+    return callApi(`lists/${props.cuid}`, 'post', {
+      items: [{
+        text: props.text,
+      }],
+    }).then(res => dispatch(addListItem(res.list)));
   };
 }
 
@@ -38,9 +57,9 @@ export function fetchPosts() {
   };
 }
 
-export function fetchPost(cuid) {
+export function fetchList(cuid) {
   return (dispatch) => {
-    return callApi(`posts/${cuid}`).then(res => dispatch(addPost(res.post)));
+    return callApi(`lists/${cuid}`).then(res => dispatch(addPost(res.list)));
   };
 }
 

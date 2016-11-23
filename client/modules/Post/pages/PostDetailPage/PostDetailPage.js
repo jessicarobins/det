@@ -1,48 +1,54 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+import ListItemCreateWidget from '../../components/PostListItem/ListItemCreateWidget/ListItemCreateWidget';
+import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
 
 // Import Style
 import styles from '../../components/PostListItem/ListItem.css';
 
 // Import Actions
-import { fetchPost } from '../../PostActions';
+import { fetchList, addListItemRequest } from '../../PostActions';
 
 // Import Selectors
 import { getPost } from '../../PostReducer';
 
-export function PostDetailPage(props) {
-  return (
-    <div>
-      <Helmet title={props.post.title} />
-      <div className={`${styles['single-post']} ${styles['post-detail']}`}>
-        <h3 className={styles['post-title']}>{props.post.title}</h3>
-        <p className={styles['author-name']}><FormattedMessage id="by" /> {props.post.name}</p>
-        <p className={styles['post-desc']}>{props.post.content}</p>
+class PostDetailPage extends Component {
+  
+  handleAddListItem = (text) => {
+    const cuid = this.props.list.cuid;
+    this.props.dispatch(addListItemRequest({ cuid, text }));
+  };
+  
+  render() {
+    return (
+      <div>
+        <Helmet title={this.props.list.name} />
+        <div className={`${styles['single-post']} ${styles['post-detail']}`}>
+          <h3>{this.props.list.name}</h3>
+        </div>
+        <ToDoList todos={this.props.list.items} />
+        <ListItemCreateWidget addListItem={this.handleAddListItem} />
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 // Actions required to provide data for this component to render in sever side.
 PostDetailPage.need = [params => {
-  return fetchPost(params.cuid);
+  return fetchList(params.cuid);
 }];
 
 // Retrieve data from store as props
 function mapStateToProps(state, props) {
   return {
-    post: getPost(state, props.params.cuid),
+    list: getPost(state, props.params.cuid),
   };
 }
 
 PostDetailPage.propTypes = {
-  post: PropTypes.shape({
+  list: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
   }).isRequired,
 };

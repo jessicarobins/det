@@ -15,5 +15,7 @@ router.route('/posts/:cuid').delete(PostController.deletePost);
 // lists
 router.route('/lists').get(ListController.getLists);
 router.route('/lists').post(ListController.addList);
+router.route('/lists/:cuid').get(ListController.getList);
+router.route('/lists/:cuid').post(ListController.addListItems);
 
 export default router;
