@@ -2,14 +2,23 @@ import React, { Component, PropTypes } from 'react';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
 
+
 // Import Style
 import styles from './ListCreateWidget.css';
 
 export class PostCreateWidget extends Component {
+  
+  searchForList = (query) => {
+    // const queryString = ' list ' + query.trim();
+    // sendQuery(queryString)
+    //   .then(function(result) {
+    //     console.log(result);
+    //   });
+  };
+  
   addPost = () => {
-    // const verbRef = this.refs.verb;
-    // const actionRef = this.refs.action;
     if (this.verbRef.value && this.actionRef.value) {
+      this.searchForList(this.actionRef.value);
       this.props.addPost(this.verbRef.value, this.actionRef.value);
       this.verbRef.value = this.actionRef.value = '';
     }

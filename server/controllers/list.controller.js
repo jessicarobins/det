@@ -2,6 +2,7 @@ import List from '../models/list';
 import ListItem from '../models/listItem';
 import cuid from 'cuid';
 import sanitizeHtml from 'sanitize-html';
+import { waClient, formatQuery, formatResponse, QUERY_OPTIONS } from '../util/wolframHelper';
 
 /**
  * Get all lists
@@ -25,6 +26,15 @@ export function getLists(req, res) {
  * @returns void
  */
 export function addList(req, res) {
+
+  waClient.query(formatQuery(req.body.list.action), QUERY_OPTIONS)
+  .then(function(resp) {
+    console.log(formatResponse(resp))
+  })
+  .catch(function(err) {
+    console.log(err) 
+  })
+  
   if (!req.body.list.verb || !req.body.list.action) {
     res.status(403).end();
   }
