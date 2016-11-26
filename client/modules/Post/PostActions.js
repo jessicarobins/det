@@ -16,7 +16,7 @@ export function addPost(list) {
 
 export function addListRequest(list) {
   return (dispatch) => {
-    return callApi('lists', 'post', {
+    return callApi('lists/find_or_create', 'post', {
       list: {
         verb: list.verb,
         action: list.action,
@@ -35,9 +35,7 @@ export function addListItem(list) {
 export function addListItemRequest(props) {
   return (dispatch) => {
     return callApi(`lists/${props.cuid}`, 'post', {
-      items: [{
-        text: props.text,
-      }],
+      items: [ props.text ],
     }).then(res => dispatch(addListItem(res.list)));
   };
 }

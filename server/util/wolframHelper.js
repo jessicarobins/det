@@ -1,6 +1,6 @@
 import wajs from 'wajs';
 
-export const WA_APP_ID = 'G6UJXE-UG88XXUYPK';
+export const WA_APP_ID = 'G6UJXE-UG88XXUYPK'//process.env.WA_APP_ID;
 
 export const waClient = new wajs(WA_APP_ID);
 
@@ -13,18 +13,21 @@ export const QUERY_OPTIONS = {
   parseTimeout: 10000,
   formatTimeout: 10000,
   reinterpret: true,
-  includePodId: ['Result']
 };
 
 export const formatQuery = (query) => `list ${query}`;
 
 export const formatResponse = (response) => {
-  let queryString = response.pods()[0].subpod[0].plaintext[0];
+  if (!response.pods()[1]){
+    return false;
+  }
+  let queryString = response.pods()[1].subpod[0].plaintext[0];
   const totalIndex = queryString.indexOf('(total:');
   if (totalIndex > -1) {
     queryString = queryString.substring(0, totalIndex);
   }
   queryString = queryString.trim();
   const resultArray = queryString.split('  |  ');
+  console.log(resultArray)
   return resultArray;
 }

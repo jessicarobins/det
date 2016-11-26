@@ -1,5 +1,6 @@
 import List from '../models/list';
 import ListItem from '../models/listItem';
+import ListTemplate from '../models/listTemplate';
 import cuid from 'cuid';
 import sanitizeHtml from 'sanitize-html';
 import { waClient, formatQuery, formatResponse, QUERY_OPTIONS } from '../util/wolframHelper';
@@ -26,14 +27,6 @@ export function getLists(req, res) {
  * @returns void
  */
 export function addList(req, res) {
-
-  waClient.query(formatQuery(req.body.list.action), QUERY_OPTIONS)
-  .then(function(resp) {
-    console.log(formatResponse(resp))
-  })
-  .catch(function(err) {
-    console.log(err) 
-  })
   
   if (!req.body.list.verb || !req.body.list.action) {
     res.status(403).end();
@@ -50,6 +43,74 @@ export function addList(req, res) {
     }
     res.json({ list: saved });
   });
+}
+
+/**
+ * Find or create a list template
+ * @param req
+ * @param res
+ * @returns void
+ */
+export function findOrCreateListTemplate(req, res) {
+  
+  if (!req.body.list.verb || !req.body.list.action) {
+    res.status(403).end();
+  }
+  
+  let newList = new List(req.body.list);
+  newList.cuid = cuid();
+  let items;
+  
+  //search ListTemplate for matching actions
+  ListTemplate.findOne({ actions: req.body.list.action })
+    .exec( (err, template) => {
+      //if we have a template with that action already, create
+      // a new list based on it
+      if(template) {
+        console.log('template found ', template);
+        handleCreateFromTemplate(res, newList, template);
+        return true;
+      }
+      return false;
+    })
+    .then( (template) => {
+      return  waClient.query(formatQuery(req.body.list.action), QUERY_OPTIONS);
+    })
+    .then( (resp) => {
+      items = formatResponse(resp);
+      if(!items){
+        res.status(422).send('No results');
+      }
+      //look to see if we have any templates with these items already
+      return ListTemplate.find().byItems(items).exec();
+    })
+    .then( (err, template) => {
+      if(template) {
+        console.log('template found by items ', template);
+        //update template to include name
+        template.actions.push(req.body.list.action).save();
+        //create new list from template
+        handleCreateFromTemplate(res, newList, template);
+        // List.createFromTemplate(template, (err, saved) => {
+        //   if (err) {
+        //     console.log('error', err);
+        //     res.status(500).send(err);
+        //   }
+        //   res.json({ list: saved });
+        //   return true;
+        // });
+      }
+      else {
+        //create a new ListTemplate
+        const newTemplate = ListTemplate.newWithItems(req.body.list.action, items);
+        console.log('creating a new template ', newTemplate);
+        handleCreateFromTemplate(res, newList, newTemplate);
+      }
+    })
+    .catch(function(err) {
+      console.log('error', err);
+      res.status(500).send(err);
+    });
 }
 
 /**
@@ -96,14 +157,13 @@ export function addListItems(req, res) {
     if (err) {
       res.status(500).send(err);
     }
-    let newItem;
-    req.body.items.forEach( (item) => {
-      newItem = new ListItem(item);
-      list.items.push(newItem);
+    
+    list.addListItems(req.body.items, (err, saved) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+      res.json({ list });
     });
-   
-    list.save();
-    res.json({ list });
   });
 }
 
@@ -122,5 +182,17 @@ export function deleteList(req, res) {
     list.remove(() => {
       res.status(200).end();
     });
+  });
+}
+
+function handleCreateFromTemplate(res, list, template){
+  list.addItemsFromTemplate(template, (err, saved) => {
+    if (err) {
+      console.log('error', err);
+      res.status(500).send(err);
+    }
+    res.json({ list: saved });
+    res.end();
+    return true;
   });
 }

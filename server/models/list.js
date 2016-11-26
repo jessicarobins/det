@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import ListItem from './listItem';
 const Schema = mongoose.Schema;
+import * as _ from 'lodash';
 
 const listSchema = new Schema({
   cuid: { type: 'String', required: true },
@@ -14,6 +15,20 @@ const listSchema = new Schema({
 listSchema.virtual('name').get( function() {
   return `I want to ${this.verb} every ${this.action}`;
 });
+
+listSchema.methods.addListItems = function(items, cb) {
+  let newItem;
+  items.forEach( (item) => {
+    newItem = new ListItem({text: item});
+    this.items.push(newItem);
+  });
+  return this.save(cb);
+};
+
+listSchema.methods.addItemsFromTemplate = function(template, cb) {
+  this.items = _.clone(template.items);
+  return this.save(cb);
+};
 
 listSchema.set('toJSON', { virtuals: true });
 
