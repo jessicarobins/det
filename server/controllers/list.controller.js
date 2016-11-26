@@ -71,40 +71,36 @@ export function findOrCreateListTemplate(req, res) {
         handleCreateFromTemplate(res, newList, template);
         return true;
       }
-      return false;
-    })
-    .then( (template) => {
-      return  waClient.query(formatQuery(req.body.list.action), QUERY_OPTIONS);
-    })
-    .then( (resp) => {
-      items = formatResponse(resp);
-      if(!items){
-        res.status(422).send('No results');
-      }
-      //look to see if we have any templates with these items already
-      return ListTemplate.find().byItems(items).exec();
-    })
-    .then( (err, template) => {
-      if(template) {
-        console.log('template found by items ', template);
-        //update template to include name
-        template.actions.push(req.body.list.action).save();
-        //create new list from template
-        handleCreateFromTemplate(res, newList, template);
-        // List.createFromTemplate(template, (err, saved) => {
-        //   if (err) {
-        //     console.log('error', err);
-        //     res.status(500).send(err);
-        //   }
-        //   res.json({ list: saved });
-        //   return true;
-        // });
-      }
       else {
-        //create a new ListTemplate
-        const newTemplate = ListTemplate.newWithItems(req.body.list.action, items);
-        console.log('creating a new template ', newTemplate);
-        handleCreateFromTemplate(res, newList, newTemplate);
+        waClient.query(formatQuery(req.body.list.action), QUERY_OPTIONS)
+        .then( (resp) => {
+          items = formatResponse(resp);
+          if(!items){
+            res.status(422).send('No results');
+          }
+          //look to see if we have any templates with these items already
+          return ListTemplate.find().byItems(items).exec();
+        })
+        .then( (err, template) => {
+          if(template) {
+            console.log('template found by items ', template);
+            //update template to include name
+            template.actions.push(req.body.list.action).save();
+            //create new list from template
+            handleCreateFromTemplate(res, newList, template);
+            
+          }
+          else {
+            //create a new ListTemplate
+            const newTemplate = ListTemplate.newWithItems(req.body.list.action, items);
+            console.log('creating a new template ', newTemplate);
+            handleCreateFromTemplate(res, newList, newTemplate);
+          }
+        })
+        .catch(function(err) {
+          console.log('error', err);
+          res.status(500).send(err);
+        });
       }
     })
     .catch(function(err) {
@@ -192,7 +188,6 @@ function handleCreateFromTemplate(res, list, template){
       res.status(500).send(err);
     }
     res.json({ list: saved });
-    res.end();
     return true;
   });
 }
