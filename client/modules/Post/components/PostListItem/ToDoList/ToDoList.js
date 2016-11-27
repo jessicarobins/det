@@ -11,6 +11,7 @@ function ToDoList(props) {
           <PostListItem
             todo={todo}
             key={todo._id}
+            toggleListItem={props.toggleListItem}
           />
         ))
       }
@@ -22,6 +23,7 @@ ToDoList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({
     text: PropTypes.string.isRequired,
   })).isRequired,
+  toggleListItem: PropTypes.func.isRequired,
 };
 
 export default ToDoList;

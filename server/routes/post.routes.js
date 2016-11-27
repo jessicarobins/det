@@ -17,6 +17,7 @@ router.route('/posts/:cuid').delete(PostController.deletePost);
 router.route('/lists').get(ListController.getLists);
 router.route('/lists').post(ListController.addList);
 router.route('/lists/find_or_create').post(ListController.findOrCreateListTemplate);
+router.route('/lists/:cuid/toggle/:list_item_id').put(ListController.toggleListItem);
 router.route('/lists/:cuid').get(ListController.getList);
 router.route('/lists/:cuid').post(ListController.addListItems);
 

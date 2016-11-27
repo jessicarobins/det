@@ -8,7 +8,7 @@ import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
 import styles from '../../components/PostListItem/ListItem.css';
 
 // Import Actions
-import { fetchList, addListItemRequest } from '../../PostActions';
+import { fetchList, addListItemRequest, toggleListItemRequest } from '../../PostActions';
 
 // Import Selectors
 import { getPost } from '../../PostReducer';
@@ -20,6 +20,12 @@ class PostDetailPage extends Component {
     this.props.dispatch(addListItemRequest({ cuid, text }));
   };
   
+  handleToggleListItem = (listItem) => {
+    const cuid = this.props.list.cuid;
+    const list_item_id = listItem._id;
+    this.props.dispatch(toggleListItemRequest({ cuid, list_item_id }));
+  };
+  
   render() {
     return (
       <div>
@@ -27,7 +33,9 @@ class PostDetailPage extends Component {
         <div className={`${styles['single-post']} ${styles['post-detail']}`}>
           <h3>{this.props.list.name}</h3>
         </div>
-        <ToDoList todos={this.props.list.items} />
+        <ToDoList 
+          todos={this.props.list.items}
+          toggleListItem={this.handleToggleListItem} />
         <ListItemCreateWidget addListItem={this.handleAddListItem} />
       </div>
     );

@@ -3,6 +3,7 @@ import callApi from '../../util/apiCaller';
 // Export Constants
 export const ADD_LIST = 'ADD_LIST';
 export const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
+export const TOGGLE_LIST_ITEM = 'TOGGLE_LIST_ITEM';
 export const ADD_LISTS = 'ADD_LISTS';
 export const ADD_TEMPLATES = 'ADD_TEMPLATES';
 export const DELETE_POST = 'DELETE_POST';
@@ -38,6 +39,19 @@ export function addListItemRequest(props) {
     return callApi(`lists/${props.cuid}`, 'post', {
       items: [ props.text ],
     }).then(res => dispatch(addListItem(res.list)));
+  };
+}
+
+export function toggleListItem() {
+  return {
+    type: TOGGLE_LIST_ITEM
+  };
+}
+
+export function toggleListItemRequest(props) {
+  return (dispatch) => {
+    return callApi(`lists/${props.cuid}/toggle/${props.list_item_id}`, 'put')
+      .then(res => dispatch(toggleListItem()));
   };
 }
 
