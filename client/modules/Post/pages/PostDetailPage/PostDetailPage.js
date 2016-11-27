@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import ListItemCreateWidget from '../../components/PostListItem/ListItemCreateWidget/ListItemCreateWidget';
 import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
+import { ProgressBar } from 'react-bootstrap';
+import * as _ from 'lodash';
 
 // Import Style
 import styles from '../../components/PostListItem/ListItem.css';
@@ -15,6 +17,12 @@ import { getPost } from '../../PostReducer';
 
 class PostDetailPage extends Component {
   
+  percentComplete() {
+    const numItems = this.items.length;
+    const numComplete = _.filter(this.items, 'complete').length;
+    return _.round(numComplete*100/numItems) || 0;
+  }
+
   handleAddListItem = (text) => {
     const cuid = this.props.list.cuid;
     this.props.dispatch(addListItemRequest({ cuid, text }));
@@ -32,6 +40,10 @@ class PostDetailPage extends Component {
         <Helmet title={this.props.list.name} />
         <div className={`${styles['single-post']} ${styles['post-detail']}`}>
           <h3>{this.props.list.name}</h3>
+          <ProgressBar 
+            striped
+            now={this.props.list.percentComplete}
+            label={`${this.props.list.percentComplete}% Complete!`}/>
         </div>
         <ToDoList 
           todos={this.props.list.items}

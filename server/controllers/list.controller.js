@@ -186,16 +186,15 @@ export function toggleListItem(req, res) {
   
   List.findOne( { cuid: req.params.cuid }, function ( err, list ){
     const todo = list.items.id(req.params.list_item_id);
+    
     todo.dateModified = Date.now();
     todo.complete = !todo.complete;
-    console.log('todo: ', todo);
     list.save( function ( err, todo ){
       if( err ) { 
         console.error("Error:", err);
         res.status(500).send(err);
       }
-      
-      res.json({ message: 'Completed' });
+      res.json({ list });
     });
   });
 }

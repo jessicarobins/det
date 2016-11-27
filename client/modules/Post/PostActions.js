@@ -42,16 +42,17 @@ export function addListItemRequest(props) {
   };
 }
 
-export function toggleListItem() {
+export function toggleListItem(list) {
   return {
-    type: TOGGLE_LIST_ITEM
+    type: TOGGLE_LIST_ITEM,
+    list
   };
 }
 
 export function toggleListItemRequest(props) {
   return (dispatch) => {
     return callApi(`lists/${props.cuid}/toggle/${props.list_item_id}`, 'put')
-      .then(res => dispatch(toggleListItem()));
+      .then(res => dispatch(toggleListItem(res.list)));
   };
 }
 

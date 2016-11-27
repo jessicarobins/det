@@ -16,6 +16,12 @@ listSchema.virtual('name').get( function() {
   return `${this.verb} every ${this.action}`;
 });
 
+listSchema.virtual('percentComplete').get( function() {
+  const numItems = this.items.length;
+  const numComplete = _.filter(this.items, 'complete').length;
+  return _.round(numComplete*100/numItems) || 0;
+});
+
 listSchema.methods.addListItems = function(items, cb) {
   let newItem;
   items.forEach( (item) => {
