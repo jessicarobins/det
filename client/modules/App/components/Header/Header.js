@@ -1,19 +1,12 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
-
-// Import Style
-import styles from './Header.css';
+import { PageHeader } from 'react-bootstrap';
 
 export function Header(props, context) {
   return (
-    <div className={styles.header}>
-      <div className={styles.content}>
-        <h1 className={styles['site-title']}>
-          <Link to="/" ><FormattedMessage id="siteTitle" /></Link>
-        </h1>
-      </div>
-    </div>
+    <PageHeader>
+      <Link to="/" >Some clever app name</Link>
+    </PageHeader>
   );
 }
 
@@ -23,8 +16,6 @@ Header.contextTypes = {
 
 Header.propTypes = {
   toggleAddPost: PropTypes.func.isRequired,
-  switchLanguage: PropTypes.func.isRequired,
-  intl: PropTypes.object.isRequired,
 };
 
 export default Header;
