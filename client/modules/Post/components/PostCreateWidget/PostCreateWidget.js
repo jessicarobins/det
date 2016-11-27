@@ -24,29 +24,34 @@ export class PostCreateWidget extends Component {
     const cls = `${(this.props.showAddPost ? styles.appear : '')}`;
     return (
       <div className={cls}>
-        <Form inline>
-          {'I want to '}
-          <FormGroup>
-            <FormControl inputRef={ref => {this.verbRef = ref}} type="text" placeholder="climb" />
-          </FormGroup>
-          {' every '}
-          <FormGroup>
-            <Typeahead
-              ref="typeahead"
-              options={this.props.templates}
-              placeholder={'mountain'}
-              labelKey={'name'}
-              allowNew={true}
-              newSelectionPrefix={''}
-              onInputChange={selected => this.setState({selected})}
-            />
-          </FormGroup>
-          {' '}
-          <Button onClick={this.addPost}>
-            Submit
-          </Button>
-          
-        </Form>
+        <h1>
+          <Form inline>
+            {'I want to '}
+            <FormGroup bsSize="lg">
+              <FormControl 
+                className={`${styles['list-input']}`}
+                inputRef={ref => {this.verbRef = ref}} 
+                type="text" 
+                placeholder="climb" />
+            </FormGroup>
+            {' every '}
+            <FormGroup bsSize="lg">
+              <Typeahead
+                ref="typeahead"
+                options={this.props.templates}
+                placeholder={'mountain'}
+                labelKey={'name'}
+                allowNew={true}
+                newSelectionPrefix={''}
+                onInputChange={selected => this.setState({selected})}
+              />
+            </FormGroup>
+            {' '}
+            <Button onClick={this.addPost}>
+              Submit
+            </Button>
+          </Form>
+        </h1>
       </div>
     );
   }
