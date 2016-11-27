@@ -67,7 +67,7 @@ export function findOrCreateListTemplate(req, res) {
       //if we have a template with that action already, create
       // a new list based on it
       if(template) {
-        console.log('template found ', template);
+        console.log('template found by name');
         handleCreateFromTemplate(res, newList, template);
         return true;
       }
@@ -81,11 +81,12 @@ export function findOrCreateListTemplate(req, res) {
           //look to see if we have any templates with these items already
           return ListTemplate.find().byItems(items).exec();
         })
-        .then( (err, template) => {
+        .then( (template) => {
           if(template) {
-            console.log('template found by items ', template);
+            console.log('template found by items');
             //update template to include name
-            template.actions.push(req.body.list.action).save();
+            template.actions.push(req.body.list.action);
+            template.save();
             //create new list from template
             handleCreateFromTemplate(res, newList, template);
             
@@ -93,7 +94,7 @@ export function findOrCreateListTemplate(req, res) {
           else {
             //create a new ListTemplate
             const newTemplate = ListTemplate.newWithItems(req.body.list.action, items);
-            console.log('creating a new template ', newTemplate);
+            console.log('creating a new template');
             handleCreateFromTemplate(res, newList, newTemplate);
           }
         })

@@ -13,7 +13,7 @@ const listSchema = new Schema({
 });
 
 listSchema.virtual('name').get( function() {
-  return `I want to ${this.verb} every ${this.action}`;
+  return `${this.verb} every ${this.action}`;
 });
 
 listSchema.methods.addListItems = function(items, cb) {

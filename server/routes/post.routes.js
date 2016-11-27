@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import * as PostController from '../controllers/post.controller';
 import * as ListController from '../controllers/list.controller';
+import * as ListTemplateController from '../controllers/listTemplate.controller';
 const router = new Router();
 
 // Get all Posts
@@ -19,4 +20,6 @@ router.route('/lists/find_or_create').post(ListController.findOrCreateListTempla
 router.route('/lists/:cuid').get(ListController.getList);
 router.route('/lists/:cuid').post(ListController.addListItems);
 
+// templates
+router.route('/templates').get(ListTemplateController.getTemplates);
 export default router;

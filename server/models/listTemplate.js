@@ -12,6 +12,10 @@ const listTemplate = new Schema({
   dateModified: { type: 'Date', default: Date.now, required: false },
 });
 
+listTemplate.virtual('name').get( function() {
+  return this.actions[0];
+});
+
 listTemplate.methods.addListItems = function(items, cb) {
   let newItem;
   items.forEach( (item) => {
@@ -35,5 +39,7 @@ listTemplate.statics.newWithItems = function(action, items) {
   newTemplate.addListItems(items);
   return newTemplate;
 }
+
+listTemplate.set('toJSON', { virtuals: true });
 
 export default mongoose.model('ListTemplate', listTemplate);

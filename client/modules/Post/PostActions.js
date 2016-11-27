@@ -4,6 +4,7 @@ import callApi from '../../util/apiCaller';
 export const ADD_LIST = 'ADD_LIST';
 export const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
 export const ADD_LISTS = 'ADD_LISTS';
+export const ADD_TEMPLATES = 'ADD_TEMPLATES';
 export const DELETE_POST = 'DELETE_POST';
 
 // Export Actions
@@ -47,6 +48,13 @@ export function addLists(lists) {
   };
 }
 
+export function addTemplates(templates) {
+  return {
+    type: ADD_TEMPLATES,
+    templates,
+  };
+}
+
 export function fetchPosts() {
   return (dispatch) => {
     return callApi('lists').then(res => {
@@ -58,6 +66,14 @@ export function fetchPosts() {
 export function fetchList(cuid) {
   return (dispatch) => {
     return callApi(`lists/${cuid}`).then(res => dispatch(addPost(res.list)));
+  };
+}
+
+export function fetchTemplates() {
+  return (dispatch) => {
+    return callApi('templates').then(res => {
+      dispatch(addTemplates(res.templates));
+    });
   };
 }
 

@@ -8,10 +8,6 @@ export const QUERY_OPTIONS = {
   format: 'plaintext',
   podState: '100@More',
   ignoreCase: true,
-  scanTimeout: 10000,
-  podTimeout: 10000,
-  parseTimeout: 10000,
-  formatTimeout: 10000,
   reinterpret: true,
 };
 
@@ -28,6 +24,5 @@ export const formatResponse = (response) => {
   }
   queryString = queryString.trim();
   const resultArray = queryString.split('  |  ');
-  console.log(resultArray)
   return resultArray;
 }

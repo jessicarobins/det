@@ -1,26 +1,22 @@
 import React, { Component, PropTypes } from 'react';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
-
+import Typeahead from 'react-bootstrap-typeahead';
 
 // Import Style
 import styles from './ListCreateWidget.css';
 
 export class PostCreateWidget extends Component {
   
-  searchForList = (query) => {
-    // const queryString = ' list ' + query.trim();
-    // sendQuery(queryString)
-    //   .then(function(result) {
-    //     console.log(result);
-    //   });
-  };
+  constructor(props) {
+    super(props);
+    this.state = { selected: '' };
+  }
   
   addPost = () => {
-    if (this.verbRef.value && this.actionRef.value) {
-      this.searchForList(this.actionRef.value);
-      this.props.addPost(this.verbRef.value, this.actionRef.value);
-      this.verbRef.value = this.actionRef.value = '';
+    if (this.verbRef.value && this.state.selected.length) {
+      this.props.addPost(this.verbRef.value, this.state.selected);
+      this.verbRef.value = '';
+      this.refs.typeahead.getInstance().clear();
     }
   };
 
@@ -35,12 +31,21 @@ export class PostCreateWidget extends Component {
           </FormGroup>
           {' every '}
           <FormGroup>
-            <FormControl inputRef={ref => {this.actionRef = ref}} type="text" placeholder="mountain" />
+            <Typeahead
+              ref="typeahead"
+              options={this.props.templates}
+              placeholder={'mountain'}
+              labelKey={'name'}
+              allowNew={true}
+              newSelectionPrefix={''}
+              onInputChange={selected => this.setState({selected})}
+            />
           </FormGroup>
           {' '}
           <Button onClick={this.addPost}>
             Submit
           </Button>
+          
         </Form>
       </div>
     );
@@ -50,7 +55,9 @@ export class PostCreateWidget extends Component {
 PostCreateWidget.propTypes = {
   addPost: PropTypes.func.isRequired,
   showAddPost: PropTypes.bool.isRequired,
-  intl: intlShape.isRequired,
+  templates: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired
+  })).isRequired,
 };
 
-export default injectIntl(PostCreateWidget);
+export default PostCreateWidget;
