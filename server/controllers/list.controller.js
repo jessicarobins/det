@@ -4,6 +4,7 @@ import ListTemplate from '../models/listTemplate';
 import cuid from 'cuid';
 import sanitizeHtml from 'sanitize-html';
 import { waClient, formatQuery, formatResponse, QUERY_OPTIONS } from '../util/wolframHelper';
+import * as Q from 'q';
 
 /**
  * Get all lists
@@ -71,12 +72,14 @@ export function findOrCreateListTemplate(req, res) {
         handleCreateFromTemplate(res, newList, template);
         return true;
       }
+      
       else {
         waClient.query(formatQuery(req.body.list.action), QUERY_OPTIONS)
         .then( (resp) => {
           items = formatResponse(resp);
           if(!items){
             res.status(422).send('No results');
+            return Q.reject();
           }
           //look to see if we have any templates with these items already
           return ListTemplate.find().byItems(items).exec();

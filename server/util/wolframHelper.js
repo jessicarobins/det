@@ -8,16 +8,18 @@ export const QUERY_OPTIONS = {
   format: 'plaintext',
   podState: '100@More',
   ignoreCase: true,
-  reinterpret: true,
+  includePodId: ['Result']
 };
 
-export const formatQuery = (query) => `list ${query}`;
+export const formatQuery = (query) => query //`list of ${query}`;
 
 export const formatResponse = (response) => {
-  if (!response.pods()[1]){
+  if (!response.pods()[0]){
+    console.log('no results? ', response)
     return false;
   }
-  let queryString = response.pods()[1].subpod[0].plaintext[0];
+  let queryString = response.pods()[0].subpod[0].plaintext[0];
+  console.log('querystring', queryString)
   const totalIndex = queryString.indexOf('(total:');
   if (totalIndex > -1) {
     queryString = queryString.substring(0, totalIndex);
