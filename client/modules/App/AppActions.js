@@ -1,16 +1,11 @@
 // Export Constants
 export const TOGGLE_ADD_POST = 'TOGGLE_ADD_POST';
-export const TOGGLE_ADD_LIST = 'TOGGLE_ADD_LIST';
+export const TOGGLE_ADD_WARNING = 'TOGGLE_ADD_WARNING';
 
 // Export Actions
-export function toggleAddPost() {
-  return {
-    type: TOGGLE_ADD_POST,
-  };
-}
 
-export function toggleAddList() {
+export function toggleAddWarning() {
   return {
-    type: TOGGLE_ADD_LIST,
+    type: TOGGLE_ADD_WARNING,
   };
 }

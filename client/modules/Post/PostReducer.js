@@ -1,10 +1,13 @@
 import { ADD_LIST, ADD_LIST_ITEM, ADD_LISTS, TOGGLE_LIST_ITEM, DELETE_POST } from './PostActions';
 
 // Initial State
-const initialState = { data: [] };
+const initialState = {
+  data: [],
+};
 
 const PostReducer = (state = initialState, action) => {
   switch (action.type) {
+    
     case ADD_LIST :
       return {
         data: [action.list, ...state.data],
@@ -17,7 +20,7 @@ const PostReducer = (state = initialState, action) => {
     
     case TOGGLE_LIST_ITEM :
       return {
-        data: [action.list],
+        data: action.lists,
       };
       
     case ADD_LISTS :

@@ -1,10 +1,10 @@
 // Import Actions
-import { TOGGLE_ADD_POST, TOGGLE_ADD_LIST } from './AppActions';
+import { TOGGLE_ADD_POST, TOGGLE_ADD_WARNING } from './AppActions';
 
 // Initial State
 const initialState = {
   showAddPost: true,
-  showAddList: false,
+  showAddWarning: false,
 };
 
 const AppReducer = (state = initialState, action) => {
@@ -13,9 +13,9 @@ const AppReducer = (state = initialState, action) => {
       return {
         showAddPost: !state.showAddPost,
       };
-    case TOGGLE_ADD_LIST:
+    case TOGGLE_ADD_WARNING:
       return {
-        showAddList: !state.showAddList,
+        showAddWarning: !state.showAddWarning,
       };
     default:
       return state;
@@ -27,7 +27,7 @@ const AppReducer = (state = initialState, action) => {
 // Get showAddPost
 export const getShowAddPost = state => state.app.showAddPost;
 
-export const getShowAddList = state => state.app.showAddList;
+export const getShowAddWarning = state => state.app.showAddWarning;
 
 // Export Reducer
 export default AppReducer;

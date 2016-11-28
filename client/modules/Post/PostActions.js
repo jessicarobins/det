@@ -1,4 +1,6 @@
 import callApi from '../../util/apiCaller';
+import { toggleAddWarning } from '../App/AppActions';
+import { browserHistory } from 'react-router';
 
 // Export Constants
 export const ADD_LIST = 'ADD_LIST';
@@ -23,7 +25,15 @@ export function addListRequest(list) {
         verb: list.verb,
         action: list.action,
       },
-    }).then(res => dispatch(addPost(res.list)));
+    }).then( (res) =>  {
+      if(res.list){
+        dispatch(addPost(res.list));
+        browserHistory.push(`/lists/${res.list.cuid}`);
+      }
+      else {
+        dispatch(toggleAddWarning());
+      }
+    });
   };
 }
 

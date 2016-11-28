@@ -8,10 +8,10 @@ import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget
 // Import Actions
 import { addListRequest, fetchPosts, deletePostRequest } from '../../PostActions';
 import { fetchTemplates } from '../../../Template/TemplateActions';
-import { toggleAddPost } from '../../../App/AppActions';
+import { toggleAddWarning } from '../../../App/AppActions';
 
 // Import Selectors
-import { getShowAddPost } from '../../../App/AppReducer';
+import { getShowAddWarning } from '../../../App/AppReducer';
 import { getPosts } from '../../PostReducer';
 import { getTemplates } from '../../../Template/TemplateReducer';
 
@@ -28,16 +28,21 @@ class PostListPage extends Component {
   };
 
   handleAddPost = (verb, action) => {
-    this.props.dispatch(toggleAddPost());
     this.props.dispatch(addListRequest({ verb, action }));
+  };
+
+  handleToggleAddWarning = () => {
+    this.props.dispatch(toggleAddWarning());
   };
 
   render() {
     return (
       <div>
         <PostCreateWidget 
+          toggleAddWarning={this.handleToggleAddWarning}
+          showAddWarning={this.props.showAddWarning}
           addPost={this.handleAddPost} 
-          showAddPost={this.props.showAddPost} 
+          showAddPost={true} 
           templates={this.props.templates} />
         <PostList 
           handleDeletePost={this.handleDeletePost}
@@ -56,9 +61,9 @@ PostListPage.need = [
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
-    showAddPost: getShowAddPost(state),
     posts: getPosts(state),
     templates: getTemplates(state),
+    showAddWarning: getShowAddWarning(state),
   };
 }
 
@@ -69,8 +74,8 @@ PostListPage.propTypes = {
   templates: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired
   })).isRequired,
-  showAddPost: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
+  showAddWarning: PropTypes.bool.isRequired,
 };
 
 PostListPage.contextTypes = {
