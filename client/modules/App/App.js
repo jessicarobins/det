@@ -10,7 +10,7 @@ import DevTools from './components/DevTools';
 import Header from './components/Header/Header';
 
 // Import Actions
-import { toggleAddPost } from './AppActions';
+import { toggleAddPost, loginUserRequest } from './AppActions';
 import { switchLanguage } from '../../modules/Intl/IntlActions';
 
 export class App extends Component {
@@ -25,6 +25,10 @@ export class App extends Component {
 
   toggleAddPostSection = () => {
     this.props.dispatch(toggleAddPost());
+  };
+  
+  loginUser = () => {
+    this.props.dispatch(loginUserRequest());
   };
 
   render() {
@@ -51,10 +55,10 @@ export class App extends Component {
             ]}
           />
           <Header
-            switchLanguage={lang => this.props.dispatch(switchLanguage(lang))}
-            intl={this.props.intl}
+            loginUser={this.loginUser}
             toggleAddPost={this.toggleAddPostSection}
           />
+          <a href="/auth/google">Login with Google</a>
           <div className={styles.container}>
             {this.props.children}
           </div>

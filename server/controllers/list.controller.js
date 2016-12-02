@@ -120,6 +120,8 @@ export function findOrCreateListTemplate(req, res) {
  * @returns void
  */
 export function getList(req, res) {
+  console.log('a passport? ', req.session.passport)
+  console.log('a user? ', req.user)
   List.findOne({ cuid: req.params.cuid }).exec((err, list) => {
     if (err) {
       res.status(500).send(err);

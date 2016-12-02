@@ -1,12 +1,22 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { PageHeader } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, Button } from 'react-bootstrap';
 
 export function Header(props, context) {
   return (
-    <PageHeader>
-      <Link to="/" >Some clever app name</Link>
-    </PageHeader>
+    <div>
+    <Navbar>
+      <Navbar.Header>
+        <Navbar.Brand>
+          <Link to="/" >Some clever app name</Link>
+        </Navbar.Brand>
+      </Navbar.Header>
+      <Navbar.Form pullRight>
+        
+      </Navbar.Form>
+    </Navbar>
+    
+    </div>
   );
 }
 

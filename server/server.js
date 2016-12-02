@@ -1,4 +1,5 @@
 import Express from 'express';
+import session from 'express-session';
 import compression from 'compression';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -10,6 +11,12 @@ import webpack from 'webpack';
 import config from '../webpack.config.dev';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+
+// passport
+import passport from 'passport';
+import secrets from '../secrets';
+import { OAuth2Strategy } from 'passport-google-oauth';
+import User from './models/user';
 
 // Initialize the Express App
 const app = new Express();
@@ -49,6 +56,78 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
   // feed some dummy data in DB.
   dummyData();
 });
+
+// passport/session stuff
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false,
+  },
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  console.log('serializing ', user)
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  console.log('deserializing, ', id)
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+passport.use(new OAuth2Strategy({
+    clientID: secrets.google.clientID,
+    clientSecret: secrets.google.clientSecret,
+    callbackURL: secrets.google.callbackURL,
+    passReqToCallback: true },
+  function(request, accessToken, refreshToken, profile, done) {
+    User.findOne({ oauthID: profile.id }, function(err, user) {
+      if(err) {
+        console.log(err);  // handle errors!
+      }
+      if (!err && user !== null) {
+        done(null, user);
+      } else {
+        user = new User({
+          oauthID: profile.id,
+          name: profile.displayName,
+          picture: profile._json.picture
+        });
+        user.tokens.push({ kind: 'google', accessToken });
+        user.save(function(err) {
+          if(err) {
+            console.log(err);  // handle errors!
+          } else {
+            console.log("saving user ...");
+            done(null, user);
+          }
+        });
+      }
+    });
+  }
+));
+
+// users/authentication
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { 
+    successRedirect: '/',
+    failureRedirect: '/login' 
+  }),
+  function(req, res) {
+    // Explicitly save the session before redirecting!
+    req.session.save(() => {
+      res.redirect('/');
+    })
+  }
+);
 
 // Apply body Parser and server public assets and routes
 app.use(compression());

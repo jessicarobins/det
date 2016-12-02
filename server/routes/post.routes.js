@@ -1,8 +1,16 @@
 import { Router } from 'express';
+import passport from 'passport';
+
 import * as PostController from '../controllers/post.controller';
 import * as ListController from '../controllers/list.controller';
 import * as ListTemplateController from '../controllers/listTemplate.controller';
 const router = new Router();
+
+router.use(function (req, res, next) {
+  req.isAuthenticated();
+  console.log('middleware auth? ', req.isAuthenticated())
+  next();
+});
 
 // Get all Posts
 router.route('/posts').get(PostController.getPosts);

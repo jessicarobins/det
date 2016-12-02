@@ -11,6 +11,9 @@ export function getTemplates(req, res) {
     if (err) {
       res.status(500).send(err);
     }
+    console.log('a passport? ', req.session.passport)
+    console.log('a user? ', req.user)
+    console.log('authenticated?', req.isAuthenticated())
     res.json({ templates });
   });
 }

@@ -1,10 +1,11 @@
 // Import Actions
-import { TOGGLE_ADD_POST, TOGGLE_ADD_WARNING } from './AppActions';
+import { TOGGLE_ADD_POST, TOGGLE_ADD_WARNING, LOGIN_REQUEST } from './AppActions';
 
 // Initial State
 const initialState = {
   showAddPost: true,
   showAddWarning: false,
+  user: {}
 };
 
 const AppReducer = (state = initialState, action) => {
@@ -17,6 +18,11 @@ const AppReducer = (state = initialState, action) => {
       return {
         showAddWarning: !state.showAddWarning,
       };
+    case LOGIN_REQUEST:
+      return {
+        user: action.user,
+      };
+      
     default:
       return state;
   }
