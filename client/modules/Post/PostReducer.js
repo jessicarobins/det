@@ -20,7 +20,7 @@ const PostReducer = (state = initialState, action) => {
     
     case TOGGLE_LIST_ITEM :
       return {
-        data: action.lists,
+        data: [action.list],
       };
       
     case ADD_LISTS :

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 // Import Style
-import styles from './App.css';
+// import styles from './App.css';
 
 // Import Components
 import Helmet from 'react-helmet';
@@ -22,10 +22,6 @@ export class App extends Component {
   componentDidMount() {
     this.setState({isMounted: true}); // eslint-disable-line
   }
-
-  toggleAddPostSection = () => {
-    this.props.dispatch(toggleAddPost());
-  };
 
   render() {
     return (
@@ -53,7 +49,7 @@ export class App extends Component {
             loginUser={this.loginUser}
             userData={this.props.user}
           />
-          <div className={styles.container}>
+          <div className={'container'}>
             {this.props.children}
           </div>
         </div>
