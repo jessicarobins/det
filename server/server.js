@@ -1,5 +1,6 @@
 import Express from 'express';
 import session from 'express-session';
+import connectMongo from 'connect-mongo';
 import compression from 'compression';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -33,7 +34,7 @@ import { configureStore } from '../client/store';
 import { Provider } from 'react-redux';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { match, RouterContext } from 'react-router';
+import { match, RouterContext, createMemoryHistory } from 'react-router';
 import Helmet from 'react-helmet';
 
 // Import required modules
@@ -57,15 +58,33 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
   dummyData();
 });
 
-// passport/session stuff
-app.use(session({
-  secret: 'keyboard cat',
+const MongoStore = connectMongo(session);
+const db = process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://localhost/ReactWebpackNode';
+
+const sessionStore = 
+  new MongoStore(
+    {
+      url: db,
+      autoReconnect: true
+    }
+  );
+const sess = {
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
+  secret: 'keyboard cat',
+  proxy: true, // The "X-Forwarded-Proto" header will be used.
+  name: 'sessionId',
+  // Add HTTPOnly, Secure attributes on Session Cookie
+  // If secure is set, and you access your site over HTTP, the cookie will not be set
   cookie: {
+    httpOnly: true,
     secure: false,
   },
-}));
+  store: sessionStore
+};
+
+// passport/session stuff
+app.use(session(sess));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -120,13 +139,7 @@ app.get('/auth/google/callback',
   passport.authenticate('google', { 
     successRedirect: '/',
     failureRedirect: '/login' 
-  }),
-  function(req, res) {
-    // Explicitly save the session before redirecting!
-    req.session.save(() => {
-      res.redirect('/');
-    })
-  }
+  })
 );
 
 // Apply body Parser and server public assets and routes
@@ -183,6 +196,18 @@ const renderError = err => {
 
 // Server Side Rendering based on routes matched by React-router.
 app.use((req, res, next) => {
+  const authenticated = req.isAuthenticated();
+  const history = createMemoryHistory();
+  const store = configureStore({
+    user: {
+      authenticated,
+      isWaiting: false,
+      message: '',
+      isLogin: true
+    }
+  }, history);
+  // const routes = createRoutes(store);
+  
   match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
     if (err) {
       return res.status(500).end(renderError(err));
@@ -195,8 +220,6 @@ app.use((req, res, next) => {
     if (!renderProps) {
       return next();
     }
-
-    const store = configureStore();
 
     return fetchComponentData(store, renderProps.components, renderProps.params)
       .then(() => {
