@@ -12,7 +12,10 @@ export function Header(props, context) {
         </Navbar.Brand>
       </Navbar.Header>
       <Navbar.Form pullRight>
-        
+        { props.userData.authenticated ? 
+        <Button>Logout</Button> :
+        <Button href="/auth/google">Login</Button>
+        }
       </Navbar.Form>
     </Navbar>
     
@@ -25,7 +28,7 @@ Header.contextTypes = {
 };
 
 Header.propTypes = {
-  toggleAddPost: PropTypes.func.isRequired,
+  userData: PropTypes.object.isRequired,
 };
 
 export default Header;

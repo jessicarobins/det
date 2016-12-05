@@ -26,19 +26,14 @@ export class App extends Component {
   toggleAddPostSection = () => {
     this.props.dispatch(toggleAddPost());
   };
-  
-  loginUser = () => {
-    this.props.dispatch(loginUserRequest());
-  };
 
   render() {
     return (
       <div>
-        {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
           <Helmet
-            title="MERN Starter - Blog App"
-            titleTemplate="%s - Blog App"
+            title="insert clever name here"
+            titleTemplate="%s - insert clever name here"
             meta={[
               { charset: 'utf-8' },
               {
@@ -56,9 +51,8 @@ export class App extends Component {
           />
           <Header
             loginUser={this.loginUser}
-            toggleAddPost={this.toggleAddPostSection}
+            userData={this.props.user}
           />
-          <a href="/auth/google">Login with Google</a>
           <div className={styles.container}>
             {this.props.children}
           </div>
@@ -71,13 +65,13 @@ export class App extends Component {
 App.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
-  intl: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 // Retrieve data from store as props
 function mapStateToProps(store) {
   return {
-    intl: store.intl,
+    user: store.user,
   };
 }
 

@@ -89,12 +89,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
-  console.log('serializing ', user)
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  console.log('deserializing, ', id)
   User.findById(id, function(err, user) {
     done(err, user);
   });
@@ -197,13 +195,14 @@ const renderError = err => {
 // Server Side Rendering based on routes matched by React-router.
 app.use((req, res, next) => {
   const authenticated = req.isAuthenticated();
+  const user = req.user;
   const history = createMemoryHistory();
   const store = configureStore({
     user: {
       authenticated,
       isWaiting: false,
       message: '',
-      isLogin: true
+      isLogin: true,
     }
   }, history);
   // const routes = createRoutes(store);
