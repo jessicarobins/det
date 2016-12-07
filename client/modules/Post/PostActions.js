@@ -47,7 +47,7 @@ export function addListItem(list) {
 export function addListItemRequest(props) {
   return (dispatch) => {
     return callApi(`lists/${props.cuid}`, 'post', {
-      items: [ props.text ],
+      item: props.text,
     }).then(res => dispatch(addListItem(res.list)));
   };
 }

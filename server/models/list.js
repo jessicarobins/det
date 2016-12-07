@@ -24,8 +24,7 @@ listSchema.virtual('percentComplete').get( function() {
   return _.round(numComplete*100/numItems) || 0;
 });
 
-listSchema.methods.addListItems = function(items, cb) {
-  let newItem;
+listSchema.methods.addListItem = function(item, cb) {
   let list = this;
   //update listtemplate
   ListTemplate.findOne({_id: this._template})
@@ -34,11 +33,9 @@ listSchema.methods.addListItems = function(items, cb) {
         console.log(err)
       }
       else {
-        items.forEach( (item) => {
-          newItem = new ListItem({text: item});
-          list.items.push(newItem);
-          template.items.push(newItem);
-        });
+        const newItem = new ListItem({text: item});
+        list.items.push(newItem);
+        template.items.push(newItem);
         template.save();
         return list.save(cb);
       }

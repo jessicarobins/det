@@ -130,37 +130,13 @@ export function getList(req, res) {
   });
 }
 
-/**
- * Add a single item to a list
- * @param req
- * @param res
- * @returns void
- */
 export function addListItem(req, res) {
   List.findOne({ cuid: req.params.cuid }).exec((err, list) => {
     if (err) {
       res.status(500).send(err);
     }
-    const newItem = new ListItem(req.body.listItem);
-    list.items.push(newItem);
-    list.save();
-    res.json({ list });
-  });
-}
-
-/**
- * Add an array of items to a list
- * @param req
- * @param res
- * @returns void
- */
-export function addListItems(req, res) {
-  List.findOne({ cuid: req.params.cuid }).exec((err, list) => {
-    if (err) {
-      res.status(500).send(err);
-    }
     
-    list.addListItems(req.body.items, (err, saved) => {
+    list.addListItem(req.body.item, (err, saved) => {
       if (err) {
         res.status(500).send(err);
       }

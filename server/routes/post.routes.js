@@ -29,7 +29,7 @@ router.route('/lists').post(ListController.addEmptyList);
 router.route('/lists/find_or_create').post(ListController.findOrCreateListTemplate);
 router.route('/lists/:cuid/toggle/:list_item_id').put(ListController.toggleListItem);
 router.route('/lists/:cuid').get(ListController.getList);
-router.route('/lists/:cuid').post(ListController.addListItems);
+router.route('/lists/:cuid').post(ListController.addListItem);
 
 // templates
 router.route('/templates').get(ListTemplateController.getTemplates);
