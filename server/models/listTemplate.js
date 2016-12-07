@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
+import * as Q from 'q';
+mongoose.Promise = Q.Promise;
 import ListItem from './listItem';
-// import List from './list';
+import List from './list';
 const Schema = mongoose.Schema;
 import hasha from 'hasha';
 import * as _ from 'lodash';
@@ -20,7 +22,6 @@ listTemplate.virtual('name').get( function() {
 listTemplate.pre('save', function(next) {
   //update sha
   if(this.items){
-    console.log('trying to create sha with items', _.map(this.items, 'text'))
     this.sha = hasha( _.map(this.items, 'text'));
   }
   else {

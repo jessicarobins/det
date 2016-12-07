@@ -38,6 +38,7 @@ listSchema.methods.addListItem = function(item) {
       list.items.push(newItem);
       template.items.push(newItem);
       template.save();
+      list.addItemToOtherLists(item);
       return list.save();
     })
     .then( (newList) => {
@@ -53,6 +54,17 @@ listSchema.methods.addItemsFromTemplate = function(template, cb) {
   this.items = _.clone(template.items);
   this._template = template._id;
   return this.save(cb);
+};
+
+listSchema.methods.addItemToOtherLists = function(itemText) {
+  
+  this.constructor.find({_template: this._template, _id: { $ne: this._id }}).exec()
+    .then( (lists) => {
+      lists.forEach( (list) => {
+        list.items.push(new ListItem({text: itemText}));
+        list.save();
+      });
+    });
 };
 
 listSchema.set('toJSON', { virtuals: true });
