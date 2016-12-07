@@ -13,7 +13,7 @@ export function Header(props, context) {
       </Navbar.Header>
       <Navbar.Form pullRight>
         { props.userData.authenticated ? 
-        <Button>Logout</Button> :
+        <Button onClick={props.logout}>Logout</Button> :
         <Button href="/auth/google">Login</Button>
         }
       </Navbar.Form>
@@ -29,6 +29,7 @@ Header.contextTypes = {
 
 Header.propTypes = {
   userData: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
 export default Header;

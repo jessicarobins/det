@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import * as UserActions from './UserReducer';
+import * as UserActions from './UserActions';
 
 const isLogin = (
   state = true,
