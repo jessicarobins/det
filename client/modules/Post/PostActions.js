@@ -18,9 +18,9 @@ export function addPost(list) {
   };
 }
 
-export function addListRequest(list) {
+export function addListRequest(list, endpoint='lists/find_or_create') {
   return (dispatch) => {
-    return callApi('lists/find_or_create', 'post', {
+    return callApi(endpoint, 'post', {
       list: {
         verb: list.verb,
         action: list.action,

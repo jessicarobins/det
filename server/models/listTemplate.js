@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import ListItem from './listItem';
+// import List from './list';
 const Schema = mongoose.Schema;
 import hasha from 'hasha';
 import * as _ from 'lodash';
@@ -7,13 +8,25 @@ import * as _ from 'lodash';
 const listTemplate = new Schema({
   actions: [String],
   items: [ListItem.schema],
-  sha: { type: 'String', required: true },
+  sha: { type: 'String' },
   dateAdded: { type: 'Date', default: Date.now, required: true },
   dateModified: { type: 'Date', default: Date.now, required: false },
 });
 
 listTemplate.virtual('name').get( function() {
   return this.actions[0];
+});
+
+listTemplate.pre('save', function(next) {
+  //update sha
+  if(this.items){
+    console.log('trying to create sha with items', _.map(this.items, 'text'))
+    this.sha = hasha( _.map(this.items, 'text'));
+  }
+  else {
+    this.sha = undefined;
+  }
+  next();
 });
 
 listTemplate.methods.addListItems = function(items, cb) {

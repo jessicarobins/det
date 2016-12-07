@@ -25,6 +25,9 @@ export const formatResponse = (response) => {
     queryString = queryString.substring(0, totalIndex);
   }
   queryString = queryString.trim();
-  const resultArray = queryString.split('  |  ');
+  let resultArray = queryString.split('  |  ');
+  if (resultArray.length === 1) {
+    resultArray = queryString.split('\n');
+  }
   return resultArray;
 }

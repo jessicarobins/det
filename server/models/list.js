@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import ListItem from './listItem';
+import ListTemplate from './listTemplate';
 const Schema = mongoose.Schema;
 import * as _ from 'lodash';
 
@@ -7,6 +8,7 @@ const listSchema = new Schema({
   cuid: { type: 'String', required: true },
   verb: { type: 'String', required: true },
   action: { type: 'String', required: true },
+  _template: { type: Schema.Types.ObjectId, ref: 'ListTemplate' },
   items: [ListItem.schema],
   dateAdded: { type: 'Date', default: Date.now, required: true },
   dateModified: { type: 'Date', default: Date.now, required: false },
@@ -24,15 +26,28 @@ listSchema.virtual('percentComplete').get( function() {
 
 listSchema.methods.addListItems = function(items, cb) {
   let newItem;
-  items.forEach( (item) => {
-    newItem = new ListItem({text: item});
-    this.items.push(newItem);
-  });
-  return this.save(cb);
+  let list = this;
+  //update listtemplate
+  ListTemplate.findOne({_id: this._template})
+    .exec( (err, template) => {
+      if (err || !template) {
+        console.log(err)
+      }
+      else {
+        items.forEach( (item) => {
+          newItem = new ListItem({text: item});
+          list.items.push(newItem);
+          template.items.push(newItem);
+        });
+        template.save();
+        return list.save(cb);
+      }
+    });
 };
 
 listSchema.methods.addItemsFromTemplate = function(template, cb) {
   this.items = _.clone(template.items);
+  this._template = template._id;
   return this.save(cb);
 };
 

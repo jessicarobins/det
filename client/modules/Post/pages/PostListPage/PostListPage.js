@@ -27,8 +27,12 @@ class PostListPage extends Component {
     }
   };
 
-  handleAddPost = (verb, action) => {
+  handleAddList = (verb, action) => {
     this.props.dispatch(addListRequest({ verb, action }));
+  };
+  
+  handleAddEmptyList = (verb, action) => {
+    this.props.dispatch(addListRequest({ verb, action }, 'lists'));
   };
 
   handleToggleAddWarning = () => {
@@ -41,7 +45,8 @@ class PostListPage extends Component {
         <PostCreateWidget 
           toggleAddWarning={this.handleToggleAddWarning}
           showAddWarning={this.props.showAddWarning}
-          addPost={this.handleAddPost} 
+          addPost={this.handleAddList} 
+          addEmptyList={this.handleAddEmptyList}
           showAddPost={true} 
           templates={this.props.templates} />
         <PostList 

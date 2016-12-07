@@ -27,23 +27,24 @@ export function getLists(req, res) {
  * @param res
  * @returns void
  */
-export function addList(req, res) {
+export function addEmptyList(req, res) {
   
   if (!req.body.list.verb || !req.body.list.action) {
     res.status(403).end();
   }
-
+  
   const newList = new List(req.body.list);
-
-  // Let's sanitize inputs
-  newList.name = sanitizeHtml(newList.name);
   newList.cuid = cuid();
-  newList.save((err, saved) => {
-    if (err) {
-      res.status(500).send(err);
+  const newTemplate = new ListTemplate({actions: [req.body.list.action]});
+  newTemplate.save( function ( err, template ){
+    if( err ) { 
+      console.error("Error:", err);
     }
-    res.json({ list: saved });
+    console.log('template:', template)
+    console.log('creating a new empty template');
+    handleCreateFromTemplate(res, newList, template);
   });
+  
 }
 
 /**
@@ -120,7 +121,6 @@ export function findOrCreateListTemplate(req, res) {
  * @returns void
  */
 export function getList(req, res) {
-  console.log('a passport? ', req.session.passport)
   console.log('a user? ', req.user)
   List.findOne({ cuid: req.params.cuid }).exec((err, list) => {
     if (err) {

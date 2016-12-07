@@ -1,9 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-// Import Style
-import styles from './ListItem.css';
-
 function ListItem(props) {
   return (
     <div>
@@ -21,7 +18,6 @@ ListItem.propTypes = {
     name: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
   }).isRequired,
-  onDelete: PropTypes.func.isRequired,
 };
 
 export default ListItem;

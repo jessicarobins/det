@@ -18,6 +18,13 @@ export class PostCreateWidget extends Component {
     }
   };
   
+  addEmptyList = () => {
+    if (this.verbRef.value && this.state.selected.length) {
+      this.props.addEmptyList(this.verbRef.value, this.state.selected);
+      this.handleAlertDismiss();
+    }
+  };
+  
   handleAlertDismiss = () => {
     this.clearFields();
     this.props.toggleAddWarning();
@@ -34,7 +41,7 @@ export class PostCreateWidget extends Component {
         <Alert bsStyle="warning" onDismiss={this.handleAlertDismiss}>
           <h4>No results found for <strong>{this.state.selected}</strong>.</h4>
           <p>
-            <Button bsStyle="primary">Create an empty list</Button>
+            <Button bsStyle="primary" onClick={this.addEmptyList}>Create an empty list</Button>
             <span> or </span>
             <Button onClick={this.handleAlertDismiss}>Try again</Button>
           </p>
@@ -44,9 +51,8 @@ export class PostCreateWidget extends Component {
   }
 
   render() {
-    const cls = `${(this.props.showAddPost ? styles.appear : '')}`;
     return (
-      <div className={cls}>
+      <div>
         <div>
           <Form inline>
             {'I want to '}
@@ -82,7 +88,7 @@ export class PostCreateWidget extends Component {
 
 PostCreateWidget.propTypes = {
   addPost: PropTypes.func.isRequired,
-  showAddPost: PropTypes.bool.isRequired,
+  addEmptyList: PropTypes.func.isRequired,
   templates: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired
   })).isRequired,
