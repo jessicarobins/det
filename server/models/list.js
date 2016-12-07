@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import * as Q from 'q';
+mongoose.Promise = Q.Promise;
 import ListItem from './listItem';
 import ListTemplate from './listTemplate';
 const Schema = mongoose.Schema;
@@ -24,21 +26,26 @@ listSchema.virtual('percentComplete').get( function() {
   return _.round(numComplete*100/numItems) || 0;
 });
 
-listSchema.methods.addListItem = function(item, cb) {
+listSchema.methods.addListItem = function(item) {
   let list = this;
   //update listtemplate
-  ListTemplate.findOne({_id: this._template})
-    .exec( (err, template) => {
-      if (err || !template) {
-        console.log(err)
+  return ListTemplate.findOne({_id: this._template}).exec()
+    .then((template) => {
+      if(!template) {
+        return Q.reject();
       }
-      else {
-        const newItem = new ListItem({text: item});
-        list.items.push(newItem);
-        template.items.push(newItem);
-        template.save();
-        return list.save(cb);
-      }
+      const newItem = new ListItem({text: item});
+      list.items.push(newItem);
+      template.items.push(newItem);
+      template.save();
+      return list.save();
+    })
+    .then( (newList) => {
+      return newList;
+    })
+    .catch( (err) => {
+      console.log(err);
+      return Q.reject(err);
     });
 };
 

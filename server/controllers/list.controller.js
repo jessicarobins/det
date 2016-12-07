@@ -5,6 +5,8 @@ import cuid from 'cuid';
 import sanitizeHtml from 'sanitize-html';
 import { waClient, formatQuery, formatResponse, QUERY_OPTIONS } from '../util/wolframHelper';
 import * as Q from 'q';
+import mongoose from 'mongoose';
+mongoose.Promise = Q.Promise;
 
 /**
  * Get all lists
@@ -131,18 +133,17 @@ export function getList(req, res) {
 }
 
 export function addListItem(req, res) {
-  List.findOne({ cuid: req.params.cuid }).exec((err, list) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    
-    list.addListItem(req.body.item, (err, saved) => {
-      if (err) {
-        res.status(500).send(err);
-      }
+  
+  List.findOne({ cuid: req.params.cuid }).exec()
+    .then( (list) => {
+      return list.addListItem(req.body.item);
+    })
+    .then( (list) => {
       res.json({ list });
+    })
+    .catch( (err) => {
+      res.status(500).send(err);
     });
-  });
 }
 
 /**
