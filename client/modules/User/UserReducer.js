@@ -80,3 +80,6 @@ const userReducer = combineReducers({
 });
 
 export default userReducer;
+
+/* Selectors */
+export const getAuth = state => state.user.authenticated;

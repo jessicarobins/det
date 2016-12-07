@@ -14,6 +14,7 @@ import { toggleAddWarning } from '../../../App/AppActions';
 import { getShowAddWarning } from '../../../App/AppReducer';
 import { getPosts } from '../../PostReducer';
 import { getTemplates } from '../../../Template/TemplateReducer';
+import { getAuth } from '../../../User/UserReducer';
 
 class PostListPage extends Component {
   componentDidMount() {
@@ -41,18 +42,25 @@ class PostListPage extends Component {
 
   render() {
     return (
+      
       <div>
-        <PostCreateWidget 
-          toggleAddWarning={this.handleToggleAddWarning}
-          showAddWarning={this.props.showAddWarning}
-          addPost={this.handleAddList} 
-          addEmptyList={this.handleAddEmptyList}
-          showAddPost={true} 
-          templates={this.props.templates} />
-        <PostList 
-          handleDeletePost={this.handleDeletePost}
-          posts={this.props.posts} />
+        { this.props.authorized ? 
+        <div>
+          <PostCreateWidget 
+            toggleAddWarning={this.handleToggleAddWarning}
+            showAddWarning={this.props.showAddWarning}
+            addPost={this.handleAddList} 
+            addEmptyList={this.handleAddEmptyList}
+            showAddPost={true} 
+            templates={this.props.templates} />
+          <PostList 
+            handleDeletePost={this.handleDeletePost}
+            posts={this.props.posts} />
+        </div>
+        : <div>hi</div>
+        }
       </div>
+      
     );
   }
 }
@@ -69,6 +77,7 @@ function mapStateToProps(state) {
     posts: getPosts(state),
     templates: getTemplates(state),
     showAddWarning: getShowAddWarning(state),
+    authorized: getAuth(state),
   };
 }
 
@@ -81,6 +90,7 @@ PostListPage.propTypes = {
   })).isRequired,
   dispatch: PropTypes.func.isRequired,
   showAddWarning: PropTypes.bool.isRequired,
+  authorized: PropTypes.bool.isRequired,
 };
 
 PostListPage.contextTypes = {
