@@ -6,12 +6,10 @@ import { connect } from 'react-redux';
 
 // Import Components
 import Helmet from 'react-helmet';
-import DevTools from './components/DevTools';
 import Header from './components/Header/Header';
 
-// Import Actions
-import { toggleAddPost, loginUserRequest } from './AppActions';
-import { switchLanguage } from '../../modules/Intl/IntlActions';
+// actions
+import { logOut as logoutAction } from '../User/UserActions';
 
 export class App extends Component {
   constructor(props) {
@@ -21,6 +19,10 @@ export class App extends Component {
 
   componentDidMount() {
     this.setState({isMounted: true}); // eslint-disable-line
+  }
+
+  handleLogout = () => {
+    this.props.dispatch(logoutAction());
   }
 
   render() {
@@ -46,7 +48,7 @@ export class App extends Component {
             ]}
           />
           <Header
-            loginUser={this.loginUser}
+            logout={this.handleLogout}
             userData={this.props.user}
           />
           <div className={'container'}>

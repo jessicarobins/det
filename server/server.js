@@ -72,12 +72,11 @@ const sess = {
   resave: false,
   saveUninitialized: false,
   secret: 'keyboard cat',
-  proxy: true, // The "X-Forwarded-Proto" header will be used.
   name: 'sessionId',
   // Add HTTPOnly, Secure attributes on Session Cookie
   // If secure is set, and you access your site over HTTP, the cookie will not be set
   cookie: {
-    httpOnly: true,
+    httpOnly: false,
     secure: false,
   },
   store: sessionStore
@@ -196,6 +195,7 @@ const renderError = err => {
 app.use((req, res, next) => {
   const authenticated = req.isAuthenticated();
   const user = req.user;
+  console.log('authenticated?:', authenticated)
   const history = createMemoryHistory();
   const store = configureStore({
     user: {
