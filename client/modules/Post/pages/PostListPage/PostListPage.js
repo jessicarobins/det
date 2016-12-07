@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 // Import Components
 import PostList from '../../components/PostList';
 import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget';
+import UnAuthWidget from '../../components/UnAuthWidget/UnAuthWidget';
 
 // Import Actions
 import { addListRequest, fetchPosts, deletePostRequest } from '../../PostActions';
@@ -57,7 +58,7 @@ class PostListPage extends Component {
             handleDeletePost={this.handleDeletePost}
             posts={this.props.posts} />
         </div>
-        : <div>hi</div>
+        : <UnAuthWidget lists={this.props.posts}/>
         }
       </div>
       
