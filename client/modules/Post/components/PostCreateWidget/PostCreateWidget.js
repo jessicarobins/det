@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, FormGroup, FormControl, Button, Alert, Jumbotron } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Button, Alert, Panel } from 'react-bootstrap';
 import Typeahead from 'react-bootstrap-typeahead';
 
 // Import Style
@@ -9,7 +9,10 @@ export class PostCreateWidget extends Component {
   
   constructor(props) {
     super(props);
-    this.state = { selected: '', isLoading: false };
+    this.state = { 
+      selected: '',
+      isLoading: false,
+      panelOpen: false };
     this.isLoading = false;
   }
   
@@ -55,43 +58,44 @@ export class PostCreateWidget extends Component {
   render() {
     return (
       <div>
-        <Jumbotron className='wantto-form-jumbo'>
-        <h2>
-          <Form inline>
-            {'I want to '}
-            <FormGroup bsSize="large">
-              <FormControl
-                className='wantto-input'
-                inputRef={ref => {this.verbRef = ref}} 
-                type="text" 
-                placeholder="climb" />
-            </FormGroup>
-            {' every '}
-            <FormGroup>
-              <Typeahead
-                bsSize="large"
-                ref="typeahead"
-                options={this.props.templates}
-                placeholder={'mountain'}
-                labelKey={'name'}
-                allowNew={true}
-                newSelectionPrefix={''}
-                onInputChange={selected => this.setState({selected})}
-              />
-            </FormGroup>
-          </Form>
-        </h2>
-        { this.props.showAddWarning ? this.renderAlert() :
-        <p className='wantto-form-button-container'>
-          <Button 
-            disabled={this.state.isLoading}
-            onClick={!this.state.isLoading ? this.addList : null}
-            bsSize="large">
-             {this.state.isLoading ? 'Creating...' : 'Create List'}
-          </Button>
-        </p>
-        }
-        </Jumbotron>
+        {this.state.panelOpen ? 
+            '':
+            <a onClick={ () => this.setState({panelOpen: true})}>create a new list</a>
+          }
+        <div className='wantto-form-container'>
+          <Panel collapsible expanded={this.state.panelOpen}>
+            <h2>
+              <Form inline>
+                <FormGroup>
+                  <FormControl
+                    className='wantto-input'
+                    inputRef={ref => {this.verbRef = ref}} 
+                    type="text" 
+                    placeholder="climb" />
+                </FormGroup>
+                {' every '}
+                <FormGroup>
+                  <Typeahead
+                    ref="typeahead"
+                    options={this.props.templates}
+                    placeholder={'mountain'}
+                    labelKey={'name'}
+                    allowNew={true}
+                    newSelectionPrefix={''}
+                    onInputChange={selected => this.setState({selected})}
+                  />
+                </FormGroup>
+                { ' ' }
+                <Button 
+                  disabled={this.state.isLoading || this.props.showAddWarning}
+                  onClick={!this.state.isLoading ? this.addList : null}>
+                   {this.state.isLoading ? 'Creating...' : 'Create List'}
+                </Button>
+              </Form>
+              { this.props.showAddWarning ? this.renderAlert() : ''}
+            </h2>
+          </Panel>
+        </div>
       </div>
     );
   }

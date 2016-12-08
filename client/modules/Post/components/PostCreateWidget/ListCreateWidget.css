@@ -1,5 +1,10 @@
 .bootstrap-typeahead-input-main, .wantto-input {
   font-size: 27px !important;
+  max-width: 250px;
+}
+
+.form-control.bootstrap-typeahead-input-hint {
+    font-size: 27px !important;
 }
 
 .wantto-form-button-container {
@@ -9,8 +14,8 @@
   margin-bottom: 0px !important;
 }
 
-.wantto-form-jumbo.jumbotron {
-  padding-bottom: 36px;
+.wantto-form-container {
+  text-align: center;
 }
 
 .wantto-alert {

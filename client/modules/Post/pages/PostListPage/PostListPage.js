@@ -2,6 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Row, Col } from 'react-bootstrap';
 
+require('./ListListPage.css')
+
 // Import Components
 import PostList from '../../components/PostList';
 import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget';
@@ -49,8 +51,13 @@ class PostListPage extends Component {
         { this.props.authorized ? 
         <div>
           <Grid>
+            <Row className='show-grid'>
+              <Col xs={12} md={10} mdOffset={1}>
+                <h1 className='wantto-header'>I want to</h1>
+              </Col>
+            </Row>
             <Row className="show-grid">
-              <Col xs={12}>
+              <Col xs={12} md={8} mdOffset={2}>
                 <PostCreateWidget 
                   toggleAddWarning={this.handleToggleAddWarning}
                   showAddWarning={this.props.showAddWarning}
@@ -58,10 +65,6 @@ class PostListPage extends Component {
                   addEmptyList={this.handleAddEmptyList}
                   showAddPost={true} 
                   templates={this.props.templates} />
-              </Col>
-            </Row>
-            <Row className="show-grid">
-              <Col xs={12} md={8} mdOffset={2}>
                 <PostList 
                   handleDeletePost={this.handleDeletePost}
                   posts={this.props.posts} />
