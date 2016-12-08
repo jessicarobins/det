@@ -44,13 +44,12 @@ export class PostCreateWidget extends Component {
   renderAlert() {
     return (
       <Alert bsStyle="warning" className='wantto-alert' onDismiss={this.handleAlertDismiss}>
-        <h4>No results found for <strong>{this.state.selected}</strong>.
-          <span className='pull-right'>
-            <Button bsStyle="primary" onClick={this.addEmptyList}>Create an empty list</Button>
-            <span> or </span>
-            <Button onClick={this.handleAlertDismiss}>Try again</Button>
-          </span>
-        </h4>
+        <h4>No results found for <strong>{this.state.selected}</strong>.</h4>
+        <div className='wantto-alert-buttons'>
+          <Button bsStyle="primary" onClick={this.addEmptyList}>Create an empty list</Button>
+          <span> or </span>
+          <Button onClick={this.handleAlertDismiss}>Try again</Button>
+        </div>
       </Alert>
     );
   }
@@ -58,14 +57,14 @@ export class PostCreateWidget extends Component {
   render() {
     return (
       <div>
-        {this.state.panelOpen ? 
-            '':
-            <a onClick={ () => this.setState({panelOpen: true})}>create a new list</a>
-          }
-        <div className='wantto-form-container'>
+        {this.state.panelOpen ? '':
+          <h3><a onClick={ () => this.setState({panelOpen: true})}>create a new list</a></h3>
+        }
+        <div>
           <Panel collapsible expanded={this.state.panelOpen}>
-            <h2>
-              <Form inline>
+            
+              <Form inline className='wantto-form-container'>
+                <h2>
                 <FormGroup>
                   <FormControl
                     className='wantto-input'
@@ -89,11 +88,12 @@ export class PostCreateWidget extends Component {
                 <Button 
                   disabled={this.state.isLoading || this.props.showAddWarning}
                   onClick={!this.state.isLoading ? this.addList : null}>
-                   {this.state.isLoading ? 'Creating...' : 'Create List'}
+                   {(this.state.isLoading && !this.props.showAddWarning) ? 'Creating...' : 'Create List'}
                 </Button>
+                </h2>
               </Form>
               { this.props.showAddWarning ? this.renderAlert() : ''}
-            </h2>
+            
           </Panel>
         </div>
       </div>

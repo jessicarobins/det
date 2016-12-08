@@ -21,3 +21,7 @@
 .wantto-alert {
   margin-top: 40px;
 }
+
+.wantto-alert-buttons {
+  text-align: right;
+}
