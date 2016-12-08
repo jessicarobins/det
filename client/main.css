@@ -3,6 +3,7 @@
 */
 
 @import './bootstrap.css';
+@import '~react-typist/dist/Typist.css';
 
 *{
 	margin: 0;
