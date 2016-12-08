@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import ListItemCreateWidget from '../../components/PostListItem/ListItemCreateWidget/ListItemCreateWidget';
 import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
-import { ProgressBar } from 'react-bootstrap';
+import { ProgressBar, Grid, Col, Row } from 'react-bootstrap';
 import * as _ from 'lodash';
 
 // Import Style
@@ -38,17 +38,23 @@ class PostDetailPage extends Component {
     return (
       <div>
         <Helmet title={this.props.list.name} />
-        <div className={`${styles['single-post']} ${styles['post-detail']}`}>
-          <h3>{this.props.list.name}</h3>
-          <ProgressBar 
-            striped
-            now={this.props.list.percentComplete}
-            label={`${this.props.list.percentComplete}% Complete!`}/>
-        </div>
-        <ToDoList 
-          todos={this.props.list.items}
-          toggleListItem={this.handleToggleListItem} />
-        <ListItemCreateWidget addListItem={this.handleAddListItem} />
+        <Grid>
+          <Row className="show-grid">
+            <Col xs={12} md={6} mdOffset={3}>
+              <div>
+                <h3>I want to <strong>{this.props.list.name}</strong></h3>
+                <ProgressBar 
+                  striped
+                  now={this.props.list.percentComplete}
+                  label={`${this.props.list.percentComplete}% Complete!`}/>
+              </div>
+              <ToDoList 
+                todos={this.props.list.items}
+                toggleListItem={this.handleToggleListItem} />
+              <ListItemCreateWidget addListItem={this.handleAddListItem} />
+            </Col>
+          </Row>
+        </Grid>
       </div>
     );
   }

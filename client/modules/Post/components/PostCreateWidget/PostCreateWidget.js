@@ -14,8 +14,8 @@ export class PostCreateWidget extends Component {
   }
   
   addList = () => {
-    this.setState({isLoading: true});
     if (this.verbRef.value && this.state.selected.length) {
+      this.setState({isLoading: true});
       this.props.addPost(this.verbRef.value, this.state.selected);
     }
   };

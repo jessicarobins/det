@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 // Import Components
 import PostList from '../../components/PostList';
@@ -47,16 +48,26 @@ class PostListPage extends Component {
       <div>
         { this.props.authorized ? 
         <div>
-          <PostCreateWidget 
-            toggleAddWarning={this.handleToggleAddWarning}
-            showAddWarning={this.props.showAddWarning}
-            addPost={this.handleAddList} 
-            addEmptyList={this.handleAddEmptyList}
-            showAddPost={true} 
-            templates={this.props.templates} />
-          <PostList 
-            handleDeletePost={this.handleDeletePost}
-            posts={this.props.posts} />
+          <Grid>
+            <Row className="show-grid">
+              <Col xs={12}>
+                <PostCreateWidget 
+                  toggleAddWarning={this.handleToggleAddWarning}
+                  showAddWarning={this.props.showAddWarning}
+                  addPost={this.handleAddList} 
+                  addEmptyList={this.handleAddEmptyList}
+                  showAddPost={true} 
+                  templates={this.props.templates} />
+              </Col>
+            </Row>
+            <Row className="show-grid">
+              <Col xs={12} md={8} mdOffset={2}>
+                <PostList 
+                  handleDeletePost={this.handleDeletePost}
+                  posts={this.props.posts} />
+              </Col>
+            </Row>
+          </Grid>
         </div>
         : <UnAuthWidget lists={this.props.posts}/>
         }
