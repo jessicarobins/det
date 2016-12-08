@@ -47,10 +47,11 @@ export class App extends Component {
               {"rel": "stylesheet", "href": "https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"}
             ]}
           />
+          {this.props.user.authenticated ? 
           <Header
             logout={this.handleLogout}
-            userData={this.props.user}
-          />
+          /> : <span></span>
+          }
           <div className={'container'}>
             {this.props.children}
           </div>

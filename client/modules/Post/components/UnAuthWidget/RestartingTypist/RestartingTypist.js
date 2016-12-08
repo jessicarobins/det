@@ -10,13 +10,15 @@ class RestartingTypist extends Component {
   
   done = () => {
     this.props.onTypingDone();
-    setTimeout( () => {
-      this.setState({ typing: false }, () => {
-        this.timeouts.push(
-          setTimeout(() => this.setState({ typing: true }), this.props.timeout || 1200)
-        );
-      });
-    }, this.props.timeout || 3600);
+    this.timeouts.push(
+      setTimeout( () => {
+        this.setState({ typing: false }, () => {
+          this.timeouts.push(
+            setTimeout(() => this.setState({ typing: true }), this.props.timeout || 1200)
+          );
+        });
+      }, this.props.timeout || 3600)
+    );
   }
 
   componentWillMount() {

@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import RestartingTypist from './RestartingTypist/RestartingTypist';
+import { Button, Jumbotron } from 'react-bootstrap';
+import * as _ from 'lodash';
 
 require('./UnAuthWidget.css');
 
@@ -11,7 +13,7 @@ export class UnAuthWidget extends Component {
   }
   
   changeList = () => {
-    const newIndex = (this.state.listIndex + 1)%(this.props.lists.length-1);
+    const newIndex = _.random(this.props.lists.length-1);
     this.setState({listIndex: newIndex});
   }
 
@@ -22,18 +24,21 @@ export class UnAuthWidget extends Component {
   render() {
     return (
       <div>
-        <h1>
-          {'I want to '}
-          <RestartingTypist onTypingDone={this.changeList}>
-            {this.currentList().verb}
-            <span>
-              {' '}
-              every
-              {' '}
-            </span>
-            {this.currentList().action}
-          </RestartingTypist>
-        </h1>
+        <Jumbotron className={'jumbo'}>
+          <h1 className={'wanttoText'}>
+            {'I want to '}
+            <RestartingTypist onTypingDone={this.changeList} className={'action-text'}>
+              {this.currentList().name}
+            </RestartingTypist>
+          </h1>
+          <p>
+            Keep track of what you want to do - with help from 
+            the rest of the internet.
+          </p>
+          <p>
+            <Button bsStyle="primary" href="/auth/google">Login with Google</Button>
+          </p>
+        </Jumbotron>
       </div>
     );
   }
@@ -41,8 +46,7 @@ export class UnAuthWidget extends Component {
 
 UnAuthWidget.propTypes = {
   lists: PropTypes.arrayOf(PropTypes.shape({
-    // verb: PropTypes.string.isRequired,
-    // action: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   })).isRequired,
 };
 
