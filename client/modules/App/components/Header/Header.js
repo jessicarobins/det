@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Navbar, Nav, NavItem, Button } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 
 export function Header(props, context) {
   return (
@@ -11,9 +11,9 @@ export function Header(props, context) {
           <Link to="/" >Some clever app name</Link>
         </Navbar.Brand>
       </Navbar.Header>
-      <Navbar.Form pullRight>
-        <Button onClick={props.logout}>Logout</Button> 
-      </Navbar.Form>
+      <Navbar.Text pullRight>
+        <Navbar.Link onClick={props.logout}>log out</Navbar.Link> 
+      </Navbar.Text>
     </Navbar>
     
     </div>
