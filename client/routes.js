@@ -33,7 +33,7 @@ export default (
       }}
     />
     <Route
-      path="/lists"
+      path="/home"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Post/pages/PostListPage/PostListPage').default);
