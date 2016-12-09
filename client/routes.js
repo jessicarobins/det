@@ -23,30 +23,57 @@ if (process.env.NODE_ENV !== 'production') {
 
 // react-router setup with code-splitting
 // More info: http://blog.mxstbr.com/2016/01/react-apps-with-pages/
-export default (
-  <Route path="/" component={App}>
-    <IndexRoute
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./modules/Post/pages/PostListPage/PostListPage').default);
-        });
-      }}
-    />
-    <Route
-      path="/login"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./modules/Post/pages/UnAuthPage/UnAuthPage').default);
-        });
-      }}
-    />
-    <Route
-      path="/lists/:cuid"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./modules/Post/pages/PostDetailPage/PostDetailPage').default);
-        });
-      }}
-    />
-  </Route>
-);
+export function createRoutes(store) {
+  
+  const requireAuth = (nextState, replace, callback) => {
+    const { user: { authenticated }} = store.getState();
+    if (!authenticated) {
+      replace({
+        pathname: '/login',
+        state: { nextPathname: nextState.location.pathname }
+      });
+    }
+    callback();
+  };
+
+  const redirectAuth = (nextState, replace, callback) => {
+    const { user: { authenticated }} = store.getState();
+    if (authenticated) {
+      replace({
+        pathname: '/'
+      });
+    }
+    callback();
+  };
+  
+  return (
+    <Route path="/" component={App}>
+      <IndexRoute
+        onEnter={requireAuth}
+        getComponent={(nextState, cb) => {
+          require.ensure([], require => {
+            cb(null, require('./modules/Post/pages/PostListPage/PostListPage').default);
+          });
+        }}
+      />
+      <Route
+        path="/login"
+        onEnter={redirectAuth}
+        getComponent={(nextState, cb) => {
+          require.ensure([], require => {
+            cb(null, require('./modules/Post/pages/UnAuthPage/UnAuthPage').default);
+          });
+        }}
+      />
+      <Route
+        onEnter={requireAuth}
+        path="/lists/:cuid"
+        getComponent={(nextState, cb) => {
+          require.ensure([], require => {
+            cb(null, require('./modules/Post/pages/PostDetailPage/PostDetailPage').default);
+          });
+        }}
+      />
+    </Route>
+  )
+};

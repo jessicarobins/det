@@ -8,7 +8,7 @@ import IntlWrapper from './modules/Intl/IntlWrapper';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 // Import Routes
-import routes from './routes';
+import { createRoutes } from './routes';
 
 // Base stylesheet
 require('./main.css');
@@ -19,7 +19,7 @@ export default function App(props) {
     <Provider store={props.store}>
       <IntlWrapper>
         <Router history={history}>
-          {routes}
+          {createRoutes(props.store)}
         </Router>
       </IntlWrapper>
     </Provider>

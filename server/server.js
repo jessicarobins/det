@@ -38,7 +38,7 @@ import { match, RouterContext, createMemoryHistory } from 'react-router';
 import Helmet from 'react-helmet';
 
 // Import required modules
-import routes from '../client/routes';
+import { createRoutes } from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
 import posts from './routes/post.routes';
 import dummyData from './dummyData';
@@ -210,7 +210,8 @@ app.use((req, res, next) => {
       isLogin: true,
     }
   }, history);
-  // const routes = createRoutes(store);
+  
+  const routes = createRoutes(store);
   
   match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
     if (err) {
