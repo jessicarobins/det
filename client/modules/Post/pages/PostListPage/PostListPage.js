@@ -7,10 +7,9 @@ require('./ListListPage.css')
 // Import Components
 import PostList from '../../components/PostList';
 import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget';
-import UnAuthWidget from '../../components/UnAuthWidget/UnAuthWidget';
 
 // Import Actions
-import { addListRequest, fetchPosts, deletePostRequest } from '../../PostActions';
+import { addListRequest, fetchPosts, fetchDemoLists, deletePostRequest } from '../../PostActions';
 import { fetchTemplates } from '../../../Template/TemplateActions';
 import { toggleAddWarning } from '../../../App/AppActions';
 
@@ -48,7 +47,6 @@ class PostListPage extends Component {
     return (
       
       <div>
-        { this.props.authorized ? 
         <div>
           <Grid>
             <Row className='show-grid'>
@@ -72,8 +70,6 @@ class PostListPage extends Component {
             </Row>
           </Grid>
         </div>
-        : <UnAuthWidget lists={this.props.posts}/>
-        }
       </div>
       
     );

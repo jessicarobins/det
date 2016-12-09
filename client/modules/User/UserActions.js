@@ -1,3 +1,5 @@
+import { browserHistory } from 'react-router';
+
 import callApi from '../../util/apiCaller';
 
 export const TOGGLE_LOGIN_MODE = 'TOGGLE_LOGIN_MODE';
@@ -34,12 +36,10 @@ export function logOut() {
     return callApi('logout', 'post')
       .then(response => {
         dispatch(logoutSuccess());
-        // if (response.status === 200) {
-        //   dispatch(logoutSuccess());
-        // } else {
-        //   console.log('response? ', response.toString())
-        //   dispatch(logoutError());
-        // }
+        browserHistory.push('/');
+      })
+      .catch( err => {
+        dispatch(logoutError());
       });
   };
 }

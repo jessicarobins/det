@@ -12,6 +12,7 @@ const listSchema = new Schema({
   action: { type: 'String', required: true },
   _template: { type: Schema.Types.ObjectId, ref: 'ListTemplate' },
   items: [ListItem.schema],
+  _users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   dateAdded: { type: 'Date', default: Date.now, required: true },
   dateModified: { type: 'Date', default: Date.now, required: false },
 });
@@ -25,6 +26,10 @@ listSchema.virtual('percentComplete').get( function() {
   const numComplete = _.filter(this.items, 'complete').length;
   return _.round(numComplete*100/numItems) || 0;
 });
+
+listSchema.query.forUser = function(user) {
+  return this.find({_users: user._id});
+};
 
 listSchema.methods.addListItem = function(item) {
   let list = this;
@@ -65,6 +70,16 @@ listSchema.methods.addItemToOtherLists = function(itemText) {
         list.save();
       });
     });
+};
+
+listSchema.statics.demoLists = function() {
+  return [
+    {name: 'watch every Harry Potter movie'},
+    {name: 'visit every castle in Scotland'},
+    {name: 'read every Stephen King novel'},
+    {name: 'run a 5k in every US state'},
+    {name: 'visit every country in Europe'}
+  ];
 };
 
 listSchema.set('toJSON', { virtuals: true });

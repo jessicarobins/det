@@ -14,17 +14,9 @@ router.use(function (req, res, next) {
   next();
 });
 
-// Get all Posts
-router.route('/posts').get(PostController.getPosts);
-// Get one post by cuid
-router.route('/posts/:cuid').get(PostController.getPost);
-// Add a new Post
-router.route('/posts').post(PostController.addPost);
-// Delete a post by cuid
-router.route('/posts/:cuid').delete(PostController.deletePost);
-
 // lists
 router.route('/lists').get(ListController.getLists);
+router.route('/lists/demo').get(ListController.getDemoLists);
 router.route('/lists').post(ListController.addEmptyList);
 router.route('/lists/find_or_create').post(ListController.findOrCreateListTemplate);
 router.route('/lists/:cuid/toggle/:list_item_id').put(ListController.toggleListItem);

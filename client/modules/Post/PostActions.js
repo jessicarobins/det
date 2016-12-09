@@ -88,6 +88,14 @@ export function fetchPosts() {
   };
 }
 
+export function fetchDemoLists() {
+  return (dispatch) => {
+    return callApi('lists/demo').then(res => {
+      dispatch(addLists(res.lists));
+    });
+  };
+}
+
 export function fetchList(cuid) {
   return (dispatch) => {
     return callApi(`lists/${cuid}`).then(res => dispatch(addPost(res.list)));

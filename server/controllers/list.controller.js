@@ -1,26 +1,29 @@
 import List from '../models/list';
-import ListItem from '../models/listItem';
 import ListTemplate from '../models/listTemplate';
 import cuid from 'cuid';
-import sanitizeHtml from 'sanitize-html';
 import { waClient, formatQuery, formatResponse, QUERY_OPTIONS } from '../util/wolframHelper';
 import * as Q from 'q';
 import mongoose from 'mongoose';
 mongoose.Promise = Q.Promise;
 
-/**
- * Get all lists
- * @param req
- * @param res
- * @returns void
- */
+
+export function getDemoLists(req, res) {
+  res.json( {lists: List.demoLists() });
+}
+
 export function getLists(req, res) {
-  List.find().sort('-dateAdded').exec((err, lists) => {
+  if (!req.user) {
+    res.json({lists: []});
+    return;
+  }
+  
+  List.find().forUser(req.user).sort('-dateAdded').exec((err, lists) => {
     if (err) {
       res.status(500).send(err);
     }
     res.json({ lists });
   });
+  
 }
 
 /**
@@ -37,6 +40,8 @@ export function addEmptyList(req, res) {
   
   const newList = new List(req.body.list);
   newList.cuid = cuid();
+  newList._users.push(req.user);
+  
   const newTemplate = new ListTemplate({actions: [req.body.list.action]});
   newTemplate.save( function ( err, template ){
     if( err ) { 
@@ -63,6 +68,7 @@ export function findOrCreateListTemplate(req, res) {
   
   let newList = new List(req.body.list);
   newList.cuid = cuid();
+  newList._users.push(req.user);
   let items;
   
   //search ListTemplate for matching actions
@@ -123,7 +129,6 @@ export function findOrCreateListTemplate(req, res) {
  * @returns void
  */
 export function getList(req, res) {
-  console.log('a user? ', req.user)
   List.findOne({ cuid: req.params.cuid }).exec((err, list) => {
     if (err) {
       res.status(500).send(err);
