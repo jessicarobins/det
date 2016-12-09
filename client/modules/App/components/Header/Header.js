@@ -8,7 +8,7 @@ export function Header(props, context) {
     <Navbar>
       <Navbar.Header>
         <Navbar.Brand>
-          <Link to="/home" >Some clever app name</Link>
+          <Link to="/" >Some clever app name</Link>
         </Navbar.Brand>
       </Navbar.Header>
       <Navbar.Text pullRight>

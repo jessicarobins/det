@@ -139,8 +139,8 @@ app.get('/auth/google',
       'https://www.googleapis.com/auth/plus.profile.emails.read'] }));
 app.get('/auth/google/callback', 
   passport.authenticate('google', { 
-    successRedirect: '/lists',
-    failureRedirect: '/' 
+    successRedirect: '/',
+    failureRedirect: '/login' 
   })
 );
 

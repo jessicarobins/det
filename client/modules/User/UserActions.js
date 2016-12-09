@@ -36,7 +36,7 @@ export function logOut() {
     return callApi('logout', 'post')
       .then(response => {
         dispatch(logoutSuccess());
-        dispatch(push('/'));
+        dispatch(push('/login'));
       })
       .catch( err => {
         dispatch(logoutError());
