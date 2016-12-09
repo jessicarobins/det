@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router';
+import { push } from 'react-router-redux';
 
 import callApi from '../../util/apiCaller';
 
@@ -36,7 +36,7 @@ export function logOut() {
     return callApi('logout', 'post')
       .then(response => {
         dispatch(logoutSuccess());
-        browserHistory.push('/');
+        dispatch(push('/'));
       })
       .catch( err => {
         dispatch(logoutError());
