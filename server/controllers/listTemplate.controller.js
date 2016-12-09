@@ -7,7 +7,7 @@ import ListTemplate from '../models/listTemplate';
  * @returns void
  */
 export function getTemplates(req, res) {
-  ListTemplate.find().sort('-dateAdded').exec((err, templates) => {
+  ListTemplate.find().sort('actions').exec((err, templates) => {
     if (err) {
       res.status(500).send(err);
     }
