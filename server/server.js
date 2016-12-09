@@ -71,7 +71,7 @@ const sessionStore =
 const sess = {
   resave: false,
   saveUninitialized: false,
-  secret: 'keyboard cat',
+  secret: secrets.session,
   name: 'sessionId',
   // Add HTTPOnly, Secure attributes on Session Cookie
   // If secure is set, and you access your site over HTTP, the cookie will not be set

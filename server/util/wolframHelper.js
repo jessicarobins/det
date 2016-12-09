@@ -1,6 +1,6 @@
 import wajs from 'wajs';
-
-export const WA_APP_ID = 'G6UJXE-UG88XXUYPK'//process.env.WA_APP_ID;
+import secrets from '../../secrets';
+export const WA_APP_ID = secrets.wolframAlphaId;
 
 export const waClient = new wajs(WA_APP_ID);
 
