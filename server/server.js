@@ -110,10 +110,12 @@ passport.use(new OAuth2Strategy({
       if (!err && user !== null) {
         done(null, user);
       } else {
+        console.log('profile: ', profile)
         user = new User({
           oauthID: profile.id,
           name: profile.displayName,
-          picture: profile._json.picture
+          picture: profile._json.image.url,
+          email: profile._json.emails[0].value
         });
         user.tokens.push({ kind: 'google', accessToken });
         user.save(function(err) {
@@ -131,7 +133,10 @@ passport.use(new OAuth2Strategy({
 
 // users/authentication
 app.get('/auth/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+  passport.authenticate('google', { 
+    scope: [
+      'https://www.googleapis.com/auth/plus.login',
+      'https://www.googleapis.com/auth/plus.profile.emails.read'] }));
 app.get('/auth/google/callback', 
   passport.authenticate('google', { 
     successRedirect: '/lists',
