@@ -15,11 +15,13 @@ export const formatQuery = (query) => query //`list of ${query}`;
 
 export const formatResponse = (response) => {
   if (!response.pods()[1]){
-    console.log('no results? ', response)
     return false;
   }
   let queryString = response.pods()[1].subpod[0].plaintext[0];
   console.log('querystring', queryString)
+  if (queryString === '(data not available)'){
+    return false;
+  }
   const totalIndex = queryString.indexOf('(total:');
   if (totalIndex > -1) {
     queryString = queryString.substring(0, totalIndex);
