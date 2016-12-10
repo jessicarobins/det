@@ -16,6 +16,7 @@ export class ToDoListItem extends Component {
       <div>
         <h4>
           <Checkbox 
+            disabled={this.props.readOnly}
             defaultChecked={this.checked()} 
             onChange={() => this.toggleCheckbox()}>
             {this.props.todo.text}
@@ -32,6 +33,7 @@ ToDoListItem.propTypes = {
     complete: PropTypes.bool.isRequired,
   }).isRequired,
   toggleListItem: PropTypes.func.isRequired,
+  readOnly: PropTypes.bool.isRequired,
 };
 
 export default ToDoListItem;

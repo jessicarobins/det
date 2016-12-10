@@ -95,4 +95,4 @@ export default userReducer;
 /* Selectors */
 export const getAuth = state => state.user.authenticated;
 
-export const getData = state => state.user.data;
+export const getUser = state => state.user.data;

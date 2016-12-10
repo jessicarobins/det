@@ -9,6 +9,7 @@ function ToDoList(props) {
       {
         props.todos.map(todo => (
           <PostListItem
+            readOnly={props.readOnly}
             todo={todo}
             key={todo._id}
             toggleListItem={props.toggleListItem}
@@ -24,6 +25,7 @@ ToDoList.propTypes = {
     text: PropTypes.string.isRequired,
   })).isRequired,
   toggleListItem: PropTypes.func.isRequired,
+  readOnly: PropTypes.bool.isRequired,
 };
 
 export default ToDoList;

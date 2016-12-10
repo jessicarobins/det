@@ -14,6 +14,7 @@ import { fetchList, addListItemRequest, toggleListItemRequest } from '../../Post
 
 // Import Selectors
 import { getPost } from '../../PostReducer';
+import { getUser } from '../../../User/UserReducer'; 
 
 class PostDetailPage extends Component {
   
@@ -34,6 +35,10 @@ class PostDetailPage extends Component {
     this.props.dispatch(toggleListItemRequest({ cuid, list_item_id }));
   };
   
+  belongsToUser() {
+    return _.includes(this.props.list._users, this.props.user._id);
+  }
+  
   render() {
     return (
       <div>
@@ -49,9 +54,12 @@ class PostDetailPage extends Component {
                   label={`${this.props.list.percentComplete}% Complete!`}/>
               </div>
               <ToDoList 
+                readOnly={!this.belongsToUser()}
                 todos={this.props.list.items}
                 toggleListItem={this.handleToggleListItem} />
+              { this.belongsToUser() ? 
               <ListItemCreateWidget addListItem={this.handleAddListItem} />
+              : null }
             </Col>
           </Row>
         </Grid>
@@ -69,6 +77,7 @@ PostDetailPage.need = [params => {
 function mapStateToProps(state, props) {
   return {
     list: getPost(state, props.params.cuid),
+    user: getUser(state)
   };
 }
 
@@ -76,6 +85,9 @@ PostDetailPage.propTypes = {
   list: PropTypes.shape({
     name: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
+  }).isRequired,
+  user: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
   }).isRequired,
 };
 
