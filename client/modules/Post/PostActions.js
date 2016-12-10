@@ -85,7 +85,7 @@ export function fetchPosts() {
     dispatch(toggleSpinnerOn())
     return callApi('lists').then(res => {
       dispatch(addLists(res.lists));
-      // dispatch(toggleSpinnerOff())
+      dispatch(toggleSpinnerOff())
     });
   };
 }

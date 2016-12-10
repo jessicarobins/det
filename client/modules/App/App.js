@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 // Import Components
 import Helmet from 'react-helmet';
-import Loader from 'react-loader';
+import Loader from 'react-loader-advanced';
 import Header from './components/Header/Header';
 
 // actions
@@ -55,7 +55,7 @@ export class App extends Component {
           /> : <span></span>
           }
           <div className={'container'}>
-            <Loader loaded={!this.props.showSpinner}>
+            <Loader show={this.props.showSpinner}>
               {this.props.children}
             </Loader>
           </div>
