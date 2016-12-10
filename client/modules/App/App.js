@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 // Import Components
 import Helmet from 'react-helmet';
+import Loader from 'react-loader';
 import Header from './components/Header/Header';
 
 // actions
@@ -54,7 +55,9 @@ export class App extends Component {
           /> : <span></span>
           }
           <div className={'container'}>
-            {this.props.children}
+            <Loader loaded={!this.props.showSpinner}>
+              {this.props.children}
+            </Loader>
           </div>
         </div>
       </div>
@@ -65,6 +68,7 @@ export class App extends Component {
 App.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
+  showSpinner: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
 };
 
@@ -72,6 +76,7 @@ App.propTypes = {
 function mapStateToProps(store) {
   return {
     user: store.user,
+    showSpinner: store.app.showSpinner,
   };
 }
 

@@ -1,37 +1,43 @@
+import { combineReducers } from 'redux';
+
 // Import Actions
-import { TOGGLE_ADD_POST, TOGGLE_ADD_WARNING, LOGIN_REQUEST } from './AppActions';
+import * as appActions from './AppActions';
 
-// Initial State
-const initialState = {
-  showAddPost: true,
-  showAddWarning: false,
-  user: {}
-};
-
-const AppReducer = (state = initialState, action) => {
+const showSpinner = (
+  state = false,
+  action
+) => {
   switch (action.type) {
-    case TOGGLE_ADD_POST:
-      return {
-        showAddPost: !state.showAddPost,
-      };
-    case TOGGLE_ADD_WARNING:
-      return {
-        showAddWarning: !state.showAddWarning,
-      };
-    case LOGIN_REQUEST:
-      return {
-        user: action.user,
-      };
-      
+    case appActions.TOGGLE_SPINNER_ON:
+      return true;
+    case appActions.TOGGLE_SPINNER_OFF:
+      return false;
     default:
       return state;
   }
 };
 
+const showAddWarning = (
+  state = false,
+  action
+) => {
+  switch (action.type) {
+    case appActions.TOGGLE_ADD_WARNING:
+      return !state.showAddWarning;
+    default:
+      return state;
+  }
+};
+
+const AppReducer = combineReducers({
+  showSpinner,
+  showAddWarning,
+});
+
 /* Selectors */
 
 // Get showAddPost
-export const getShowAddPost = state => state.app.showAddPost;
+export const getShowSpinner = state => state.app.showSpinner;
 
 export const getShowAddWarning = state => state.app.showAddWarning;
 

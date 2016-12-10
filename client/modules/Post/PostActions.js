@@ -1,5 +1,5 @@
 import callApi from '../../util/apiCaller';
-import { toggleAddWarning } from '../App/AppActions';
+import { toggleAddWarning, toggleSpinnerOn, toggleSpinnerOff } from '../App/AppActions';
 import { browserHistory } from 'react-router';
 
 // Export Constants
@@ -82,8 +82,10 @@ export function addTemplates(templates) {
 
 export function fetchPosts() {
   return (dispatch) => {
+    dispatch(toggleSpinnerOn())
     return callApi('lists').then(res => {
       dispatch(addLists(res.lists));
+      // dispatch(toggleSpinnerOff())
     });
   };
 }

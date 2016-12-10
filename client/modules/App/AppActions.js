@@ -1,9 +1,9 @@
 import callApi from '../../util/apiCaller';
 
 // Export Constants
-export const TOGGLE_ADD_POST = 'TOGGLE_ADD_POST';
+export const TOGGLE_SPINNER_ON = 'TOGGLE_SPINNER_ON';
+export const TOGGLE_SPINNER_OFF = 'TOGGLE_SPINNER_OFF';
 export const TOGGLE_ADD_WARNING = 'TOGGLE_ADD_WARNING';
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 
 // Export Actions
 
@@ -13,18 +13,14 @@ export function toggleAddWarning() {
   };
 }
 
-export function loginUser(user) {
+export function toggleSpinnerOn() {
   return {
-    type: LOGIN_REQUEST,
-    user,
+    type: TOGGLE_SPINNER_ON
   };
 }
 
-export function loginUserRequest() {
-  return (dispatch) => {
-    return callApi('auth/google', 'get').then( (res) =>  {
-      dispatch(loginUser(res.user));
-      console.log('result of call: ', res);
-    });
+export function toggleSpinnerOff() {
+  return {
+    type: TOGGLE_SPINNER_OFF
   };
 }
