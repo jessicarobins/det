@@ -12,12 +12,17 @@ import styles from '../../components/PostListItem/ListItem.css';
 
 // Import Actions
 import { fetchList, addListItemRequest, toggleListItemRequest } from '../../PostActions';
+import { toggleSpinnerOff } from '../../../App/AppActions';
 
 // Import Selectors
 import { getPost } from '../../PostReducer';
 import { getUser } from '../../../User/UserReducer'; 
 
 class PostDetailPage extends Component {
+  
+  componentDidMount() {
+    this.props.dispatch(toggleSpinnerOff());
+  }
   
   percentComplete() {
     const numItems = this.items.length;

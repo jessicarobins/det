@@ -1,6 +1,11 @@
-.container {
-  max-width: 980px;
-  width: 100%;
-  padding: 15px;
-  margin: 0 auto;
+.Loader__background {
+  position: fixed !important;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }

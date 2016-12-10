@@ -23,7 +23,7 @@ const showAddWarning = (
 ) => {
   switch (action.type) {
     case appActions.TOGGLE_ADD_WARNING:
-      return !state.showAddWarning;
+      return !state;
     default:
       return state;
   }

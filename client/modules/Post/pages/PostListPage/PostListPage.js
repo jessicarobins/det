@@ -11,7 +11,7 @@ import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget
 // Import Actions
 import { addListRequest, fetchPosts, fetchDemoLists, deletePostRequest } from '../../PostActions';
 import { fetchTemplates } from '../../../Template/TemplateActions';
-import { toggleAddWarning } from '../../../App/AppActions';
+import { toggleAddWarning, toggleSpinnerOn } from '../../../App/AppActions';
 
 // Import Selectors
 import { getShowAddWarning } from '../../../App/AppReducer';
@@ -20,6 +20,12 @@ import { getTemplates } from '../../../Template/TemplateReducer';
 import { getAuth } from '../../../User/UserReducer';
 
 class PostListPage extends Component {
+  
+  // constructor(props) {
+  //   super(props);
+  //   this.props.dispatch(toggleSpinnerOn());
+  // }
+  
   componentDidMount() {
     this.props.dispatch(fetchPosts());
     this.props.dispatch(fetchTemplates());

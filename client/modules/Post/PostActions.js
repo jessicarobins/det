@@ -82,10 +82,9 @@ export function addTemplates(templates) {
 
 export function fetchPosts() {
   return (dispatch) => {
-    dispatch(toggleSpinnerOn())
     return callApi('lists').then(res => {
       dispatch(addLists(res.lists));
-      dispatch(toggleSpinnerOff())
+      dispatch(toggleSpinnerOff());
     });
   };
 }
@@ -100,7 +99,9 @@ export function fetchDemoLists() {
 
 export function fetchList(cuid) {
   return (dispatch) => {
-    return callApi(`lists/${cuid}`).then(res => dispatch(addPost(res.list)));
+    return callApi(`lists/${cuid}`).then(res => {
+      dispatch(addPost(res.list));
+    });
   };
 }
 

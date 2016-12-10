@@ -3,6 +3,8 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './modules/App/App';
 
+import { toggleSpinnerOn } from './modules/App/AppActions';
+
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
   require.ensure = function requireModule(deps, callback) {
@@ -33,12 +35,16 @@ export function createRoutes(store) {
         state: { nextPathname: nextState.location.pathname }
       });
     }
+    else {
+      store.dispatch(toggleSpinnerOn());
+    }
     callback();
   };
 
   const redirectAuth = (nextState, replace, callback) => {
     const { user: { authenticated }} = store.getState();
     if (authenticated) {
+      store.dispatch(toggleSpinnerOn());
       replace({
         pathname: '/'
       });

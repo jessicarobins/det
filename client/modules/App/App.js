@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 // Import Style
-// import styles from './App.css';
+import styles from './App.css';
 
 // Import Components
 import Helmet from 'react-helmet';
@@ -48,17 +48,20 @@ export class App extends Component {
               {"rel": "stylesheet", "href": "https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"}
             ]}
           />
-          {this.props.user.authenticated ? 
-          <Header
-            user={this.props.user.data}
-            logout={this.handleLogout}
-          /> : <span></span>
-          }
-          <div className={'container'}>
-            <Loader show={this.props.showSpinner}>
+           <Loader
+            messageStyle={{color: '#91170a', fontSize: '48px', fontWeight: '900'}}
+            contentBlur={8}
+            show={this.props.showSpinner}>
+            {this.props.user.authenticated ? 
+              <Header
+                user={this.props.user.data}
+                logout={this.handleLogout}
+              /> : <span></span>
+            }
+            <div className={'container'}>
               {this.props.children}
-            </Loader>
-          </div>
+            </div>
+          </Loader>
         </div>
       </div>
     );
