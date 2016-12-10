@@ -31,6 +31,7 @@ export class UnAuthWidget extends Component {
               {this.currentList().name}
             </RestartingTypist>
           </h1>
+          <h2>do<strong style={{color: '#91170a'}}>everything</strong></h2>
           <p>
             Keep track of what you want to do - with help from 
             the rest of the internet.
