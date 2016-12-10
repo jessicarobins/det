@@ -6,6 +6,7 @@ import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
 import { ProgressBar, Grid, Col, Row } from 'react-bootstrap';
 import * as _ from 'lodash';
 
+
 // Import Style
 import styles from '../../components/PostListItem/ListItem.css';
 
@@ -86,9 +87,9 @@ PostDetailPage.propTypes = {
     name: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
   }).isRequired,
-  user: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-  }).isRequired,
+  // user: PropTypes.shape({
+  //   _id: PropTypes.string.isRequired,
+  // }).isRequired,
 };
 
 export default connect(mapStateToProps)(PostDetailPage);

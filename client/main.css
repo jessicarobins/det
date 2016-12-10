@@ -4,6 +4,8 @@
 
 @import './bootstrap.css';
 @import '~react-typist/dist/Typist.css';
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
 
 *{
 	margin: 0;

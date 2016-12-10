@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Checkbox } from 'react-bootstrap';
+import FontAwesome from 'react-fontawesome';
 
 export class ToDoListItem extends Component {
   
@@ -11,16 +12,36 @@ export class ToDoListItem extends Component {
     this.props.toggleListItem(this.props.todo);
   }
   
+  renderCheckbox() {
+    return (
+      <Checkbox 
+        defaultChecked={this.checked()} 
+        onChange={() => this.toggleCheckbox()}>
+        {this.props.todo.text}
+      </Checkbox>
+    )
+  }
+  
+  renderReadOnly() {
+    const styles = this.checked() ? {} : {visibility: 'hidden'};
+    return (
+      <span>
+        <FontAwesome style={styles} name='check'/>
+        {' '}
+        {this.props.todo.text}
+      </span>
+    )
+  }
+  
   render() {
     return (
       <div>
         <h4>
-          <Checkbox 
-            disabled={this.props.readOnly}
-            defaultChecked={this.checked()} 
-            onChange={() => this.toggleCheckbox()}>
-            {this.props.todo.text}
-          </Checkbox>
+          {
+            this.props.readOnly ?
+            this.renderReadOnly() :
+            this.renderCheckbox()
+          }
         </h4>
       </div>
     );
