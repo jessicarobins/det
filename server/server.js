@@ -7,6 +7,8 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import IntlWrapper from '../client/modules/Intl/IntlWrapper';
 
+import * as _ from 'lodash';
+
 // Webpack Requirements
 import webpack from 'webpack';
 import config from '../webpack.config.dev';
@@ -199,8 +201,7 @@ const renderError = err => {
 // Server Side Rendering based on routes matched by React-router.
 app.use((req, res, next) => {
   const authenticated = req.isAuthenticated();
-  const user = req.user;
-  console.log('authenticated?:', authenticated)
+  const userData = req.user ? _.pick(req.user, ['name', '_id', 'picture']) : null;
   const history = createMemoryHistory();
   const store = configureStore({
     user: {
@@ -208,6 +209,7 @@ app.use((req, res, next) => {
       isWaiting: false,
       message: '',
       isLogin: true,
+      data: userData
     }
   }, history);
   

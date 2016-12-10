@@ -1,22 +1,21 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 
 export function Header(props, context) {
   return (
-    <div>
     <Navbar>
       <Navbar.Header>
         <Navbar.Brand>
           <Link to="/" >Some clever app name</Link>
         </Navbar.Brand>
       </Navbar.Header>
-      <Navbar.Text pullRight>
-        <Navbar.Link onClick={props.logout}>log out</Navbar.Link> 
-      </Navbar.Text>
+      <Nav pullRight>
+        <NavDropdown title={props.user.name} id="basic-nav-dropdown">
+          <MenuItem onClick={props.logout}>log out</MenuItem>
+        </NavDropdown>
+      </Nav>
     </Navbar>
-    
-    </div>
   );
 }
 
@@ -26,6 +25,9 @@ Header.contextTypes = {
 
 Header.propTypes = {
   logout: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Header;

@@ -72,14 +72,27 @@ const authenticated = (
   }
 };
 
+const data = (
+  state = null,
+  action
+) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
 const userReducer = combineReducers({
   isLogin,
   isWaiting,
   authenticated,
-  message
+  message,
+  data,
 });
 
 export default userReducer;
 
 /* Selectors */
 export const getAuth = state => state.user.authenticated;
+
+export const getData = state => state.user.data;

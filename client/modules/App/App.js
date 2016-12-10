@@ -49,6 +49,7 @@ export class App extends Component {
           />
           {this.props.user.authenticated ? 
           <Header
+            user={this.props.user.data}
             logout={this.handleLogout}
           /> : <span></span>
           }
