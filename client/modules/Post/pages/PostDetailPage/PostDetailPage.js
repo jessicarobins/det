@@ -17,6 +17,10 @@ import { getPost } from '../../PostReducer';
 
 class PostDetailPage extends Component {
   
+  componentDidMount() {
+    this.props.dispatch(fetchList(this.props.params.cuid));
+  }
+  
   percentComplete() {
     const numItems = this.items.length;
     const numComplete = _.filter(this.items, 'complete').length;
@@ -36,7 +40,10 @@ class PostDetailPage extends Component {
   
   render() {
     return (
+      
       <div>
+        { this.props.list ?
+        <div>
         <Helmet title={this.props.list.name} />
         <Grid>
           <Row className="show-grid">
@@ -55,15 +62,19 @@ class PostDetailPage extends Component {
             </Col>
           </Row>
         </Grid>
+        </div>
+        : <p>List not found</p>
+        }
       </div>
+      
     );
   }
 }
 
 // Actions required to provide data for this component to render in sever side.
-PostDetailPage.need = [params => {
-  return fetchList(params.cuid);
-}];
+// PostDetailPage.need = [params => {
+//   return fetchList(params.cuid);
+// }];
 
 // Retrieve data from store as props
 function mapStateToProps(state, props) {
@@ -73,10 +84,10 @@ function mapStateToProps(state, props) {
 }
 
 PostDetailPage.propTypes = {
-  list: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    cuid: PropTypes.string.isRequired,
-  }).isRequired,
+  // list: PropTypes.shape({
+  //   name: PropTypes.string.isRequired,
+  //   cuid: PropTypes.string.isRequired,
+  // }).isRequired,
 };
 
 export default connect(mapStateToProps)(PostDetailPage);

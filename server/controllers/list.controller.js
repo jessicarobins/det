@@ -129,9 +129,16 @@ export function findOrCreateListTemplate(req, res) {
  * @returns void
  */
 export function getList(req, res) {
-  List.findOne({ cuid: req.params.cuid }).exec((err, list) => {
+  console.log('user?', req.user)
+  if(!req.user){
+    res.json({ });
+    return;
+  }
+  List.findOne({ cuid: req.params.cuid, _users: req.user._id }).exec((err, list) => {
     if (err) {
-      res.status(500).send(err);
+      // res.status(404).send(err);
+      console.log(err);
+      res.json({ });
     }
     res.json({ list });
   });

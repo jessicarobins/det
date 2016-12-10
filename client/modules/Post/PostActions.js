@@ -98,7 +98,11 @@ export function fetchDemoLists() {
 
 export function fetchList(cuid) {
   return (dispatch) => {
-    return callApi(`lists/${cuid}`).then(res => dispatch(addPost(res.list)));
+    return callApi(`lists/${cuid}`).then(res => {
+      if(res.list){
+        dispatch(addPost(res.list))
+      }
+    });
   };
 }
 

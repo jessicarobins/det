@@ -2,6 +2,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './modules/App/App';
+import callApi from './util/apiCaller';
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -46,6 +47,27 @@ export function createRoutes(store) {
     callback();
   };
   
+  const requireUser = (nextState, replace, callback) => {
+    const { user: { authenticated }} = store.getState();
+    if (!authenticated) {
+      replace({
+        pathname: '/login',
+        state: { nextPathname: nextState.location.pathname }
+      });
+    }
+    else {
+      callApi(`lists/${nextState.params.cuid}`).then(res => {
+        if (!res.list){
+          replace({
+            pathname: '/login',
+            state: { nextPathname: nextState.location.pathname }
+          });
+        }
+      });
+    }
+    callback();
+  };
+  
   return (
     <Route path="/" component={App}>
       <IndexRoute
@@ -66,7 +88,7 @@ export function createRoutes(store) {
         }}
       />
       <Route
-        onEnter={requireAuth}
+        onEnter={requireUser}
         path="/lists/:cuid"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
