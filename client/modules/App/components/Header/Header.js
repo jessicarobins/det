@@ -7,7 +7,7 @@ export function Header(props, context) {
     <Navbar>
       <Navbar.Header>
         <Navbar.Brand>
-          <Link to="/" >Some clever app name</Link>
+          <Link to="/" >do<strong style={{color: '#91170a'}}>everything</strong></Link>
         </Navbar.Brand>
       </Navbar.Header>
       <Nav pullRight>
