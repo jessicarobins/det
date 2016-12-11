@@ -31,8 +31,8 @@ export class App extends Component {
       <div>
         <div>
           <Helmet
-            title="insert clever name here"
-            titleTemplate="%s - insert clever name here"
+            title="do everything"
+            titleTemplate="%s - do everything"
             meta={[
               { charset: 'utf-8' },
               {
@@ -43,9 +43,6 @@ export class App extends Component {
                 name: 'viewport',
                 content: 'width=device-width, initial-scale=1',
               },
-            ]}
-            link={[
-              {"rel": "stylesheet", "href": "https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"}
             ]}
           />
            <Loader
