@@ -9,7 +9,7 @@ var Checkbox = React.createClass({
       borderStyle: 'solid',
       borderColor: '#c3c4c6',
       borderRadius: '4px',
-      checkColor: '#60cd18',
+      checkColor: '#d9230f',
       height: '1px',
       width: '',
       namePaddingLeft: '10px',
@@ -18,6 +18,9 @@ var Checkbox = React.createClass({
 	},
   render: function() {
     var style = {
+      elementStyle: {
+        cursor: 'default'
+      },
     	boxStyle: {
       	borderWidth: this.props.borderWidth,
         borderStyle: this.props.borderStyle,
@@ -42,7 +45,7 @@ var Checkbox = React.createClass({
       }
     };
     return (
-    <div>
+    <div style={style.elementStyle}>
     	<span style={style.boxStyle}>
 				<i className="fa fa-check fa-lg" style={(this.props.value) ? style.show : style.hidden}></i>
 			</span>
@@ -63,7 +66,9 @@ var WrapperCheckbox = React.createClass({
 	render: function(){
   	return (
     	<div onClick={this.handleClick}>
-    		<Checkbox name={this.props.name} value={this.state.value}/>
+    		<Checkbox 
+    		  name={this.props.name} 
+    		  value={this.state.value}/>
       </div>
     );
   }

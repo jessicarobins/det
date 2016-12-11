@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
 
+require('./ToDoList.css');
+
 // Import Components
 import PostListItem from './ToDoListItem/ToDoListItem';
 
 function ToDoList(props) {
   return (
-    <div>
+    <div className='todo-list'>
       {
         props.todos.map(todo => (
           <PostListItem
