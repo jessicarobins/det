@@ -19,7 +19,7 @@ var Checkbox = React.createClass({
   render: function() {
     var style = {
       elementStyle: {
-        cursor: 'default'
+        cursor: 'pointer'
       },
     	boxStyle: {
       	borderWidth: this.props.borderWidth,
