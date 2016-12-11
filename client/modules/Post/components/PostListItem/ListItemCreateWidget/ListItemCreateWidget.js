@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap';
 
 export class ListItemCreateWidget extends Component {
   addListItem = () => {
@@ -12,14 +12,17 @@ export class ListItemCreateWidget extends Component {
   render() {
     return (
       <div>
-        <Form inline>
+        <Form>
           <FormGroup>
-            <FormControl inputRef={ref => {this.textRef = ref}} type="text"/>
+            <InputGroup>
+              <FormControl 
+                inputRef={ref => {this.textRef = ref}}
+                type="text" />
+              <InputGroup.Button>
+                <Button onClick={this.addListItem}>Add</Button>
+              </InputGroup.Button>
+            </InputGroup>
           </FormGroup>
-          {' '}
-          <Button onClick={this.addListItem}>
-            Add
-          </Button>
         </Form>
       </div>
     );
