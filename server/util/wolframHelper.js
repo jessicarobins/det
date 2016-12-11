@@ -11,7 +11,7 @@ export const QUERY_OPTIONS = {
   // includePodId: ['Result']
 };
 
-export const formatQuery = (query) => `${query} list`;
+export const formatQuery = (query) => query //`${query} list`;
 
 export const formatResponse = (response) => {
   if (!response.pods()[1]){

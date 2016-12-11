@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { Form, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap';
 
 export class ListItemCreateWidget extends Component {
-  addListItem = () => {
+  addListItem = (e) => {
+    e.preventDefault();
     if (this.textRef.value) {
       this.props.addListItem(this.textRef.value);
       this.textRef.value = '';
@@ -12,7 +13,7 @@ export class ListItemCreateWidget extends Component {
   render() {
     return (
       <div>
-        <Form>
+        <Form onSubmit={this.addListItem}>
           <FormGroup>
             <InputGroup>
               <FormControl 

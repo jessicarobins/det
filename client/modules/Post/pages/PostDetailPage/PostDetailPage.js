@@ -56,8 +56,7 @@ class PostDetailPage extends Component {
                 <h3>I want to <strong>{this.props.list.name}</strong></h3>
                 <ProgressBar 
                   striped
-                  now={this.props.list.percentComplete}
-                  label={`${this.props.list.percentComplete}% Complete!`}/>
+                  now={this.props.list.percentComplete}/>
               </div>
               <ToDoList 
                 readOnly={!this.belongsToUser()}

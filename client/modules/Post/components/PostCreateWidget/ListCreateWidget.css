@@ -4,7 +4,7 @@
 }
 
 .form-control.bootstrap-typeahead-input-hint {
-    font-size: 27px !important;
+  display: none !important;
 }
 
 .wantto-form-button-container {
