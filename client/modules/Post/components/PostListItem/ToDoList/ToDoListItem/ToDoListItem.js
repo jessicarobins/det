@@ -2,23 +2,24 @@ import React, { Component, PropTypes } from 'react';
 import { Checkbox } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
 
+import WrapperCheckbox from './Checkbox';
+
 export class ToDoListItem extends Component {
   
   checked() {
     return this.props.todo.complete;
   }
   
-  toggleCheckbox() {
+  toggleCheckbox = () => {
     this.props.toggleListItem(this.props.todo);
   }
   
   renderCheckbox() {
     return (
-      <Checkbox 
-        defaultChecked={this.checked()} 
-        onChange={() => this.toggleCheckbox()}>
-        {this.props.todo.text}
-      </Checkbox>
+      <WrapperCheckbox 
+        checked={this.checked()}
+        onClick={this.toggleCheckbox} 
+        name={this.props.todo.text} />
     )
   }
   
