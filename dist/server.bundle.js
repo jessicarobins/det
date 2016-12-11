@@ -3898,8 +3898,8 @@
 	};
 
 	var formatQuery = exports.formatQuery = function formatQuery(query) {
-	  return query;
-	}; //`list of ${query}`;
+	  return query + ' list';
+	};
 
 	var formatResponse = exports.formatResponse = function formatResponse(response) {
 	  if (!response.pods()[1]) {
