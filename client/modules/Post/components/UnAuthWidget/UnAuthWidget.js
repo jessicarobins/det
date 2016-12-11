@@ -18,7 +18,12 @@ export class UnAuthWidget extends Component {
   }
 
   currentList() {
-    return this.props.lists[this.state.listIndex];
+    if(this.props.lists.length) {
+      return this.props.lists[this.state.listIndex].name;
+    }
+    else {
+      return;
+    }
   }
 
   render() {
@@ -28,7 +33,7 @@ export class UnAuthWidget extends Component {
           <h1 className={'wanttoText'}>
             {'I want to '}
             <RestartingTypist onTypingDone={this.changeList} className={'action-text'}>
-              {this.currentList().name}
+              {this.currentList()}
             </RestartingTypist>
           </h1>
           <h2>do<strong style={{color: '#91170a'}}>everything</strong></h2>
