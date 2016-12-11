@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import { Label } from 'react-bootstrap';
 
 function ListItem(props) {
   return (
@@ -8,6 +9,7 @@ function ListItem(props) {
         <Link to={`/lists/${props.post.cuid}`} >
           {props.post.name}
         </Link>
+        <Label className='pull-right'>{props.post.percentComplete}%</Label>
       </h3>
     </div>
   );
