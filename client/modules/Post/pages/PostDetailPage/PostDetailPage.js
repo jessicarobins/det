@@ -6,10 +6,6 @@ import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
 import { ProgressBar, Grid, Col, Row } from 'react-bootstrap';
 import * as _ from 'lodash';
 
-
-// Import Style
-import styles from '../../components/PostListItem/ListItem.css';
-
 // Import Actions
 import { fetchList, addListItemRequest, toggleListItemRequest } from '../../PostActions';
 import { toggleSpinnerOff } from '../../../App/AppActions';
