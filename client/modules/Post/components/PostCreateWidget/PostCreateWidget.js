@@ -41,12 +41,10 @@ export class PostCreateWidget extends Component {
   
   renderAlert() {
     return (
-      <Alert bsStyle="warning" className='wantto-alert' onDismiss={this.handleAlertDismiss}>
+      <Alert bsStyle="info" className='wantto-alert' onDismiss={this.handleAlertDismiss}>
         <h4>No results found for <strong>{this.state.selected}</strong>.</h4>
         <div className='wantto-alert-buttons'>
-          <Button bsStyle="primary" onClick={this.addEmptyList}>Create an empty list</Button>
-          <span> or </span>
-          <Button onClick={this.handleAlertDismiss}>Try again</Button>
+          <Button bsStyle="default" onClick={this.addEmptyList}>Create an empty list!</Button>
         </div>
       </Alert>
     );
