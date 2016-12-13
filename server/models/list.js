@@ -75,9 +75,9 @@ listSchema.methods.addListItem = function(item) {
       //we've met the threshold, add the item to the template
       // and update all the lists
       else {
-        console.log('pending item lists ', pendingItem._lists)
-        console.log('list id ', list._id.toString())
-        console.log('wtf? ',  _.find(pendingItem._lists, o => o.equals(list._id)))
+        //add the list id anyway so that we don't
+        // double-add the item
+        pendingItem._lists.push(list._id);
         return template.realizePendingItem(pendingItem);
       }
     })
