@@ -10,7 +10,6 @@ const router = new Router();
 
 router.use(function (req, res, next) {
   req.isAuthenticated();
-  console.log('middleware auth? ', req.isAuthenticated())
   next();
 });
 
