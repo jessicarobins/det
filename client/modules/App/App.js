@@ -57,10 +57,9 @@ export class App extends Component {
                 logout={this.handleLogout}
               /> : <span></span>
             }
-            { this.props.systemMessage.length ?
-              <SystemMessage message={this.props.systemMessage} />
-              : null
-            }
+            <SystemMessage 
+              dispatch={this.props.dispatch}
+              alerts={this.props.alerts} />
             <div className={'container'}>
               {this.props.children}
             </div>
@@ -75,7 +74,10 @@ App.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   showSpinner: PropTypes.bool.isRequired,
-  systemMessage: PropTypes.string.isRequired,
+  alerts: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+  })).isRequired,
   user: PropTypes.object.isRequired,
 };
 
@@ -84,7 +86,7 @@ function mapStateToProps(store) {
   return {
     user: store.user,
     showSpinner: store.app.showSpinner,
-    systemMessage: store.app.appWarning,
+    alerts: store.app.systemMessages,
   };
 }
 

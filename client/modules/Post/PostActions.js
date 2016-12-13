@@ -54,7 +54,7 @@ export function addListItemRequest(props) {
         dispatch(addListItem(res.list));
       }
       else {
-        dispatch(appActions.addAppWarning(res));
+        dispatch(appActions.addSystemMessage(res, 'danger'));
       }
     });
   };
