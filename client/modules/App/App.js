@@ -8,6 +8,8 @@ import styles from './App.css';
 import Helmet from 'react-helmet';
 import Loader from 'react-loader-advanced';
 import Header from './components/Header/Header';
+import SystemMessage from './components/SystemMessage/SystemMessage';
+
 
 // actions
 import { logOut as logoutAction } from '../User/UserActions';
@@ -55,6 +57,10 @@ export class App extends Component {
                 logout={this.handleLogout}
               /> : <span></span>
             }
+            { this.props.systemMessage.length ?
+              <SystemMessage message={this.props.systemMessage} />
+              : null
+            }
             <div className={'container'}>
               {this.props.children}
             </div>
@@ -69,6 +75,7 @@ App.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   showSpinner: PropTypes.bool.isRequired,
+  systemMessage: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
 };
 
@@ -77,6 +84,7 @@ function mapStateToProps(store) {
   return {
     user: store.user,
     showSpinner: store.app.showSpinner,
+    systemMessage: store.app.appWarning,
   };
 }
 

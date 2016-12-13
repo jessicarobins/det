@@ -56,5 +56,7 @@ export const getShowSpinner = state => state.app.showSpinner;
 
 export const getShowAddWarning = state => state.app.showAddWarning;
 
+export const showSystemMessage = state => !!state.app.appWarning;
+
 // Export Reducer
 export default AppReducer;
