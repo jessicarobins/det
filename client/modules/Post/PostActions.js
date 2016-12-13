@@ -1,10 +1,11 @@
 import callApi from '../../util/apiCaller';
-import { toggleAddWarning, toggleSpinnerOn, toggleSpinnerOff } from '../App/AppActions';
+import * as appActions from '../App/AppActions';
 import { browserHistory } from 'react-router';
 
 // Export Constants
 export const ADD_LIST = 'ADD_LIST';
 export const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
+export const ADD_LIST_ITEM_ERROR = 'ADD_LIST_ITEM_ERROR';
 export const TOGGLE_LIST_ITEM = 'TOGGLE_LIST_ITEM';
 export const ADD_LISTS = 'ADD_LISTS';
 export const ADD_TEMPLATES = 'ADD_TEMPLATES';
@@ -31,7 +32,7 @@ export function addListRequest(list, endpoint='lists/find_or_create') {
         browserHistory.push(`/lists/${res.list.cuid}`);
       }
       else {
-        dispatch(toggleAddWarning());
+        dispatch(appActions.toggleAddWarning());
       }
     });
   };
@@ -48,7 +49,14 @@ export function addListItemRequest(props) {
   return (dispatch) => {
     return callApi(`lists/${props.cuid}`, 'post', {
       item: props.text,
-    }).then(res => dispatch(addListItem(res.list)));
+    }).then( (res) => {
+      if(res.list) {
+        dispatch(addListItem(res.list));
+      }
+      else {
+        dispatch(appActions.addAppWarning(res));
+      }
+    });
   };
 }
 
@@ -84,7 +92,7 @@ export function fetchPosts() {
   return (dispatch) => {
     return callApi('lists').then(res => {
       dispatch(addLists(res.lists));
-      dispatch(toggleSpinnerOff());
+      dispatch(appActions.toggleSpinnerOff());
     });
   };
 }

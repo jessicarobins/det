@@ -147,7 +147,7 @@ export function addListItem(req, res) {
       res.json({ list });
     })
     .catch( (err) => {
-      res.status(500).send(err);
+      res.status(422).send(err);
     });
 }
 

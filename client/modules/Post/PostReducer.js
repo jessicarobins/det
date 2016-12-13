@@ -1,4 +1,4 @@
-import { ADD_LIST, ADD_LIST_ITEM, ADD_LISTS, TOGGLE_LIST_ITEM, DELETE_POST } from './PostActions';
+import * as actions from './PostActions';
 
 // Initial State
 const initialState = {
@@ -8,27 +8,27 @@ const initialState = {
 const PostReducer = (state = initialState, action) => {
   switch (action.type) {
     
-    case ADD_LIST :
+    case actions.ADD_LIST :
       return {
         data: [action.list, ...state.data],
       };
       
-    case ADD_LIST_ITEM :
+    case actions.ADD_LIST_ITEM :
       return {
         data: [action.list],
       };
     
-    case TOGGLE_LIST_ITEM :
+    case actions.TOGGLE_LIST_ITEM :
       return {
         data: [action.list],
       };
       
-    case ADD_LISTS :
+    case actions.ADD_LISTS :
       return {
         data: action.lists,
       };
     
-    case DELETE_POST :
+    case actions.DELETE_POST :
       return {
         data: state.data.filter(post => post.cuid !== action.cuid),
       };

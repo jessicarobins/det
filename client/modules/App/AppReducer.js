@@ -29,9 +29,24 @@ const showAddWarning = (
   }
 };
 
+const appWarning = (
+  state = '',
+  action
+) => {
+  switch (action.type) {
+    case appActions.ADD_APP_WARNING:
+      return action.message;
+    case appActions.REMOVE_APP_WARNING:
+      return '';
+    default:
+      return state;
+  }
+};
+
 const AppReducer = combineReducers({
   showSpinner,
   showAddWarning,
+  appWarning
 });
 
 /* Selectors */

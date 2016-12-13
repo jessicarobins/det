@@ -65,7 +65,7 @@ listSchema.methods.addListItem = function(item) {
      
       else if(_.find(pendingItem._lists, o => o.equals(list._id))){
         //don't even save the list - item is a dupe
-        return Q.reject('item is a dupe');
+        return Q.reject('This list already contains this item.');
       }
       //if we have less than the threshold, just add the list id
       else if(pendingItem._lists.length < LIST_THRESHOLD) {

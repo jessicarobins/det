@@ -16,11 +16,9 @@ export default function callApi(endpoint, method = 'get', data) {
     data: data,
   })
   .then( (response) => {
-    console.log('response: ', response)
     return response.data;
   })
   .catch( (err) => {
-    console.log('error:', err)
-    return err;
+    return err.response.data;
   });
 }

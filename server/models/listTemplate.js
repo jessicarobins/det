@@ -60,10 +60,8 @@ listTemplate.methods.realizePendingItem = function(pendingItem) {
   
   this.items.push(new ListItem({text: pendingItem.text}));
   
-  console.log('lists in pending items? ', pendingItem._lists)
   List.find({_template: this._id, _id: { $nin: pendingItem._lists }}).exec()
     .then( (lists) => {
-      console.log('lists? ', lists)
       lists.forEach( (list) => {
         list.items.push(new ListItem({text: pendingItem.text}));
         list.save();
