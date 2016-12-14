@@ -42,12 +42,15 @@ export function addEmptyList(req, res) {
   newList.cuid = cuid();
   newList._users.push(req.user);
   
-  const newTemplate = new ListTemplate({actions: [req.body.list.action]});
+  const newTemplate = new ListTemplate({
+    actions: [req.body.list.action],
+    createdBy: req.user
+  });
+  
   newTemplate.save( function ( err, template ){
     if( err ) { 
       console.error("Error:", err);
     }
-    console.log('template:', template)
     console.log('creating a new empty template');
     handleCreateFromTemplate(res, newList, template);
   });

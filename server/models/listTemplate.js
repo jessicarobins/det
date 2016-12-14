@@ -15,6 +15,7 @@ const listTemplate = new Schema({
   sha: { type: 'String' },
   dateAdded: { type: 'Date', default: Date.now, required: true },
   dateModified: { type: 'Date', default: Date.now, required: false },
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
 listTemplate.virtual('name').get( function() {
