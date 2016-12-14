@@ -144,7 +144,7 @@ export function addListItem(req, res) {
   
   List.findOne({ cuid: req.params.cuid }).exec()
     .then( (list) => {
-      return list.addListItem(req.body.item);
+      return list.addListItem(req.body.item, req.user);
     })
     .then( (list) => {
       res.json({ list });

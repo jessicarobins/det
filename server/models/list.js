@@ -34,7 +34,7 @@ listSchema.query.forUser = function(user) {
   return this.find({_users: user._id});
 };
 
-listSchema.methods.addListItem = function(item) {
+listSchema.methods.addListItem = function(item, user) {
   let list = this;
   
   //add item to this list no matter what
@@ -49,6 +49,12 @@ listSchema.methods.addListItem = function(item) {
       // don't do anything else
       if(!template) {
         return Q.reject('no template');
+      }
+      
+      //if the template was created by the current user
+      // bypass the threshold and add it to everything immediately
+      if(template.createdBy && user._id.equals(template.createdBy)) {
+        return template.addItemToLists(item, [list._id]);
       }
       
       //find the pending item with that text

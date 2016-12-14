@@ -75,6 +75,22 @@ listTemplate.methods.realizePendingItem = function(pendingItem) {
   return this.save();
 };
 
+listTemplate.methods.addItemToLists = function(itemText, exceptLists) {
+  let promises = [];
+  return List.find({_template: this._id, _id: { $nin: exceptLists }}).exec()
+    .then( (lists) => {
+      lists.forEach( (list) => {
+        list.items.push(new ListItem({text: itemText}));
+        promises.push(list.save());
+      });
+      return Q.all(promises);
+    })
+    .catch( (err) => {
+      console.log('an error? ', err);
+      return Q.reject();
+    });
+};
+
 listTemplate.set('toJSON', { virtuals: true });
 
 export default mongoose.model('ListTemplate', listTemplate);
