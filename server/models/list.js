@@ -37,6 +37,10 @@ listSchema.query.forUser = function(user) {
 listSchema.methods.addListItem = function(item, user) {
   let list = this;
   
+  if (_.find(list.items, (i) => _.toLower(i.text) === _.toLower(item))) {
+    return Q.reject(`This list already contains ${item}`);
+  }
+  
   //add item to this list no matter what
   const newItem = new ListItem({text: item});
   list.items.push(newItem);
@@ -122,7 +126,8 @@ listSchema.statics.demoLists = function() {
     {name: 'visit every castle in Scotland'},
     {name: 'read every Stephen King novel'},
     {name: 'run a 5k in every US state'},
-    {name: 'visit every country in Europe'}
+    {name: 'visit every country in Europe'},
+    {name: 'visit every continent'}
   ];
 };
 
