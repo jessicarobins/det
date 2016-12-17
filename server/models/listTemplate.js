@@ -72,11 +72,9 @@ listTemplate.methods.realizePendingItem = function(pendingItem) {
     .catch( (err) => {
       console.log('an error? ', err)
     })
-    .finally( () => {
-      console.log('wtf is going on ')
-      pendingItem.remove();
-      return template.save();
-    });
+    
+    pendingItem.remove();
+    return template.save();
 };
 
 listTemplate.methods.removeItem = function(pendingItem) {
