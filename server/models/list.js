@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
 import * as _ from 'lodash';
 
 const ADD_ITEM_THRESHOLD = 1;
-const DELETE_ITEM_THRESHOLD = 5;
+const DELETE_ITEM_THRESHOLD = 1;
 
 const listSchema = new Schema({
   cuid: { type: 'String', required: true },
@@ -56,19 +56,41 @@ listSchema.methods.addListItem = function(item, user) {
         return Q.reject('no template');
       }
       
+      //look for a pending item with that text
+      const lowercaseText = _.toLower(item);
+      const pendingItem = _.find(template.pendingItems, {text: lowercaseText});
+      
+      //if a delete pending item exists, and our list is in it, just
+      // remove our list id from that delete pending item and
+      // remove the pending item if necessary
+      
+      if (pendingItem && pendingItem.action === 'delete') {
+        const removed = _.remove(pendingItem._lists, (_list) => _list.equals(list._id));
+        //if our list isn't in it, that means it's a dupe
+        if(!removed.length) {
+          return Q.reject('Duplicates are not allowed.');
+        }
+        //if there are still lists left, save list
+        if(pendingItem._lists.length) {
+          return pendingItem.save();
+        }
+        //otherwise, delete pending item
+        pendingItem.remove();
+        return template.save();
+      }
+      
       //if the template was created by the current user
       // bypass the threshold and add it to everything immediately
       if(template.createdBy && user._id.equals(template.createdBy)) {
         return template.addItemToLists(item, [list._id]);
       }
       
-      //find the pending item with that text
-      const lowercaseText = _.toLower(item);
-      const pendingItem = _.find(template.pendingItems, {text: lowercaseText});
-      
       //if there is no pending item, create one, then do nothing
       if(!pendingItem) {
-        template.pendingItems.push(new PendingItem({text: lowercaseText, _lists: [list._id]}));
+        template.pendingItems.push(new PendingItem({
+          text: lowercaseText,
+          action: 'create',
+          _lists: [list._id]}));
         return template.save();
       }
       //what if pending items already includes this list?
@@ -122,8 +144,70 @@ listSchema.methods.addItemToOtherLists = function(itemText) {
 };
 
 listSchema.methods.deleteListItem = function(_id) {
-  this.items.id(_id).remove();
-  return this.save();
+  const list = this;
+  const item = this.items.id(_id);
+  const lowercaseText = _.toLower(item.text);
+  
+  // remove item no matter what
+  item.remove();
+  
+  return ListTemplate.findOne({_id: list._template}).exec()
+    .then((template) => {
+      
+      //if there is no template
+      // don't do anything else
+      if(!template) {
+        return Q.reject('no template');
+      }
+      
+      //check for a pre-existing pending item
+      const pendingItem = _.find(template.pendingItems, {text: lowercaseText});
+      
+      //if there is no pending item, create one
+      if (!pendingItem) {
+        template.pendingItems.push(new PendingItem({
+          text: lowercaseText,
+          action: 'delete',
+          _lists: [list._id]}));
+        return template.save();
+      }
+      
+      //if there is a pending item, check if it's a create or delete
+      
+      //if it's a create, don't add a new 'delete' pending item
+      // just remove the list from pendingItem._lists
+      if (pendingItem.action === 'create') {
+        _.remove(pendingItem._lists, (_list) => _list.equals(list._id));
+        //if there are still lists left, save list
+        if(pendingItem._lists.length) {
+          return pendingItem.save();
+        }
+        //otherwise, delete pending item
+        pendingItem.remove();
+        return template.save();
+      }
+      
+      //if it's a delete, check how many lists are on it already
+      
+      //if we are less than threshold, add list id to pendingItem._lists
+      if (pendingItem._lists.length < DELETE_ITEM_THRESHOLD) {
+        pendingItem._lists.push(list._id);
+        return pendingItem.save();
+      }
+      
+      //otherwise, remove item from template and delete pending item
+      return template.removeItem(pendingItem);
+    })
+    .then( () => {
+      return list.save();
+    })
+    .then( (newList) => {
+      return newList;
+    })
+    .catch( (err) => {
+      console.log(err);
+      return Q.reject(err);
+    });
 };
 
 listSchema.statics.demoLists = function() {

@@ -75,6 +75,13 @@ listTemplate.methods.realizePendingItem = function(pendingItem) {
   return this.save();
 };
 
+listTemplate.methods.removeItem = function(pendingItem) {
+  const item = _.find(this.items, item => _.toLower(item.text) === _.toLower(pendingItem.text));
+  item.remove();
+  pendingItem.remove();
+  return this.save();
+};
+
 listTemplate.methods.addItemToLists = function(itemText, exceptLists) {
   let promises = [];
   return List.find({_template: this._id, _id: { $nin: exceptLists }}).exec()
