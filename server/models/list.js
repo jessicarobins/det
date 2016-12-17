@@ -82,7 +82,7 @@ listSchema.methods.addListItem = function(item, user) {
       //if the template was created by the current user
       // bypass the threshold and add it to everything immediately
       if(template.createdBy && user._id.equals(template.createdBy)) {
-        return template.addItemToLists(item, [list._id]);
+        return template.addItem(item, [list._id]);
       }
       
       //if there is no pending item, create one, then do nothing

@@ -59,9 +59,10 @@ listTemplate.statics.newWithItems = function(action, items) {
 
 listTemplate.methods.realizePendingItem = function(pendingItem) {
   
-  this.items.push(new ListItem({text: pendingItem.text}));
+  const template = this;
+  template.items.push(new ListItem({text: pendingItem.text}));
   
-  List.find({_template: this._id, _id: { $nin: pendingItem._lists }}).exec()
+  List.find({_template: template._id, _id: { $nin: pendingItem._lists }}).exec()
     .then( (lists) => {
       lists.forEach( (list) => {
         list.items.push(new ListItem({text: pendingItem.text}));
@@ -70,9 +71,12 @@ listTemplate.methods.realizePendingItem = function(pendingItem) {
     })
     .catch( (err) => {
       console.log('an error? ', err)
+    })
+    .finally( () => {
+      console.log('wtf is going on ')
+      pendingItem.remove();
+      return template.save();
     });
-  pendingItem.remove();
-  return this.save();
 };
 
 listTemplate.methods.removeItem = function(pendingItem) {
@@ -82,8 +86,12 @@ listTemplate.methods.removeItem = function(pendingItem) {
   return this.save();
 };
 
-listTemplate.methods.addItemToLists = function(itemText, exceptLists) {
-  let promises = [];
+listTemplate.methods.addItem = function(itemText, exceptLists) {
+  const template = this;
+  template.items.push(new ListItem({text: itemText}));
+  
+  let promises = [template.save()];
+  
   return List.find({_template: this._id, _id: { $nin: exceptLists }}).exec()
     .then( (lists) => {
       lists.forEach( (list) => {
@@ -94,7 +102,7 @@ listTemplate.methods.addItemToLists = function(itemText, exceptLists) {
     })
     .catch( (err) => {
       console.log('an error? ', err);
-      return Q.reject();
+      return Q.reject(err);
     });
 };
 
