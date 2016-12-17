@@ -65,7 +65,7 @@ var WrapperCheckbox = React.createClass({
   },
 	render: function(){
   	return (
-    	<div onClick={this.handleClick}>
+    	<div onClick={this.handleClick} className='checkbox-wrapper'>
     		<Checkbox 
     		  name={this.props.name} 
     		  value={this.state.value}/>

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { ListGroup } from 'react-bootstrap';
 
 require('./ToDoList.css');
 
@@ -8,6 +9,7 @@ import PostListItem from './ToDoListItem/ToDoListItem';
 function ToDoList(props) {
   return (
     <div className='todo-list'>
+      <ListGroup>
       {
         props.todos.map(todo => (
           <PostListItem
@@ -18,6 +20,7 @@ function ToDoList(props) {
           />
         ))
       }
+      </ListGroup>
     </div>
   );
 }

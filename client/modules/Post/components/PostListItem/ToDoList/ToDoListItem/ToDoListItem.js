@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { Checkbox } from 'react-bootstrap';
+import { Checkbox, Button } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
 
 import WrapperCheckbox from './Checkbox';
+
+require('./ToDoListItem.css');
 
 export class ToDoListItem extends Component {
   
@@ -16,34 +18,35 @@ export class ToDoListItem extends Component {
   
   renderCheckbox() {
     return (
-      <WrapperCheckbox 
-        checked={this.checked()}
-        onClick={this.toggleCheckbox} 
-        name={this.props.todo.text} />
+      <h4 className='todo-list-item'>
+        <WrapperCheckbox 
+          checked={this.checked()}
+          onClick={this.toggleCheckbox} 
+          name={this.props.todo.text} />
+        <FontAwesome className='trash-icon' name='trash'/>
+      </h4>
     )
   }
   
   renderReadOnly() {
     const styles = this.checked() ? {} : {visibility: 'hidden'};
     return (
-      <span>
+      <h4>
         <FontAwesome style={styles} name='check'/>
         {' '}
         {this.props.todo.text}
-      </span>
+      </h4>
     )
   }
   
   render() {
     return (
-      <div>
-        <h4>
-          {
-            this.props.readOnly ?
-            this.renderReadOnly() :
-            this.renderCheckbox()
-          }
-        </h4>
+      <div className="list-group-item">
+        {
+          this.props.readOnly ?
+          this.renderReadOnly() :
+          this.renderCheckbox()
+        }
       </div>
     );
   }
