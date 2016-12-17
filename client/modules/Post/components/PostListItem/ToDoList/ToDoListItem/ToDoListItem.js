@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Checkbox, Button } from 'react-bootstrap';
+import { Fade } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
 
 import WrapperCheckbox from './Checkbox';
@@ -7,6 +7,12 @@ import WrapperCheckbox from './Checkbox';
 require('./ToDoListItem.css');
 
 export class ToDoListItem extends Component {
+  
+  constructor(props) {
+    super(props);
+
+    this.state = {open: true};
+  }
   
   checked() {
     return this.props.todo.complete;
@@ -17,21 +23,24 @@ export class ToDoListItem extends Component {
   }
   
   handleDeleteItem = () => {
+    this.setState({open: false})
     this.props.deleteListItem(this.props.todo);
   }
   
   renderCheckbox() {
     return (
-      <h4 className='todo-list-item'>
-        <WrapperCheckbox 
-          checked={this.checked()}
-          onClick={this.toggleCheckbox} 
-          name={this.props.todo.text} />
-        <FontAwesome 
-          onClick={this.handleDeleteItem}
-          className='trash-icon'
-          name='trash'/>
-      </h4>
+      <Fade in={this.state.open} className='todo-list-item'>
+        <h4>
+          <WrapperCheckbox 
+            checked={this.checked()}
+            onClick={this.toggleCheckbox} 
+            name={this.props.todo.text} />
+          <FontAwesome 
+            onClick={this.handleDeleteItem}
+            className='trash-icon'
+            name='trash'/>
+        </h4>
+      </Fade>
     )
   }
   
