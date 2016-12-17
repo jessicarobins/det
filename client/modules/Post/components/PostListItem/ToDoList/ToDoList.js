@@ -17,6 +17,7 @@ function ToDoList(props) {
             todo={todo}
             key={todo._id}
             toggleListItem={props.toggleListItem}
+            deleteListItem={props.deleteListItem}
           />
         ))
       }
@@ -30,6 +31,7 @@ ToDoList.propTypes = {
     text: PropTypes.string.isRequired,
   })).isRequired,
   toggleListItem: PropTypes.func.isRequired,
+  deleteListItem: PropTypes.func.isRequired,
   readOnly: PropTypes.bool.isRequired,
 };
 

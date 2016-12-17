@@ -22,6 +22,11 @@ const PostReducer = (state = initialState, action) => {
       return {
         data: [action.list],
       };
+    
+    case actions.DELETE_LIST_ITEM :
+      return {
+        data: [action.list],
+      };
       
     case actions.ADD_LISTS :
       return {

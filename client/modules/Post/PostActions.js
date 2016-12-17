@@ -7,6 +7,7 @@ export const ADD_LIST = 'ADD_LIST';
 export const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
 export const ADD_LIST_ITEM_ERROR = 'ADD_LIST_ITEM_ERROR';
 export const TOGGLE_LIST_ITEM = 'TOGGLE_LIST_ITEM';
+export const DELETE_LIST_ITEM = 'DELETE_LIST_ITEM';
 export const ADD_LISTS = 'ADD_LISTS';
 export const ADD_TEMPLATES = 'ADD_TEMPLATES';
 export const DELETE_POST = 'DELETE_POST';
@@ -71,6 +72,20 @@ export function toggleListItemRequest(props) {
   return (dispatch) => {
     return callApi(`lists/${props.cuid}/toggle/${props.list_item_id}`, 'put')
       .then(res => dispatch(toggleListItem(res.list)));
+  };
+}
+
+export function deleteListItem(list) {
+  return {
+    type: DELETE_LIST_ITEM,
+    list
+  };
+}
+
+export function deleteListItemRequest(props) {
+  return (dispatch) => {
+    return callApi(`lists/${props.cuid}/item/${props.list_item_id}`, 'delete')
+      .then(res => dispatch(deleteListItem(res.list)));
   };
 }
 

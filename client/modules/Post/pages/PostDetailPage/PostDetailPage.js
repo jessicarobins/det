@@ -7,7 +7,7 @@ import { ProgressBar, Grid, Col, Row } from 'react-bootstrap';
 import * as _ from 'lodash';
 
 // Import Actions
-import { fetchList, addListItemRequest, toggleListItemRequest } from '../../PostActions';
+import { fetchList, addListItemRequest, toggleListItemRequest, deleteListItemRequest } from '../../PostActions';
 import { toggleSpinnerOff } from '../../../App/AppActions';
 
 // Import Selectors
@@ -37,6 +37,12 @@ class PostDetailPage extends Component {
     this.props.dispatch(toggleListItemRequest({ cuid, list_item_id }));
   };
   
+  handleDeleteListItem = (listItem) => {
+    const cuid = this.props.list.cuid;
+    const list_item_id = listItem._id;
+    this.props.dispatch(deleteListItemRequest({ cuid, list_item_id }));
+  };
+  
   belongsToUser() {
     return _.includes(this.props.list._users, this.props.user._id);
   }
@@ -57,6 +63,7 @@ class PostDetailPage extends Component {
               <ToDoList 
                 readOnly={!this.belongsToUser()}
                 todos={this.props.list.items}
+                deleteListItem={this.handleDeleteListItem}
                 toggleListItem={this.handleToggleListItem} />
               { this.belongsToUser() ? 
               <ListItemCreateWidget addListItem={this.handleAddListItem} />

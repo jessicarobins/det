@@ -154,6 +154,19 @@ export function addListItem(req, res) {
     });
 }
 
+export function deleteListItem(req, res) {
+  List.findOne({ cuid: req.params.cuid }).exec()
+    .then( (list) => {
+      return list.deleteListItem(req.params.id);
+    })
+    .then( (list) => {
+      res.json({ list });
+    })
+    .catch( (err) => {
+      res.status(422).send(err);
+    });
+}
+
 /**
  * Delete a list
  * @param req

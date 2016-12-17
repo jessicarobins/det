@@ -16,6 +16,10 @@ export class ToDoListItem extends Component {
     this.props.toggleListItem(this.props.todo);
   }
   
+  handleDeleteItem = () => {
+    this.props.deleteListItem(this.props.todo);
+  }
+  
   renderCheckbox() {
     return (
       <h4 className='todo-list-item'>
@@ -23,7 +27,11 @@ export class ToDoListItem extends Component {
           checked={this.checked()}
           onClick={this.toggleCheckbox} 
           name={this.props.todo.text} />
-        <FontAwesome className='trash-icon' name='trash'/>
+        <a onClick={this.handleDeleteItem}>
+          <FontAwesome 
+            className='trash-icon'
+            name='trash'/>
+        </a>
       </h4>
     )
   }
@@ -58,6 +66,7 @@ ToDoListItem.propTypes = {
     complete: PropTypes.bool.isRequired,
   }).isRequired,
   toggleListItem: PropTypes.func.isRequired,
+  deleteListItem: PropTypes.func.isRequired,
   readOnly: PropTypes.bool.isRequired,
 };
 

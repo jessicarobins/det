@@ -1,7 +1,5 @@
 import { Router } from 'express';
-import passport from 'passport';
 
-import * as PostController from '../controllers/post.controller';
 import * as ListController from '../controllers/list.controller';
 import * as ListTemplateController from '../controllers/listTemplate.controller';
 import * as UserController from '../controllers/user.controller';
@@ -21,6 +19,7 @@ router.route('/lists/find_or_create').post(ListController.findOrCreateListTempla
 router.route('/lists/:cuid/toggle/:list_item_id').put(ListController.toggleListItem);
 router.route('/lists/:cuid').get(ListController.getList);
 router.route('/lists/:cuid').post(ListController.addListItem);
+router.route('/lists/:cuid/item/:id').delete(ListController.deleteListItem);
 
 // templates
 router.route('/templates').get(ListTemplateController.getTemplates);

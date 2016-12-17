@@ -120,6 +120,11 @@ listSchema.methods.addItemToOtherLists = function(itemText) {
     });
 };
 
+listSchema.methods.deleteListItem = function(_id) {
+  this.items.id(_id).remove();
+  return this.save();
+};
+
 listSchema.statics.demoLists = function() {
   return [
     {name: 'watch every Harry Potter movie'},
