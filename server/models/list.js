@@ -7,7 +7,8 @@ import PendingItem from './pendingItem';
 const Schema = mongoose.Schema;
 import * as _ from 'lodash';
 
-const LIST_THRESHOLD = 1;
+const ADD_ITEM_THRESHOLD = 1;
+const DELETE_ITEM_THRESHOLD = 5;
 
 const listSchema = new Schema({
   cuid: { type: 'String', required: true },
@@ -78,7 +79,7 @@ listSchema.methods.addListItem = function(item, user) {
         return Q.reject('This list already contains this item.');
       }
       //if we have less than the threshold, just add the list id
-      else if(pendingItem._lists.length < LIST_THRESHOLD) {
+      else if(pendingItem._lists.length < ADD_ITEM_THRESHOLD) {
         pendingItem._lists.push(list._id);
         return pendingItem.save();
       }

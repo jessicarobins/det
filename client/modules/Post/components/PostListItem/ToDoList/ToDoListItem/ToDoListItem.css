@@ -7,6 +7,7 @@
 
 .trash-icon {
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .checkbox-wrapper {

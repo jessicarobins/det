@@ -27,11 +27,10 @@ export class ToDoListItem extends Component {
           checked={this.checked()}
           onClick={this.toggleCheckbox} 
           name={this.props.todo.text} />
-        <a onClick={this.handleDeleteItem}>
-          <FontAwesome 
-            className='trash-icon'
-            name='trash'/>
-        </a>
+        <FontAwesome 
+          onClick={this.handleDeleteItem}
+          className='trash-icon'
+          name='trash'/>
       </h4>
     )
   }
