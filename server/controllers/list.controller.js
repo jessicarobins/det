@@ -176,7 +176,7 @@ export function toggleListItem(req, res) {
 
 function findOrCreateTemplateByItems(action) {
   let items;
-  return wolframHelper.getItems(action)
+  return wolframHelper.tryQueries(action)
     .then( (resp) => {
       //look to see if we have any templates with these items already
       items = resp;
@@ -187,15 +187,16 @@ function findOrCreateTemplateByItems(action) {
         console.log('template found by items');
         //update template to include name
         template.actions.push(action);
-        template.save();
-        return template;
+        return template.save();
       }
       else {
         //create a new ListTemplate
-        const newTemplate = ListTemplate.newWithItems(action, items);
         console.log('creating a new template');
-        return newTemplate;
+        return ListTemplate.newWithItems(action, items);
       }
+    })
+    .then( (template) => {
+      return template;
     })
     .catch( (err) => {
       return Q.reject(err);
@@ -204,12 +205,13 @@ function findOrCreateTemplateByItems(action) {
 
 
 function handleCreateFromTemplate(res, list, template){
-  list.addItemsFromTemplate(template, (err, saved) => {
-    if (err) {
+  list.addItemsFromTemplate(template)
+    .then( (saved) => {
+      res.json({ list: saved });
+      return true;
+    })
+    .catch( (err) => {
       console.log('error', err);
-      res.status(500).send(err);
-    }
-    res.json({ list: saved });
-    return true;
-  });
+      res.status(422).send(err);
+    });
 }
