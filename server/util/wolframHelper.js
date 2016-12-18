@@ -31,5 +31,10 @@ export const formatResponse = (response) => {
   if (resultArray.length === 1) {
     resultArray = queryString.split('\n');
   }
+  //if array still only has one element, 
+  // it's probably not a legit query
+  if(resultArray.length === 1) {
+    return [];
+  }
   return resultArray;
 }
