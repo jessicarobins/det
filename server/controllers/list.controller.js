@@ -201,3 +201,15 @@ function findOrCreateTemplateByItems(action) {
       return Q.reject(err);
     });
 }
+
+
+function handleCreateFromTemplate(res, list, template){
+  list.addItemsFromTemplate(template, (err, saved) => {
+    if (err) {
+      console.log('error', err);
+      res.status(500).send(err);
+    }
+    res.json({ list: saved });
+    return true;
+  });
+}

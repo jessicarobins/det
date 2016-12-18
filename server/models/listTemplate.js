@@ -54,7 +54,7 @@ listTemplate.statics.newWithItems = function(action, items) {
   });
   newTemplate.sha = hasha(items);
   newTemplate.addListItems(items);
-  return newTemplate;
+  return newTemplate.save();
 }
 
 listTemplate.methods.realizePendingItem = function(pendingItem) {
