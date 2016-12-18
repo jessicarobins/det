@@ -132,10 +132,10 @@ listSchema.methods.addListItem = function(item, user) {
     });
 };
 
-listSchema.methods.addItemsFromTemplate = function(template, cb) {
+listSchema.methods.addItemsFromTemplate = function(template) {
   this.items = _.clone(template.items);
   this._template = template._id;
-  return this.save(cb);
+  return this.save();
 };
 
 listSchema.methods.addItemToOtherLists = function(itemText) {

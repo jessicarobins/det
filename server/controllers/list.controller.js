@@ -67,61 +67,33 @@ export function findOrCreateListTemplate(req, res) {
   
   if (!req.body.list.verb || !req.body.list.action) {
     res.status(403).end();
+    return Q.reject('Invalid input');
   }
   
   let newList = new List(req.body.list);
   newList.cuid = cuid();
   newList._users.push(req.user);
-  let items;
   
   //search ListTemplate for matching actions
-  ListTemplate.findOne({ actions: req.body.list.action })
-    .exec( (err, template) => {
+  ListTemplate.findOne({ actions: req.body.list.action }).exec()
+    .then( (template) => {
       //if we have a template with that action already, create
       // a new list based on it
       if(template) {
         console.log('template found by name');
-        handleCreateFromTemplate(res, newList, template);
-        return true;
+        return Q.when(template);
       }
-      
-      else {
-        waClient.query(formatQuery(req.body.list.action), QUERY_OPTIONS)
-        .then( (resp) => {
-          items = formatResponse(resp);
-          if(!items){
-            res.status(422).send('No results');
-            return Q.reject();
-          }
-          //look to see if we have any templates with these items already
-          return ListTemplate.find().byItems(items).exec();
-        })
-        .then( (template) => {
-          if(template) {
-            console.log('template found by items');
-            //update template to include name
-            template.actions.push(req.body.list.action);
-            template.save();
-            //create new list from template
-            handleCreateFromTemplate(res, newList, template);
-            
-          }
-          else {
-            //create a new ListTemplate
-            const newTemplate = ListTemplate.newWithItems(req.body.list.action, items);
-            console.log('creating a new template');
-            handleCreateFromTemplate(res, newList, newTemplate);
-          }
-        })
-        .catch(function(err) {
-          console.log('error', err);
-          res.status(500).send(err);
-        });
-      }
+      return findOrCreateTemplateByItems(req.body.list.action);
+    })
+    .then( (template) => {
+      return newList.addItemsFromTemplate(template);
+    })
+    .then( (list) => {
+      res.json({ list: list });
     })
     .catch(function(err) {
       console.log('error', err);
-      res.status(500).send(err);
+      res.status(422).send(err);
     });
 }
 
@@ -202,13 +174,30 @@ export function toggleListItem(req, res) {
   });
 }
 
-function handleCreateFromTemplate(res, list, template){
-  list.addItemsFromTemplate(template, (err, saved) => {
-    if (err) {
-      console.log('error', err);
-      res.status(500).send(err);
-    }
-    res.json({ list: saved });
-    return true;
-  });
+function findOrCreateTemplateByItems(action) {
+  let items;
+  return waClient.query(formatQuery(action), QUERY_OPTIONS)
+    .then( (resp) => {
+      items = formatResponse(resp);
+      if(!items){
+        return Q.reject('No results.');
+      }
+      //look to see if we have any templates with these items already
+      return ListTemplate.find().byItems(items).exec();
+    })
+    .then( (template) => {
+      if(template) {
+        console.log('template found by items');
+        //update template to include name
+        template.actions.push(action);
+        template.save();
+        return template;
+      }
+      else {
+        //create a new ListTemplate
+        const newTemplate = ListTemplate.newWithItems(action, items);
+        console.log('creating a new template');
+        return newTemplate;
+      }
+    });
 }

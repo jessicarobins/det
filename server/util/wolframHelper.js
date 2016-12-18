@@ -34,7 +34,7 @@ export const formatResponse = (response) => {
   //if array still only has one element, 
   // it's probably not a legit query
   if(resultArray.length === 1) {
-    return [];
+    return false;
   }
   return resultArray;
 }
