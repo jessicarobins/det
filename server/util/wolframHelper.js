@@ -1,4 +1,5 @@
 import wajs from 'wajs';
+import * as Q from 'q';
 import secrets from '../../secrets';
 export const WA_APP_ID = secrets.wolframAlphaId;
 
@@ -13,14 +14,21 @@ export const QUERY_OPTIONS = {
 
 export const formatQuery = (query) => query //`${query} list`;
 
+export const getItems = (action) => {
+  return waClient.query(formatQuery(action), QUERY_OPTIONS)
+    .then( (response) => {
+      return formatResponse(response);
+    })
+}
+
 export const formatResponse = (response) => {
   if (!response.pods()[1]){
-    return false;
+    return Q.reject();
   }
   let queryString = response.pods()[1].subpod[0].plaintext[0];
   console.log('querystring', queryString)
   if (queryString === '(data not available)'){
-    return false;
+    return Q.reject();
   }
   const totalIndex = queryString.indexOf('(total:');
   if (totalIndex > -1) {
@@ -34,7 +42,7 @@ export const formatResponse = (response) => {
   //if array still only has one element, 
   // it's probably not a legit query
   if(resultArray.length === 1) {
-    return false;
+    return Q.reject();
   }
-  return resultArray;
+  return Q.when(resultArray);
 }

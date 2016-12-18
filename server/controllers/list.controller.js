@@ -1,7 +1,7 @@
 import List from '../models/list';
 import ListTemplate from '../models/listTemplate';
 import cuid from 'cuid';
-import { waClient, formatQuery, formatResponse, QUERY_OPTIONS } from '../util/wolframHelper';
+import * as wolframHelper from '../util/wolframHelper';
 import * as Q from 'q';
 import mongoose from 'mongoose';
 mongoose.Promise = Q.Promise;
@@ -176,14 +176,11 @@ export function toggleListItem(req, res) {
 
 function findOrCreateTemplateByItems(action) {
   let items;
-  return waClient.query(formatQuery(action), QUERY_OPTIONS)
+  return wolframHelper.getItems(action)
     .then( (resp) => {
-      items = formatResponse(resp);
-      if(!items){
-        return Q.reject('No results.');
-      }
       //look to see if we have any templates with these items already
-      return ListTemplate.find().byItems(items).exec();
+      items = resp;
+      return ListTemplate.find().byItems(resp).exec();
     })
     .then( (template) => {
       if(template) {
@@ -199,5 +196,8 @@ function findOrCreateTemplateByItems(action) {
         console.log('creating a new template');
         return newTemplate;
       }
+    })
+    .catch( (err) => {
+      return Q.reject(err);
     });
 }
