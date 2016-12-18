@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import ListItemCreateWidget from '../../components/PostListItem/ListItemCreateWidget/ListItemCreateWidget';
 import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
-import { ProgressBar, Grid, Col, Row } from 'react-bootstrap';
+import Progress from '../../components/PostListItem/Progress/Progress';
+import { Grid, Col, Row } from 'react-bootstrap';
 import * as _ from 'lodash';
 
 // Import Actions
@@ -56,9 +57,7 @@ class PostDetailPage extends Component {
             <Col xs={12} md={6} mdOffset={3}>
               <div>
                 <h3>I want to <strong>{this.props.list.name}</strong></h3>
-                <ProgressBar 
-                  striped
-                  now={this.props.list.percentComplete}/>
+                <Progress list={this.props.list}/>
               </div>
               <ToDoList 
                 readOnly={!this.belongsToUser()}
