@@ -104,12 +104,14 @@ export function findOrCreateListTemplate(req, res) {
  * @returns void
  */
 export function getList(req, res) {
-  List.findOne({ cuid: req.params.cuid }).exec((err, list) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json({ list });
-  });
+  List.findOne({ cuid: req.params.cuid })
+    .populate('_users', 'name picture')
+    .exec((err, list) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+      res.json({ list });
+    });
 }
 
 export function addListItem(req, res) {

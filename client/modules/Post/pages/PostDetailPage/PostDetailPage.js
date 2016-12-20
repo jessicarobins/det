@@ -4,12 +4,14 @@ import Helmet from 'react-helmet';
 import ListItemCreateWidget from '../../components/PostListItem/ListItemCreateWidget/ListItemCreateWidget';
 import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
 import Progress from '../../components/PostListItem/Progress/Progress';
+import Header from '../../../App/components/Header/Header';
 import { Grid, Col, Row } from 'react-bootstrap';
 import * as _ from 'lodash';
 
 // Import Actions
 import { fetchList, addListItemRequest, toggleListItemRequest, deleteListItemRequest } from '../../PostActions';
 import { toggleSpinnerOff } from '../../../App/AppActions';
+import { logOut as logoutAction } from '../../../User/UserActions';
 
 // Import Selectors
 import { getPost } from '../../PostReducer';
@@ -45,14 +47,22 @@ class PostDetailPage extends Component {
   };
   
   belongsToUser() {
-    return _.includes(this.props.list._users, this.props.user._id);
+    return this.props.user && _.includes(this.props.list._users, this.props.user._id);
   }
+  
+  handleLogout = () => {
+    this.props.dispatch(logoutAction());
+  };
   
   render() {
     return (
       <div>
         <Helmet title={this.props.list.name} />
-        <Grid>
+        <Header
+          user={this.props.user}
+          logout={this.handleLogout}
+        />
+        <Grid className='container'>
           <Row className="show-grid">
             <Col xs={12} md={6} mdOffset={3}>
               <div>

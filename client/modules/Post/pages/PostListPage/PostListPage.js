@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Row, Col } from 'react-bootstrap';
+import Header from '../../../App/components/Header/Header';
 
 require('./ListListPage.css')
 
@@ -11,13 +12,14 @@ import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget
 // Import Actions
 import { addListRequest, fetchPosts, fetchDemoLists, deletePostRequest } from '../../PostActions';
 import { fetchTemplates } from '../../../Template/TemplateActions';
-import { toggleAddWarning, toggleSpinnerOn } from '../../../App/AppActions';
+import { toggleAddWarning } from '../../../App/AppActions';
+import { logOut as logoutAction } from '../../../User/UserActions';
 
 // Import Selectors
 import { getShowAddWarning } from '../../../App/AppReducer';
 import { getPosts } from '../../PostReducer';
 import { getTemplates } from '../../../Template/TemplateReducer';
-import { getAuth } from '../../../User/UserReducer';
+import { getAuth, getUser } from '../../../User/UserReducer';
 
 class PostListPage extends Component {
   
@@ -48,12 +50,20 @@ class PostListPage extends Component {
   handleToggleAddWarning = () => {
     this.props.dispatch(toggleAddWarning());
   };
-
+  
+  handleLogout = () => {
+    this.props.dispatch(logoutAction());
+  };
+  
   render() {
     return (
       
       <div>
-        <div>
+        <Header
+          user={this.props.user}
+          logout={this.handleLogout}
+        />
+        <div className={'container'}>
           <Grid>
             <Row className='show-grid'>
               <Col xs={12} md={10} mdOffset={1}>
@@ -95,6 +105,7 @@ function mapStateToProps(state) {
     templates: getTemplates(state),
     showAddWarning: getShowAddWarning(state),
     authorized: getAuth(state),
+    user: getUser(state)
   };
 }
 
@@ -108,6 +119,7 @@ PostListPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   showAddWarning: PropTypes.bool.isRequired,
   authorized: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 PostListPage.contextTypes = {

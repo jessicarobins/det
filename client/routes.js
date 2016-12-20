@@ -28,16 +28,16 @@ if (process.env.NODE_ENV !== 'production') {
 export function createRoutes(store) {
   
   const requireAuth = (nextState, replace, callback) => {
-    const { user: { authenticated }} = store.getState();
-    if (!authenticated) {
-      replace({
-        pathname: '/login',
-        state: { nextPathname: nextState.location.pathname }
-      });
-    }
-    else {
+    // const { user: { authenticated }} = store.getState();
+    // if (!authenticated) {
+    //   replace({
+    //     pathname: '/login',
+    //     state: { nextPathname: nextState.location.pathname }
+    //   });
+    // }
+    // else {
       store.dispatch(toggleSpinnerOn());
-    }
+    // }
     callback();
   };
 

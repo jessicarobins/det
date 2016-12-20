@@ -19,7 +19,9 @@ class UnAuthPage extends Component {
 
   render() {
     return (
-      <UnAuthWidget lists={this.props.lists}/>
+      <div className='container'>
+        <UnAuthWidget lists={this.props.lists}/>
+      </div>
     );
   }
 }

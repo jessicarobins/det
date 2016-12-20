@@ -47,20 +47,14 @@ export class App extends Component {
               },
             ]}
           />
-           <Loader
+          <Loader
             messageStyle={{color: '#91170a', fontSize: '48px', fontWeight: '900'}}
             contentBlur={8}
             show={this.props.showSpinner}>
-            {this.props.user.authenticated ? 
-              <Header
-                user={this.props.user.data}
-                logout={this.handleLogout}
-              /> : <span></span>
-            }
             <SystemMessage 
               dispatch={this.props.dispatch}
               alerts={this.props.alerts} />
-            <div className={'container'}>
+            <div>
               {this.props.children}
             </div>
           </Loader>
