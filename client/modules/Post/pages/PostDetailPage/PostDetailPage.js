@@ -1,11 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+
+require ('./ListDetailPage.css');
+
 import ListItemCreateWidget from '../../components/PostListItem/ListItemCreateWidget/ListItemCreateWidget';
 import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
 import Progress from '../../components/PostListItem/Progress/Progress';
 import Header from '../../../App/components/Header/Header';
-import { Grid, Col, Row } from 'react-bootstrap';
+import { Grid, Col, Row, Image, Media } from 'react-bootstrap';
 import * as _ from 'lodash';
 
 // Import Actions
@@ -47,7 +50,8 @@ class PostDetailPage extends Component {
   };
   
   belongsToUser() {
-    return this.props.user && _.includes(this.props.list._users, this.props.user._id);
+    const belongs = !!this.props.user && _.find(this.props.list._users, {_id: this.props.user._id});
+    return belongs;
   }
   
   handleLogout = () => {
@@ -65,8 +69,15 @@ class PostDetailPage extends Component {
         <Grid className='container'>
           <Row className="show-grid">
             <Col xs={12} md={6} mdOffset={3}>
+              <Media className='i-wanna'>
+                <Media.Body>
+                  I want to <strong>{this.props.list.name}</strong>
+                </Media.Body>
+                <Media.Right align="middle">
+                  <Image src={this.props.user.picture} rounded />
+                </Media.Right>
+              </Media>
               <div>
-                <h3>I want to <strong>{this.props.list.name}</strong></h3>
                 <Progress list={this.props.list}/>
               </div>
               <ToDoList 

@@ -17,12 +17,16 @@ export function getLists(req, res) {
     return;
   }
   
-  List.find().forUser(req.user).sort('-dateAdded').exec((err, lists) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json({ lists });
-  });
+  List.find().forUser(req.user)
+    .sort('-dateAdded')
+    .populate('_users', 'name picture')
+    .exec()
+    .then( (lists) => {
+      res.json({ lists });
+    })
+    .catch( (err) => {
+      res.status(422).send(err);
+    });
   
 }
 
@@ -47,14 +51,20 @@ export function addEmptyList(req, res) {
     createdBy: req.user
   });
   
-  newTemplate.save( function ( err, template ){
-    if( err ) { 
-      console.error("Error:", err);
-    }
-    console.log('creating a new empty template');
-    handleCreateFromTemplate(res, newList, template);
-  });
-  
+  newTemplate.save()
+    .then( (template) => {
+      console.log('creating a new empty template');
+      return newList.addItemsFromTemplate(template);
+    })
+    .then( (list) => {
+      return List.populate(list, {path:'_users', select: 'name picture'});
+    })
+    .then( (list) => {
+      res.json({ list });
+    })
+    .catch( (err) => {
+      res.status(422).send(err);
+    });
 }
 
 /**
@@ -89,10 +99,13 @@ export function findOrCreateListTemplate(req, res) {
       return newList.addItemsFromTemplate(template);
     })
     .then( (list) => {
+      return List.populate(list, {path:'_users', select: 'name picture'})
+    })
+    .then( (list) => {
       res.json({ list: list });
     })
     .catch(function(err) {
-      console.log('error', err);
+      console.log('error in the controller', err);
       res.status(422).send(err);
     });
 }
@@ -116,7 +129,9 @@ export function getList(req, res) {
 
 export function addListItem(req, res) {
   
-  List.findOne({ cuid: req.params.cuid }).exec()
+  List.findOne({ cuid: req.params.cuid })
+    .populate('_users', 'name picture')
+    .exec()
     .then( (list) => {
       return list.addListItem(req.body.item, req.user);
     })
@@ -129,7 +144,9 @@ export function addListItem(req, res) {
 }
 
 export function deleteListItem(req, res) {
-  List.findOne({ cuid: req.params.cuid }).exec()
+  List.findOne({ cuid: req.params.cuid })
+    .populate('_users', 'name picture')
+    .exec()
     .then( (list) => {
       return list.deleteListItem(req.params.id);
     })
@@ -160,20 +177,25 @@ export function deleteList(req, res) {
 }
 
 export function toggleListItem(req, res) {
-  
-  List.findOne( { cuid: req.params.cuid }, function ( err, list ){
-    const todo = list.items.id(req.params.list_item_id);
-    
-    todo.dateModified = Date.now();
-    todo.complete = !todo.complete;
-    list.save( function ( err, todo ){
-      if( err ) { 
-        console.error("Error:", err);
-        res.status(500).send(err);
-      }
+ 
+  List.findOne( { cuid: req.params.cuid })
+    .populate('_users', 'name picture')
+    .exec()
+    .then( (list ) => {
+      const todo = list.items.id(req.params.list_item_id);
+      
+      todo.dateModified = Date.now();
+      todo.complete = !todo.complete;
+
+      return list.save();  
+    })
+    .then( (list) => {
       res.json({ list });
-    });
-  });
+    })
+    .catch( (err) => {
+      res.status(422).send(err);
+    })
+  
 }
 
 function findOrCreateTemplateByItems(action) {

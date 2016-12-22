@@ -114,7 +114,6 @@ passport.use(new OAuth2Strategy({
       if (!err && user !== null) {
         done(null, user);
       } else {
-        console.log('profile: ', profile)
         user = new User({
           oauthID: profile.id,
           name: profile.displayName,
