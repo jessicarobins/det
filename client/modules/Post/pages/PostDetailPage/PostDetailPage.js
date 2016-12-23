@@ -2,8 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 
-require ('./ListDetailPage.css');
-
 import ListItemCreateWidget from '../../components/PostListItem/ListItemCreateWidget/ListItemCreateWidget';
 import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
 import Progress from '../../components/PostListItem/Progress/Progress';
@@ -13,12 +11,12 @@ import { Grid, Col, Row } from 'react-bootstrap';
 import * as _ from 'lodash';
 
 // Import Actions
-import { fetchList, addListItemRequest, toggleListItemRequest, deleteListItemRequest } from '../../PostActions';
+import { fetchList, addListItemRequest, toggleListItemRequest, deleteListItemRequest } from '../../ListActions';
 import { toggleSpinnerOff } from '../../../App/AppActions';
 import { logOut as logoutAction } from '../../../User/UserActions';
 
 // Import Selectors
-import { getPost } from '../../PostReducer';
+import { getPost } from '../../ListReducer';
 import { getUser } from '../../../User/UserReducer'; 
 
 class PostDetailPage extends Component {

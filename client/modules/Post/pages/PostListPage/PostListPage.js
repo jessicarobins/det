@@ -10,14 +10,14 @@ import PostList from '../../components/PostList';
 import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget';
 
 // Import Actions
-import { addListRequest, fetchPosts, fetchDemoLists, deletePostRequest } from '../../PostActions';
+import { addListRequest, fetchPosts, deletePostRequest } from '../../ListActions';
 import { fetchTemplates } from '../../../Template/TemplateActions';
 import { toggleAddWarning } from '../../../App/AppActions';
 import { logOut as logoutAction } from '../../../User/UserActions';
 
 // Import Selectors
 import { getShowAddWarning } from '../../../App/AppReducer';
-import { getPosts } from '../../PostReducer';
+import { getPosts } from '../../ListReducer';
 import { getTemplates } from '../../../Template/TemplateReducer';
 import { getAuth, getUser } from '../../../User/UserReducer';
 
@@ -81,7 +81,7 @@ class PostListPage extends Component {
                   templates={this.props.templates} />
                 <PostList 
                   handleDeletePost={this.handleDeletePost}
-                  posts={this.props.posts} />
+                  lists={this.props.lists} />
               </Col>
             </Row>
           </Grid>
@@ -101,7 +101,7 @@ PostListPage.need = [
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
-    posts: getPosts(state),
+    lists: getPosts(state),
     templates: getTemplates(state),
     showAddWarning: getShowAddWarning(state),
     authorized: getAuth(state),
@@ -110,7 +110,7 @@ function mapStateToProps(state) {
 }
 
 PostListPage.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.shape({
+  lists: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired
   })).isRequired,
   templates: PropTypes.arrayOf(PropTypes.shape({

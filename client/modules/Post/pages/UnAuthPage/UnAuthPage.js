@@ -1,15 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Row, Col } from 'react-bootstrap';
 
 // Import Components
 import UnAuthWidget from '../../components/UnAuthWidget/UnAuthWidget';
 
 // Import Actions
-import { fetchDemoLists } from '../../PostActions';
+import { fetchDemoLists } from '../../ListActions';
 
 // Import Selectors
-import { getPosts } from '../../PostReducer';
+import { getPosts } from '../../ListReducer';
 
 class UnAuthPage extends Component {
     

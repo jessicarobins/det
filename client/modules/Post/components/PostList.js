@@ -9,11 +9,11 @@ function PostList(props) {
   return (
     <div className="list-list">
       {
-        props.posts.map(post => (
+        props.lists.map(list => (
           <PostListItem
-            post={post}
-            key={post.cuid}
-            onDelete={() => props.handleDeletePost(post.cuid)}
+            post={list}
+            key={list.cuid}
+            onDelete={() => props.handleDeletePost(list.cuid)}
           />
         ))
       }
@@ -22,7 +22,7 @@ function PostList(props) {
 }
 
 PostList.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.shape({
+  lists: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
   })).isRequired,

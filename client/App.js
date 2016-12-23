@@ -4,7 +4,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
-import IntlWrapper from './modules/Intl/IntlWrapper';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 // Import Routes
@@ -17,11 +16,9 @@ export default function App(props) {
   const history = syncHistoryWithStore(browserHistory, props.store);
   return (
     <Provider store={props.store}>
-      <IntlWrapper>
-        <Router history={history}>
-          {createRoutes(props.store)}
-        </Router>
-      </IntlWrapper>
+      <Router history={history}>
+        {createRoutes(props.store)}
+      </Router>
     </Provider>
   );
 }

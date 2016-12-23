@@ -6,17 +6,15 @@ import { routerReducer as routing } from 'react-router-redux';
 
 // Import Reducers
 import app from './modules/App/AppReducer';
-import posts from './modules/Post/PostReducer';
+import lists from './modules/Post/ListReducer';
 import templates from './modules/Template/TemplateReducer';
-import intl from './modules/Intl/IntlReducer';
 import user from './modules/User/UserReducer';
 
 // Combine all reducers into one root reducer
 export default combineReducers({
   app,
-  posts,
+  lists,
   templates,
-  intl,
   user,
   routing
 });
