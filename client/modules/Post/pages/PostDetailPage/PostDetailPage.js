@@ -7,8 +7,9 @@ require ('./ListDetailPage.css');
 import ListItemCreateWidget from '../../components/PostListItem/ListItemCreateWidget/ListItemCreateWidget';
 import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
 import Progress from '../../components/PostListItem/Progress/Progress';
+import Tiles from '../../components/PostListItem/Tiles/Tiles';
 import Header from '../../../App/components/Header/Header';
-import { Grid, Col, Row, Image, Media } from 'react-bootstrap';
+import { Grid, Col, Row } from 'react-bootstrap';
 import * as _ from 'lodash';
 
 // Import Actions
@@ -69,17 +70,15 @@ class PostDetailPage extends Component {
         <Grid className='container'>
           <Row className="show-grid">
             <Col xs={12} md={6} mdOffset={3}>
-              <Media className='i-wanna'>
-                <Media.Body>
-                  I want to <strong>{this.props.list.name}</strong>
-                </Media.Body>
-                <Media.Right align="middle">
-                  <Image src={this.props.list._users[0].picture} rounded />
-                </Media.Right>
-              </Media>
-              <div>
-                <Progress list={this.props.list}/>
-              </div>
+              <h2>I want to <strong>{this.props.list.name}</strong></h2>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={1} mdOffset={1}>
+              <Tiles list={this.props.list} />
+            </Col>
+            <Col xs={12} md={6} mdOffset={1}>
+              <Progress list={this.props.list}/>
               <ToDoList 
                 readOnly={!this.belongsToUser()}
                 todos={this.props.list.items}

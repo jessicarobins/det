@@ -21,7 +21,6 @@ class Progress extends Component {
     return (
       <ProgressBar 
         striped
-        label={this.progressLabel()}
         now={this.props.list.percentComplete}/>
     )
   }
@@ -30,7 +29,6 @@ class Progress extends Component {
 Progress.propTypes = {
   list: PropTypes.shape({
     percentComplete: PropTypes.number.isRequired,
-    fractionComplete: PropTypes.string.isRequired,
   }).isRequired,
 };
 

@@ -50,7 +50,7 @@ export class ToDoListItem extends Component {
   render() {
     return (
       <div className="list-group-item">
-          {this.renderCheckbox()}
+        {this.renderCheckbox()}
       </div>
     );
   }

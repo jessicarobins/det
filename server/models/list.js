@@ -34,7 +34,11 @@ listSchema.virtual('percentComplete').get( function() {
 listSchema.virtual('fractionComplete').get( function() {
   const numItems = this.items.length;
   const numComplete = _.filter(this.items, 'complete').length;
-  return `${numComplete}/${numItems}`;
+  return {
+    total: `${numComplete}/${numItems}`,
+    numerator: numComplete,
+    denominator: numItems
+  };
 });
 
 listSchema.query.forUser = function(user) {
