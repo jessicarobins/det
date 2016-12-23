@@ -227,7 +227,10 @@ listSchema.statics.demoLists = function() {
     {name: 'read every Stephen King novel'},
     {name: 'run a 5k in every US state'},
     {name: 'visit every country in Europe'},
-    {name: 'visit every continent'}
+    {name: 'visit every continent'},
+    {name: 'visit every zoo'},
+    {name: 'taste every flavor of Oreo'},
+    {name: 'listen to every Oasis album'}
   ];
 };
 
