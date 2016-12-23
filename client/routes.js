@@ -28,16 +28,21 @@ if (process.env.NODE_ENV !== 'production') {
 export function createRoutes(store) {
   
   const requireAuth = (nextState, replace, callback) => {
-    // const { user: { authenticated }} = store.getState();
-    // if (!authenticated) {
-    //   replace({
-    //     pathname: '/login',
-    //     state: { nextPathname: nextState.location.pathname }
-    //   });
-    // }
-    // else {
+    const { user: { authenticated }} = store.getState();
+    if (!authenticated) {
+      replace({
+        pathname: '/login',
+        state: { nextPathname: nextState.location.pathname }
+      });
+    }
+    else {
       store.dispatch(toggleSpinnerOn());
-    // }
+    }
+    callback();
+  };
+  
+  const startSpinner = (nextState, replace, callback) => {
+    store.dispatch(toggleSpinnerOn());
     callback();
   };
 
@@ -72,7 +77,7 @@ export function createRoutes(store) {
         }}
       />
       <Route
-        onEnter={requireAuth}
+        onEnter={startSpinner}
         path="/lists/:cuid"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {

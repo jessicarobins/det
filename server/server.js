@@ -1,8 +1,10 @@
+import * as Q from 'q';
 import Express from 'express';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import compression from 'compression';
 import mongoose from 'mongoose';
+mongoose.Promise = Q.Promise;
 import bodyParser from 'body-parser';
 import path from 'path';
 import IntlWrapper from '../client/modules/Intl/IntlWrapper';
@@ -107,30 +109,27 @@ passport.use(new OAuth2Strategy({
     callbackURL: secrets.google.callbackURL,
     passReqToCallback: true },
   function(request, accessToken, refreshToken, profile, done) {
-    User.findOne({ oauthID: profile.id }, function(err, user) {
-      if(err) {
-        console.log(err);  // handle errors!
-      }
-      if (!err && user !== null) {
+    User.findOne({ oauthID: profile.id })
+      .exec()
+      .then( (user) => {
+        if (user !== null) {
+          user.name = profile.displayName;
+          user.picture = profile._json.image.url;
+        }
+        else {
+          user = new User({
+            oauthID: profile.id,
+            name: profile.displayName,
+            picture: profile._json.image.url,
+            email: profile._json.emails[0].value
+          });
+          user.tokens.push({ kind: 'google', accessToken });
+        }
+        return user.save();
+      })
+      .then( (user) => {
         done(null, user);
-      } else {
-        user = new User({
-          oauthID: profile.id,
-          name: profile.displayName,
-          picture: profile._json.image.url,
-          email: profile._json.emails[0].value
-        });
-        user.tokens.push({ kind: 'google', accessToken });
-        user.save(function(err) {
-          if(err) {
-            console.log(err);  // handle errors!
-          } else {
-            console.log("saving user ...");
-            done(null, user);
-          }
-        });
-      }
-    });
+      });
   }
 ));
 

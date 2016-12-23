@@ -32,37 +32,25 @@ export class ToDoListItem extends Component {
       <Fade in={this.state.open} className='todo-list-item'>
         <h4>
           <WrapperCheckbox 
+            disabled={this.props.readOnly}
             checked={this.checked()}
             onClick={this.toggleCheckbox} 
             name={this.props.todo.text} />
+          {this.props.readOnly ? null :
           <FontAwesome 
             onClick={this.handleDeleteItem}
             className='trash-icon'
             name='trash'/>
+          }
         </h4>
       </Fade>
-    )
-  }
-  
-  renderReadOnly() {
-    const styles = this.checked() ? {} : {visibility: 'hidden'};
-    return (
-      <h4>
-        <FontAwesome style={styles} name='check'/>
-        {' '}
-        {this.props.todo.text}
-      </h4>
     )
   }
   
   render() {
     return (
       <div className="list-group-item">
-        {
-          this.props.readOnly ?
-          this.renderReadOnly() :
-          this.renderCheckbox()
-        }
+          {this.renderCheckbox()}
       </div>
     );
   }

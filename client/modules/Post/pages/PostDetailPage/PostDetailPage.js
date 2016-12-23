@@ -74,7 +74,7 @@ class PostDetailPage extends Component {
                   I want to <strong>{this.props.list.name}</strong>
                 </Media.Body>
                 <Media.Right align="middle">
-                  <Image src={this.props.user.picture} rounded />
+                  <Image src={this.props.list._users[0].picture} rounded />
                 </Media.Right>
               </Media>
               <div>

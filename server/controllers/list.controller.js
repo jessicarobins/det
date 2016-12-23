@@ -119,11 +119,12 @@ export function findOrCreateListTemplate(req, res) {
 export function getList(req, res) {
   List.findOne({ cuid: req.params.cuid })
     .populate('_users', 'name picture')
-    .exec((err, list) => {
-      if (err) {
-        res.status(500).send(err);
-      }
+    .exec()
+    .then( (list) => {
       res.json({ list });
+    })
+    .catch( (err) => {
+      res.status(404).send(err);
     });
 }
 
@@ -224,18 +225,5 @@ function findOrCreateTemplateByItems(action) {
     })
     .catch( (err) => {
       return Q.reject(err);
-    });
-}
-
-
-function handleCreateFromTemplate(res, list, template){
-  list.addItemsFromTemplate(template)
-    .then( (saved) => {
-      res.json({ list: saved });
-      return true;
-    })
-    .catch( (err) => {
-      console.log('error', err);
-      res.status(422).send(err);
     });
 }
