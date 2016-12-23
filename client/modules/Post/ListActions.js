@@ -9,6 +9,7 @@ export const ADD_LIST_ITEM_ERROR = 'ADD_LIST_ITEM_ERROR';
 export const TOGGLE_LIST_ITEM = 'TOGGLE_LIST_ITEM';
 export const DELETE_LIST_ITEM = 'DELETE_LIST_ITEM';
 export const ADD_LISTS = 'ADD_LISTS';
+export const ADD_DEMO_LISTS = 'ADD_DEMO_LISTS';
 export const ADD_TEMPLATES = 'ADD_TEMPLATES';
 export const DELETE_POST = 'DELETE_POST';
 
@@ -96,10 +97,10 @@ export function addLists(lists) {
   };
 }
 
-export function addTemplates(templates) {
+export function addDemoLists(lists) {
   return {
-    type: ADD_TEMPLATES,
-    templates,
+    type: ADD_DEMO_LISTS,
+    lists,
   };
 }
 
@@ -115,7 +116,7 @@ export function fetchPosts() {
 export function fetchDemoLists() {
   return (dispatch) => {
     return callApi('lists/demo').then(res => {
-      dispatch(addLists(res.lists));
+      dispatch(addDemoLists(res.lists));
     });
   };
 }
@@ -125,26 +126,5 @@ export function fetchList(cuid) {
     return callApi(`lists/${cuid}`).then(res => {
       dispatch(addPost(res.list));
     });
-  };
-}
-
-export function fetchTemplates() {
-  return (dispatch) => {
-    return callApi('templates').then(res => {
-      dispatch(addTemplates(res.templates));
-    });
-  };
-}
-
-export function deletePost(cuid) {
-  return {
-    type: DELETE_POST,
-    cuid,
-  };
-}
-
-export function deletePostRequest(cuid) {
-  return (dispatch) => {
-    return callApi(`posts/${cuid}`, 'delete').then(() => dispatch(deletePost(cuid)));
   };
 }

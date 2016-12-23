@@ -22,8 +22,21 @@ const lists = (
   }
 };
 
+const demoLists = (
+  state = [],
+  action
+) => {
+  switch (action.type) {
+    case actions.ADD_DEMO_LISTS :
+      return action.lists;
+    default:
+      return state;
+  }
+};
+
 const ListReducer = combineReducers({
-  lists
+  lists,
+  demoLists
 });
 
 /* Selectors */
@@ -33,6 +46,8 @@ export const getPosts = state => state.lists.lists;
 
 // Get post by cuid
 export const getPost = (state, cuid) => state.lists.lists.filter(list => list.cuid === cuid)[0];
+
+export const getDemoLists = state => state.lists.demoLists;
 
 // Export Reducer
 export default ListReducer;

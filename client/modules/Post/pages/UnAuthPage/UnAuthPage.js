@@ -8,7 +8,7 @@ import UnAuthWidget from '../../components/UnAuthWidget/UnAuthWidget';
 import { fetchDemoLists } from '../../ListActions';
 
 // Import Selectors
-import { getPosts } from '../../ListReducer';
+import { getDemoLists } from '../../ListReducer';
 
 class UnAuthPage extends Component {
     
@@ -33,7 +33,7 @@ UnAuthPage.need = [
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
-    lists: getPosts(state),
+    lists: getDemoLists(state),
   };
 }
 
