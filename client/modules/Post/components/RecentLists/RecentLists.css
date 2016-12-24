@@ -1,0 +1,7 @@
+.recent-lists .bullet-icon {
+    padding: 2px 5px;
+}
+
+.recent-lists .list-link {
+    display: flex;
+}

@@ -65,14 +65,14 @@ class PostListPage extends Component {
           user={this.props.user}
           logout={this.handleLogout}
         />
-        <Grid className='wide-grid'>
+        <Grid>
           <Row className='show-grid'>
-            <Col xs={12} md={6} mdOffset={2}>
+            <Col xs={12} md={8}>
               <h1 className='wantto-header'>I want to</h1>
             </Col>
           </Row>
           <Row className="show-grid">
-            <Col xs={12} md={6} mdOffset={3}>
+            <Col xs={12} md={8} mdOffset={1}>
               <PostCreateWidget 
                 toggleAddWarning={this.handleToggleAddWarning}
                 showAddWarning={this.props.showAddWarning}
@@ -84,7 +84,7 @@ class PostListPage extends Component {
                 handleDeletePost={this.handleDeletePost}
                 lists={this.props.lists} />
             </Col>
-            <Col md={2}>
+            <Col md={3}>
               <RecentLists
                 lists={this.props.recentLists} />
             </Col>
