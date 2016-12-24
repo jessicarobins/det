@@ -10,7 +10,8 @@ export const QUERY_OPTIONS = {
   format: 'plaintext',
   podState: '100@More',
   ignoreCase: true,
-  // includePodId: ['Result', 'Members']
+  includePodId: ['Result'],
+  scanner: ['Data']
 };
 
 export const formatQuery = (query) => query //`${query} list`;
@@ -40,11 +41,11 @@ export const getItems = (action) => {
 };
 
 export const formatResponse = (response) => {
-  if (!response.pods()[1]){
+  if (!response.pods()[0]){
     console.log('no pods in response');
     return Q.reject();
   }
-  let queryString = response.pods()[1].subpod[0].plaintext[0];
+  let queryString = response.pods()[0].subpod[0].plaintext[0];
   console.log('querystring', queryString)
   if (queryString === '(data not available)'){
     console.log('data not available');
