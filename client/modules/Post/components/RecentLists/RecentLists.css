@@ -5,3 +5,7 @@
 .recent-lists .list-link {
     display: flex;
 }
+
+.recent-lists {
+    margin-top: 30px;
+}

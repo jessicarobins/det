@@ -53,38 +53,37 @@ export class PostCreateWidget extends Component {
   render() {
     return (
       <div>
-        <Panel>
-          <Form inline className='wantto-form-container'>
-            <h2>
-            <FormGroup>
-              <FormControl
-                className='wantto-input'
-                inputRef={ref => {this.verbRef = ref}} 
-                type="text" 
-                placeholder="climb" />
-            </FormGroup>
-            {' every '}
-            <FormGroup>
-              <Typeahead
-                ref="typeahead"
-                options={this.props.templates}
-                placeholder={'mountain'}
-                labelKey={'name'}
-                allowNew={true}
-                newSelectionPrefix={''}
-                onInputChange={selected => this.setState({selected})}
-              />
-            </FormGroup>
-            { ' ' }
-            <Button 
-              disabled={this.state.isLoading || this.props.showAddWarning}
-              onClick={!this.state.isLoading ? this.addList : null}>
-               {(this.state.isLoading && !this.props.showAddWarning) ? 'Creating...' : 'Create List'}
-            </Button>
-            </h2>
-          </Form>
-          { this.props.showAddWarning ? this.renderAlert() : ''}
-        </Panel>
+        <Form inline className='wantto-form-container'>
+          <h1>
+          {'I want to '}
+          <FormGroup>
+            <FormControl
+              className='wantto-input'
+              inputRef={ref => {this.verbRef = ref}} 
+              type="text" 
+              placeholder="climb" />
+          </FormGroup>
+          {' every '}
+          <FormGroup>
+            <Typeahead
+              ref="typeahead"
+              options={this.props.templates}
+              placeholder={'mountain'}
+              labelKey={'name'}
+              allowNew={true}
+              newSelectionPrefix={''}
+              onInputChange={selected => this.setState({selected})}
+            />
+          </FormGroup>
+          { ' ' }
+          <Button 
+            disabled={this.state.isLoading || this.props.showAddWarning}
+            onClick={!this.state.isLoading ? this.addList : null}>
+             {(this.state.isLoading && !this.props.showAddWarning) ? 'Creating...' : 'Create!'}
+          </Button>
+          </h1>
+        </Form>
+        { this.props.showAddWarning ? this.renderAlert() : ''}
       </div>
     );
   }

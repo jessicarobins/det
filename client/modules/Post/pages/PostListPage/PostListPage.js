@@ -67,12 +67,7 @@ class PostListPage extends Component {
         />
         <Grid>
           <Row className='show-grid'>
-            <Col xs={12} md={8}>
-              <h1 className='wantto-header'>I want to</h1>
-            </Col>
-          </Row>
-          <Row className="show-grid">
-            <Col xs={12} md={8} mdOffset={1}>
+            <Col md={12}>
               <PostCreateWidget 
                 toggleAddWarning={this.handleToggleAddWarning}
                 showAddWarning={this.props.showAddWarning}
@@ -80,6 +75,11 @@ class PostListPage extends Component {
                 addEmptyList={this.handleAddEmptyList}
                 showAddPost={true} 
                 templates={this.props.templates} />
+            </Col>
+          </Row>
+          <Row className="show-grid">
+            <Col xs={12} md={7} mdOffset={2}>
+              
               <PostList 
                 handleDeletePost={this.handleDeletePost}
                 lists={this.props.lists} />
