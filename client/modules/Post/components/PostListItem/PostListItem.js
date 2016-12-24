@@ -8,8 +8,13 @@ require('./ListItem.css');
 function ListItem(props) {
   return (
     <div>
-      <h3>
-        <Link to={`/lists/${props.post.cuid}`} >
+      <h3 className='list-list-item'>
+        <FontAwesome
+          className='item-icon'
+          name='angle-right' />
+        <Link 
+          className='list-list-link'
+          to={`/lists/${props.post.cuid}`} >
           {props.post.name}
         </Link>
         { props.post.percentComplete < 100 ?
