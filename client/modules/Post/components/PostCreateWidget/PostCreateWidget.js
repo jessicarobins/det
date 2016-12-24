@@ -58,6 +58,7 @@ export class PostCreateWidget extends Component {
               {'I want to '}
               <FormGroup>
                 <FormControl
+                  autoFocus={true}
                   className='wantto-input'
                   inputRef={ref => {this.verbRef = ref}} 
                   type="text" 
