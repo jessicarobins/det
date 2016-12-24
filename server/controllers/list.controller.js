@@ -11,6 +11,26 @@ export function getDemoLists(req, res) {
   res.json( {lists: List.demoLists() });
 }
 
+export function getRecentLists(req, res) {
+  if (!req.user) {
+    res.json({lists: []});
+    return;
+  }
+  
+  List
+    .find()
+    .byRecent()
+    .ne('_users', req.user._id)
+    .populate('_users', 'name picture')
+    .exec()
+    .then( (lists) => {
+      res.json( { lists });
+    })
+    .catch( (err) => {
+      res.status(422).send(err);
+    });
+}
+
 export function getLists(req, res) {
   if (!req.user) {
     res.json({lists: []});

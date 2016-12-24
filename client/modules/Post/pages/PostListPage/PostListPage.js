@@ -7,17 +7,18 @@ require('./ListListPage.css')
 
 // Import Components
 import PostList from '../../components/PostList';
+import RecentLists from '../../components/RecentLists/RecentLists';
 import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget';
 
 // Import Actions
-import { addListRequest, fetchPosts, deletePostRequest } from '../../ListActions';
+import { addListRequest, fetchPosts, fetchRecentLists, deletePostRequest } from '../../ListActions';
 import { fetchTemplates } from '../../../Template/TemplateActions';
 import { toggleAddWarning } from '../../../App/AppActions';
 import { logOut as logoutAction } from '../../../User/UserActions';
 
 // Import Selectors
 import { getShowAddWarning } from '../../../App/AppReducer';
-import { getPosts } from '../../ListReducer';
+import { getPosts, getRecentLists } from '../../ListReducer';
 import { getTemplates } from '../../../Template/TemplateReducer';
 import { getAuth, getUser } from '../../../User/UserReducer';
 
@@ -31,6 +32,7 @@ class PostListPage extends Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
     this.props.dispatch(fetchTemplates());
+    this.props.dispatch(fetchRecentLists());
   }
 
   handleDeletePost = post => {
@@ -63,29 +65,31 @@ class PostListPage extends Component {
           user={this.props.user}
           logout={this.handleLogout}
         />
-        <div className={'container'}>
-          <Grid>
-            <Row className='show-grid'>
-              <Col xs={12} md={10} mdOffset={1}>
-                <h1 className='wantto-header'>I want to</h1>
-              </Col>
-            </Row>
-            <Row className="show-grid">
-              <Col xs={12} md={8} mdOffset={2}>
-                <PostCreateWidget 
-                  toggleAddWarning={this.handleToggleAddWarning}
-                  showAddWarning={this.props.showAddWarning}
-                  addPost={this.handleAddList} 
-                  addEmptyList={this.handleAddEmptyList}
-                  showAddPost={true} 
-                  templates={this.props.templates} />
-                <PostList 
-                  handleDeletePost={this.handleDeletePost}
-                  lists={this.props.lists} />
-              </Col>
-            </Row>
-          </Grid>
-        </div>
+        <Grid className='wide-grid'>
+          <Row className='show-grid'>
+            <Col xs={12} md={6} mdOffset={2}>
+              <h1 className='wantto-header'>I want to</h1>
+            </Col>
+          </Row>
+          <Row className="show-grid">
+            <Col xs={12} md={6} mdOffset={3}>
+              <PostCreateWidget 
+                toggleAddWarning={this.handleToggleAddWarning}
+                showAddWarning={this.props.showAddWarning}
+                addPost={this.handleAddList} 
+                addEmptyList={this.handleAddEmptyList}
+                showAddPost={true} 
+                templates={this.props.templates} />
+              <PostList 
+                handleDeletePost={this.handleDeletePost}
+                lists={this.props.lists} />
+            </Col>
+            <Col md={2}>
+              <RecentLists
+                lists={this.props.recentLists} />
+            </Col>
+          </Row>
+        </Grid>
       </div>
       
     );
@@ -96,12 +100,14 @@ class PostListPage extends Component {
 PostListPage.need = [
   () => { return fetchPosts(); },
   () => { return fetchTemplates(); },
+  () => { return fetchRecentLists(); },
 ];
 
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
     lists: getPosts(state),
+    recentLists: getRecentLists(state),
     templates: getTemplates(state),
     showAddWarning: getShowAddWarning(state),
     authorized: getAuth(state),
@@ -111,6 +117,9 @@ function mapStateToProps(state) {
 
 PostListPage.propTypes = {
   lists: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired
+  })).isRequired,
+  recentLists: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired
   })).isRequired,
   templates: PropTypes.arrayOf(PropTypes.shape({

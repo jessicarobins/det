@@ -9,6 +9,7 @@ export const ADD_LIST_ITEM_ERROR = 'ADD_LIST_ITEM_ERROR';
 export const TOGGLE_LIST_ITEM = 'TOGGLE_LIST_ITEM';
 export const DELETE_LIST_ITEM = 'DELETE_LIST_ITEM';
 export const ADD_LISTS = 'ADD_LISTS';
+export const ADD_RECENT_LISTS = 'ADD_RECENT_LISTS';
 export const ADD_DEMO_LISTS = 'ADD_DEMO_LISTS';
 export const ADD_TEMPLATES = 'ADD_TEMPLATES';
 export const DELETE_POST = 'DELETE_POST';
@@ -104,6 +105,13 @@ export function addDemoLists(lists) {
   };
 }
 
+export function addRecentLists(lists) {
+  return {
+    type: ADD_RECENT_LISTS,
+    lists,
+  };
+}
+
 export function fetchPosts() {
   return (dispatch) => {
     return callApi('lists').then(res => {
@@ -120,6 +128,15 @@ export function fetchDemoLists() {
     });
   };
 }
+
+export function fetchRecentLists() {
+  return (dispatch) => {
+    return callApi('lists/recent').then(res => {
+      dispatch(addRecentLists(res.lists));
+    });
+  };
+}
+
 
 export function fetchList(cuid) {
   return (dispatch) => {
