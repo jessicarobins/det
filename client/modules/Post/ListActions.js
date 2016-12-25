@@ -41,6 +41,17 @@ export function addListRequest(list, endpoint='lists/find_or_create') {
   };
 }
 
+export function cloneListRequest(props) {
+  return (dispatch) => {
+    return callApi(`lists/${props.cuid}/clone`, 'post')
+      .then(res => {
+        dispatch(addPost(res.list));
+        browserHistory.push(`/lists/${res.list.cuid}`);
+        dispatch(appActions.toggleSpinnerOff());
+      });
+  };
+}
+
 export function addListItem(list) {
   return {
     type: ADD_LIST_ITEM,

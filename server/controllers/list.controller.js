@@ -11,6 +11,28 @@ export function getDemoLists(req, res) {
   res.json( {lists: List.demoLists() });
 }
 
+export function cloneList(req, res) {
+  if (!req.user) {
+    res.status(401).send('Unauthorized');
+  }
+  
+  List.findOne({ cuid: req.params.cuid })
+    .exec()
+    .then( (list) => {
+      return list.cloneForUser(req.user);
+    })
+    .then( (list) => {
+      return List.populate(list, {path:'_users', select: 'name picture'});
+    })
+    .then( (list) => {
+      res.json({ list });
+    })
+    .catch( (err) => {
+      console.log('error? ', err)
+      res.status(422).send(err);
+    });
+}
+
 export function getRecentLists(req, res) {
   if (!req.user) {
     res.json({lists: []});

@@ -6,6 +6,7 @@ import ListTemplate from './listTemplate';
 import PendingItem from './pendingItem';
 const Schema = mongoose.Schema;
 import * as _ from 'lodash';
+import cuid from 'cuid';
 
 const ADD_ITEM_THRESHOLD = 1;
 const DELETE_ITEM_THRESHOLD = 1;
@@ -147,6 +148,20 @@ listSchema.methods.addItemsFromTemplate = function(template) {
   this.items = _.clone(template.items);
   this._template = template._id;
   return this.save();
+};
+
+listSchema.methods.cloneForUser = function(_user) {
+  const newList = new this.constructor();
+  newList.cuid = cuid();
+  newList.verb = this.verb;
+  newList.action = this.action;
+  newList._users.push(_user);
+  
+  this.items.forEach( (item) => {
+    newList.items.push(new ListItem({text: item.text}));
+  });
+  newList._template = this._template;
+  return newList.save();
 };
 
 listSchema.methods.addItemToOtherLists = function(itemText) {

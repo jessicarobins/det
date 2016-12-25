@@ -6,12 +6,13 @@ import ListItemCreateWidget from '../../components/PostListItem/ListItemCreateWi
 import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
 import Progress from '../../components/PostListItem/Progress/Progress';
 import Tiles from '../../components/PostListItem/Tiles/Tiles';
+import Actions from '../../components/PostListItem/Actions/Actions';
 import Header from '../../../App/components/Header/Header';
 import { Grid, Col, Row } from 'react-bootstrap';
 import * as _ from 'lodash';
 
 // Import Actions
-import { fetchList, addListItemRequest, toggleListItemRequest, deleteListItemRequest } from '../../ListActions';
+import { fetchList, addListItemRequest, toggleListItemRequest, deleteListItemRequest, cloneListRequest } from '../../ListActions';
 import { toggleSpinnerOff } from '../../../App/AppActions';
 import { logOut as logoutAction } from '../../../User/UserActions';
 
@@ -24,16 +25,15 @@ class PostDetailPage extends Component {
   componentDidMount() {
     this.props.dispatch(toggleSpinnerOff());
   }
-  
-  percentComplete() {
-    const numItems = this.items.length;
-    const numComplete = _.filter(this.items, 'complete').length;
-    return _.round(numComplete*100/numItems) || 0;
-  }
 
   handleAddListItem = (text) => {
     const cuid = this.props.list.cuid;
     this.props.dispatch(addListItemRequest({ cuid, text }));
+  };
+  
+  handleCloneList = () => {
+    const cuid = this.props.list.cuid;
+    this.props.dispatch(cloneListRequest({ cuid }));
   };
   
   handleToggleListItem = (listItem) => {
@@ -85,6 +85,11 @@ class PostDetailPage extends Component {
               { this.belongsToUser() ? 
               <ListItemCreateWidget addListItem={this.handleAddListItem} />
               : null }
+            </Col>
+            <Col md={1} mdOffset={1}>
+              <Actions
+                cloneList={this.handleCloneList}
+                list={this.props.list} />
             </Col>
           </Row>
         </Grid>
