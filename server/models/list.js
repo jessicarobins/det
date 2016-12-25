@@ -151,6 +151,7 @@ listSchema.methods.addItemsFromTemplate = function(template) {
 };
 
 listSchema.methods.cloneForUser = function(_user) {
+  const list = this;
   const newList = new this.constructor();
   newList.cuid = cuid();
   newList.verb = this.verb;
@@ -161,7 +162,25 @@ listSchema.methods.cloneForUser = function(_user) {
     newList.items.push(new ListItem({text: item.text}));
   });
   newList._template = this._template;
-  return newList.save();
+  
+  //add this list to all the pending items that old
+  // list has so we don't double add or delete stuff
+  // don't worry about whether they push it over the
+  // threshold for now
+  return ListTemplate
+    .findOne({_id: this._template})
+    .exec()
+    .then( (template) => {
+      template.pendingItems.forEach( (pendingItem) => {
+        if(!!_.find(pendingItem._lists, _list => _list.equals(list._id))){
+          pendingItem._lists.push(newList._id);
+        }
+      })
+      return template.save();
+    })
+    .then( () => {
+      return newList.save();
+    });
 };
 
 listSchema.methods.addItemToOtherLists = function(itemText) {

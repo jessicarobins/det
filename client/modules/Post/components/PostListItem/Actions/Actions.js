@@ -1,23 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
-import { Button } from 'react-bootstrap';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 class Actions extends Component {
   
-  percentLabel() {
-    switch(this.props.list.percentComplete) {
-      case 100:
-        return <FontAwesome name='trophy'/>
-      default:
-        return `${this.props.list.percentComplete}%`
-    }
-  }
+  tooltip() {
+    return(
+      <Tooltip id="clone-tooltip">
+        Clone List
+      </Tooltip>
+    )
+  };
   
   render() {
     return (
-      <Button onClick={this.props.cloneList}>
-        <FontAwesome name='clone'/>
-      </Button>
+      <OverlayTrigger placement="bottom" overlay={this.tooltip()}>
+        <Button onClick={this.props.cloneList}>
+          <FontAwesome name='clone'/>
+        </Button>
+      </OverlayTrigger>
     )
   }
 }

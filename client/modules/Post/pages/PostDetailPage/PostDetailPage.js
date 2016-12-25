@@ -53,6 +53,10 @@ class PostDetailPage extends Component {
     return belongs;
   }
   
+  loggedIn() {
+    return !!this.props.user;
+  }
+  
   handleLogout = () => {
     this.props.dispatch(logoutAction());
   };
@@ -87,9 +91,10 @@ class PostDetailPage extends Component {
               : null }
             </Col>
             <Col md={1} mdOffset={1}>
+              { this.loggedIn() ?
               <Actions
                 cloneList={this.handleCloneList}
-                list={this.props.list} />
+                list={this.props.list} /> : null }
             </Col>
           </Row>
         </Grid>
