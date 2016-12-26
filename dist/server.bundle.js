@@ -549,7 +549,7 @@
 	exports.API_URL = undefined;
 	exports.default = callApi;
 
-	var _isomorphicFetch = __webpack_require__(76);
+	var _isomorphicFetch = __webpack_require__(77);
 
 	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
@@ -793,7 +793,7 @@
 
 	var _pendingItem2 = _interopRequireDefault(_pendingItem);
 
-	var _hasha = __webpack_require__(75);
+	var _hasha = __webpack_require__(76);
 
 	var _hasha2 = _interopRequireDefault(_hasha);
 
@@ -1022,7 +1022,7 @@
 
 
 	var showSpinner = function showSpinner() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 	  var action = arguments[1];
 
 	  switch (action.type) {
@@ -2152,7 +2152,7 @@
 
 	var _redux = __webpack_require__(9);
 
-	var _reduxThunk = __webpack_require__(88);
+	var _reduxThunk = __webpack_require__(89);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -2166,7 +2166,7 @@
 
 	var _reactRouterRedux = __webpack_require__(18);
 
-	var _reduxLogger = __webpack_require__(87);
+	var _reduxLogger = __webpack_require__(88);
 
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
@@ -2330,9 +2330,10 @@
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 
 	var webpack = __webpack_require__(23);
-	var cssnext = __webpack_require__(77);
-	var postcssFocus = __webpack_require__(78);
-	var postcssReporter = __webpack_require__(79);
+	var ExtractTextPlugin = __webpack_require__(75);
+	var cssnext = __webpack_require__(78);
+	var postcssFocus = __webpack_require__(79);
+	var postcssReporter = __webpack_require__(80);
 
 	module.exports = {
 
@@ -2355,8 +2356,13 @@
 	  module: {
 	    loaders: [{
 	      test: /\.css$/,
-	      loaders: ['style-loader', 'css-loader']
+	      exclude: /node_modules/,
+	      loaders: ExtractTextPlugin.extract('style-loader', 'css-loader')
 	    }, {
+	      test: /\.css$/,
+	      include: /node_modules/,
+	      loaders: ['style-loader', 'css-loader']
+	    },, {
 	      test: /\.jsx*$/,
 	      exclude: [/node_modules/, /.+\.config.js/],
 	      loader: 'babel'
@@ -2369,7 +2375,7 @@
 	    }]
 	  },
 
-	  plugins: [new webpack.HotModuleReplacementPlugin(), new webpack.optimize.CommonsChunkPlugin({
+	  plugins: [new ExtractTextPlugin('styles.css'), new webpack.HotModuleReplacementPlugin(), new webpack.optimize.CommonsChunkPlugin({
 	    name: 'vendor',
 	    minChunks: Infinity,
 	    filename: 'vendor.js'
@@ -2482,7 +2488,7 @@
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
-	var _reactLoaderAdvanced = __webpack_require__(82);
+	var _reactLoaderAdvanced = __webpack_require__(83);
 
 	var _reactLoaderAdvanced2 = _interopRequireDefault(_reactLoaderAdvanced);
 
@@ -2589,13 +2595,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reduxDevtools = __webpack_require__(84);
+	var _reduxDevtools = __webpack_require__(85);
 
-	var _reduxDevtoolsLogMonitor = __webpack_require__(86);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(87);
 
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 
-	var _reduxDevtoolsDockMonitor = __webpack_require__(85);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(86);
 
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 
@@ -2625,7 +2631,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactBsNotifier = __webpack_require__(81);
+	var _reactBsNotifier = __webpack_require__(82);
 
 	var _AppActions = __webpack_require__(5);
 
@@ -2691,7 +2697,7 @@
 
 	var _reactBootstrap = __webpack_require__(1);
 
-	var _reactBootstrapTypeahead = __webpack_require__(80);
+	var _reactBootstrapTypeahead = __webpack_require__(81);
 
 	var _reactBootstrapTypeahead2 = _interopRequireDefault(_reactBootstrapTypeahead);
 
@@ -3584,7 +3590,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactTypist = __webpack_require__(83);
+	var _reactTypist = __webpack_require__(84);
 
 	var _reactTypist2 = _interopRequireDefault(_reactTypist);
 
@@ -4406,7 +4412,7 @@
 	  var assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets);
 	  var chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
 
-	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        <link href=\'https://fonts.googleapis.com/css?family=Lato:400,300,700\' rel=\'stylesheet\' type=\'text/css\'/>\n        <link href=\'/styles.css\' rel=\'stylesheet\' type=\'text/css\'/>\n      </head>\n      <body>\n        <div id="root"><div>' + html + '</div></div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
+	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        <link href=\'https://fonts.googleapis.com/css?family=Lato:400,300,700\' rel=\'stylesheet\' type=\'text/css\'/>\n        <link href=\'/styles.css\' rel=\'stylesheet\' type=\'text/css\'/>\n      </head>\n      <body>\n        <div id="root"><div>hey</div></div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
 	};
 
 	var renderError = function renderError(err) {
@@ -4511,7 +4517,7 @@
 	});
 	exports.formatResponse = exports.getItems = exports.tryQueries = exports.queryFormats = exports.formatQuery = exports.QUERY_OPTIONS = exports.waClient = exports.WA_APP_ID = undefined;
 
-	var _wajs = __webpack_require__(89);
+	var _wajs = __webpack_require__(90);
 
 	var _wajs2 = _interopRequireDefault(_wajs);
 
@@ -4607,88 +4613,94 @@
 /* 75 */
 /***/ function(module, exports) {
 
-	module.exports = require("hasha");
+	module.exports = require("extract-text-webpack-plugin");
 
 /***/ },
 /* 76 */
 /***/ function(module, exports) {
 
-	module.exports = require("isomorphic-fetch");
+	module.exports = require("hasha");
 
 /***/ },
 /* 77 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-cssnext");
+	module.exports = require("isomorphic-fetch");
 
 /***/ },
 /* 78 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-focus");
+	module.exports = require("postcss-cssnext");
 
 /***/ },
 /* 79 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-reporter");
+	module.exports = require("postcss-focus");
 
 /***/ },
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap-typeahead");
+	module.exports = require("postcss-reporter");
 
 /***/ },
 /* 81 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bs-notifier");
+	module.exports = require("react-bootstrap-typeahead");
 
 /***/ },
 /* 82 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-loader-advanced");
+	module.exports = require("react-bs-notifier");
 
 /***/ },
 /* 83 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-typist");
+	module.exports = require("react-loader-advanced");
 
 /***/ },
 /* 84 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("react-typist");
 
 /***/ },
 /* 85 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("redux-devtools");
 
 /***/ },
 /* 86 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
+	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
 /* 87 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-logger");
+	module.exports = require("redux-devtools-log-monitor");
 
 /***/ },
 /* 88 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-thunk");
+	module.exports = require("redux-logger");
 
 /***/ },
 /* 89 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-thunk");
+
+/***/ },
+/* 90 */
 /***/ function(module, exports) {
 
 	module.exports = require("wajs");
