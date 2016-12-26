@@ -39,7 +39,7 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        loaders: ['style-loader', 'css-loader'],
+        loaders: ExtractTextPlugin.extract('style-loader', 'css-loader'),
       }, {
         test: /\.css$/,
         include: /node_modules/,
@@ -69,7 +69,7 @@ module.exports = {
       minChunks: Infinity,
       filename: 'vendor.js',
     }),
-    new ExtractTextPlugin('app.[chunkhash].css', { allChunks: true }),
+    new ExtractTextPlugin('styles.css'),
     new ManifestPlugin({
       basePath: '/',
     }),

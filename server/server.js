@@ -172,6 +172,7 @@ const renderFullPage = (html, initialState) => {
         ${head.script.toString()}
 
         <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'/>
+        <link href='/styles.css' rel='stylesheet' type='text/css'/>
       </head>
       <body>
         <div id="root"><div>${html}</div></div>

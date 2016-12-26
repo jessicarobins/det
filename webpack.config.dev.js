@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var cssnext = require('postcss-cssnext');
 var postcssFocus = require('postcss-focus');
 var postcssReporter = require('postcss-reporter');
@@ -37,8 +38,13 @@ module.exports = {
     loaders: [
       {
         test: /\.css$/,
-        loaders: ['style-loader', 'css-loader'],
+        exclude: /node_modules/,
+        loaders: ExtractTextPlugin.extract('style-loader', 'css-loader'),
       }, {
+        test: /\.css$/,
+        include: /node_modules/,
+        loaders: ['style-loader', 'css-loader'],
+      },, {
         test: /\.jsx*$/,
         exclude: [/node_modules/, /.+\.config.js/],
         loader: 'babel',
@@ -53,6 +59,7 @@ module.exports = {
   },
 
   plugins: [
+    new ExtractTextPlugin('styles.css'),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
