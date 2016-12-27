@@ -175,7 +175,7 @@ const renderFullPage = (html, initialState) => {
         <link href='/styles.css' rel='stylesheet' type='text/css'/>
       </head>
       <body>
-        <div id="root"><div></div></div>
+        <div id="root"><div class="spinner"><i class="fa fa-spinner fa-spin fa-5x fa-fw"></i></div></div>
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
           ${process.env.NODE_ENV === 'production' ?

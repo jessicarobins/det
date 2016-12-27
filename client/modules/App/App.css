@@ -1,4 +1,4 @@
-.Loader__background {
+.Loader__background, .spinner {
   position: fixed !important;
   z-index: 999;
   height: 2em;
@@ -9,3 +9,4 @@
   bottom: 0;
   right: 0;
 }
+

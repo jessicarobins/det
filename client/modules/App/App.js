@@ -27,6 +27,10 @@ export class App extends Component {
   handleLogout = () => {
     this.props.dispatch(logoutAction());
   }
+  
+  spinner() {
+    return <div className="spinner"><i className="fa fa-spinner fa-spin fa-5x fa-fw"></i></div>;
+  }
 
   render() {
     return (
@@ -48,8 +52,10 @@ export class App extends Component {
             ]}
           />
           <Loader
-            messageStyle={{color: '#91170a', fontSize: '48px', fontWeight: '900'}}
-            contentBlur={8}
+            foregroundStyle={{color: 'inherit'}}
+            backgroundStyle={{backgroundColor: 'inherit'}}
+            message={this.spinner()}
+            contentBlur={5}
             show={this.props.showSpinner}>
             <SystemMessage 
               dispatch={this.props.dispatch}
