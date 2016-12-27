@@ -122,7 +122,6 @@ passport.use(new OAuth2Strategy({
             picture: profile._json.image.url,
             email: profile._json.emails[0].value
           });
-          user.tokens.push({ kind: 'google', accessToken });
         }
         return user.save();
       })
