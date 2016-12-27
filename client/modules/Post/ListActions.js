@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 
 // Export Constants
 export const ADD_LIST = 'ADD_LIST';
+export const LIST_NOT_FOUND = 'LIST_NOT_FOUND';
 export const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
 export const ADD_LIST_ITEM_ERROR = 'ADD_LIST_ITEM_ERROR';
 export const TOGGLE_LIST_ITEM = 'TOGGLE_LIST_ITEM';
@@ -152,7 +153,9 @@ export function fetchRecentLists() {
 export function fetchList(cuid) {
   return (dispatch) => {
     return callApi(`lists/${cuid}`).then(res => {
-      dispatch(addPost(res.list));
+      if(res.list){
+        dispatch(addPost(res.list));
+      }
     });
   };
 }

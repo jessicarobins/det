@@ -2,14 +2,9 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 
-import ListItemCreateWidget from '../../components/PostListItem/ListItemCreateWidget/ListItemCreateWidget';
-import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
-import Progress from '../../components/PostListItem/Progress/Progress';
-import Tiles from '../../components/PostListItem/Tiles/Tiles';
-import Actions from '../../components/PostListItem/Actions/Actions';
+import ListDetails from '../../components/ListDetails/ListDetails';
 import Header from '../../../App/components/Header/Header';
 import { Grid, Col, Row } from 'react-bootstrap';
-import * as _ from 'lodash';
 
 // Import Actions
 import { fetchList, addListItemRequest, toggleListItemRequest, deleteListItemRequest, cloneListRequest } from '../../ListActions';
@@ -48,15 +43,6 @@ class PostDetailPage extends Component {
     this.props.dispatch(deleteListItemRequest({ cuid, list_item_id }));
   };
   
-  belongsToUser() {
-    const belongs = !!this.props.user && _.find(this.props.list._users, {_id: this.props.user._id});
-    return belongs;
-  }
-  
-  loggedIn() {
-    return !!this.props.user;
-  }
-  
   handleLogout = () => {
     this.props.dispatch(logoutAction());
   };
@@ -64,41 +50,29 @@ class PostDetailPage extends Component {
   render() {
     return (
       <div>
-        <Helmet title={this.props.list.name} />
+        <Helmet title={this.props.list ? this.props.list.name : '404: List not found'} />
         <Header
           user={this.props.user}
           logout={this.handleLogout}
         />
-        <Grid className='container'>
-          <Row className="show-grid">
-            <Col xs={12} md={6} mdOffset={3}>
-              <h2>I want to <strong>{this.props.list.name}</strong></h2>
-            </Col>
-          </Row>
+        {this.props.list ?
+        <ListDetails
+          addListItem={this.handleAddListItem}
+          cloneList={this.handleCloneList}
+          toggleListItem={this.handleToggleListItem}
+          deleteListItem={this.handleDeleteListItem}
+          list={this.props.list}
+          user={this.props.user}/>
+        : 
+        <Grid>
           <Row>
-            <Col md={1} mdOffset={1}>
-              <Tiles list={this.props.list} />
-            </Col>
-            <Col xs={12} md={6} mdOffset={1}>
-              <Progress list={this.props.list}/>
-              <ToDoList 
-                readOnly={!this.belongsToUser()}
-                todos={this.props.list.items}
-                deleteListItem={this.handleDeleteListItem}
-                toggleListItem={this.handleToggleListItem} />
-              { this.belongsToUser() ? 
-              <ListItemCreateWidget addListItem={this.handleAddListItem} />
-              : null }
-            </Col>
-            <Col md={1} mdOffset={1}>
-              { this.loggedIn() ?
-              <Actions
-                cloneList={this.handleCloneList}
-                list={this.props.list} /> : null }
+            <Col>
+              <h2>404: List not found</h2>
             </Col>
           </Row>
-        </Grid>
+        </Grid>}
       </div>
+      
     );
   }
 }
@@ -117,10 +91,10 @@ function mapStateToProps(state, props) {
 }
 
 PostDetailPage.propTypes = {
-  list: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    cuid: PropTypes.string.isRequired,
-  }).isRequired,
+  // list: PropTypes.shape({
+  //   name: PropTypes.string.isRequired,
+  //   cuid: PropTypes.string.isRequired,
+  // }).isRequired,
   // user: PropTypes.shape({
   //   _id: PropTypes.string.isRequired,
   // }).isRequired,

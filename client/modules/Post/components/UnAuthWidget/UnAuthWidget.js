@@ -18,7 +18,7 @@ export class UnAuthWidget extends Component {
   }
 
   currentList() {
-    if(this.props.lists.length > 0) {
+    if(this.props.lists.length && this.props.lists[this.state.listIndex]) {
       return this.props.lists[this.state.listIndex].name;
     }
     else {

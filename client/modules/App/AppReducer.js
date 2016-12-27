@@ -4,7 +4,7 @@ import { combineReducers } from 'redux';
 import * as appActions from './AppActions';
 
 const showSpinner = (
-  state = true,
+  state = false,
   action
 ) => {
   switch (action.type) {
