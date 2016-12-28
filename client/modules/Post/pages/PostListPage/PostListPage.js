@@ -8,6 +8,7 @@ require('./ListListPage.css')
 // Import Components
 import PostList from '../../components/PostList';
 import RecentLists from '../../components/RecentLists/RecentLists';
+import Collections from '../../components/Collections/Collections';
 import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget';
 import NoLists from '../../components/NoLists/NoLists';
 
@@ -67,9 +68,52 @@ class PostListPage extends Component {
     this.props.dispatch(logoutAction());
   };
   
+  lists() {
+    return (
+      <Row className="show-grid">
+        <Col xs={12} md={7} mdOffset={2}>
+          <PostList 
+            handleDeletePost={this.handleDeletePost}
+            lists={this.props.lists} />
+        </Col>
+        <Col md={3}>
+          <RecentLists
+            lists={this.props.recentLists} />
+          <Collections 
+            templates={this.props.templates}
+            addSelectedTemplate={this.handleAddSelectedTemplate}/>
+        </Col>
+      </Row>
+    )
+  }
+  
+  noLists() {
+    return (
+      <div className='no-lists-container'>
+        <Row>
+          <Col md={6} mdOffset={3}>
+            <h3>
+              You have no lists. Need some inspiration?
+            </h3>
+          </Col>
+        </Row>
+        <Row className="show-grid">
+          <Col xs={12} md={3} mdOffset={3}>
+            <Collections 
+              templates={this.props.templates}
+              addSelectedTemplate={this.handleAddSelectedTemplate}/>
+          </Col>
+          <Col md={3}>
+            <RecentLists
+              lists={this.props.recentLists} />
+          </Col>
+        </Row>
+      </div>
+      )
+  }
+  
   render() {
     return (
-      
       <div>
         <Header
           user={this.props.user}
@@ -90,23 +134,9 @@ class PostListPage extends Component {
                 templates={this.props.templates} />
             </Col>
           </Row>
-          <Row className="show-grid">
-            <Col xs={12} md={7} mdOffset={2}>
-              {this.props.lists.length ?
-              <PostList 
-                handleDeletePost={this.handleDeletePost}
-                lists={this.props.lists} />
-                :
-               <NoLists
-                addSelectedTemplate={this.handleAddSelectedTemplate}
-                templates={this.props.templates} />
-              }
-            </Col>
-            <Col md={3}>
-              <RecentLists
-                lists={this.props.recentLists} />
-            </Col>
-          </Row>
+          {this.props.lists.length ?
+            this.lists() :
+            this.noLists() }
         </Grid>
       </div>
       

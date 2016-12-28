@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import * as _ from 'lodash';
 
-import ListItem from './ListItem';
+import Collections from '../Collections/Collections';
 
 class NoLists extends Component {
   
@@ -9,16 +9,9 @@ class NoLists extends Component {
     return (
       <div className="list-list">
         <h3>You have no lists. Need some inspiration?</h3>
-        <ul className="fa-ul">
-        {
-          _.sampleSize(this.props.templates, 10).map(template => (
-            <ListItem
-              key={template._id}
-              template={template}
-              addSelectedTemplate={this.props.addSelectedTemplate} />
-          ))
-        }
-        </ul>
+        <Collections
+          templates={this.props.templates}
+          addSelectedTemplate={this.props.addSelectedTemplate} />
       </div>
     );
   }

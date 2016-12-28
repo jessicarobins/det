@@ -11,21 +11,19 @@ function RecentLists(props) {
   return (
     <Panel className='recent-lists'>
       Others want to
+      <ul className="fa-ul">
       {
         _.uniqBy(props.lists, 'name')
           .map(list => (
-            <div
-              className='list-link'
-              key={list.cuid}>
-              <FontAwesome
-                name='angle-right'
-                className='bullet-icon' />
+            <li key={list.cuid}>
+              <i className="fa-li fa fa-angle-right"></i>
               <Link to={`/lists/${list.cuid}`} >
                 {list.name}
               </Link>
-            </div>
+            </li>
           ))
       }
+      </ul>
     </Panel>
   )
 }
