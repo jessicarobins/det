@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { Panel } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
+import * as _ from 'lodash';
 
 require('./RecentLists.css');
 
@@ -11,18 +12,19 @@ function RecentLists(props) {
     <Panel className='recent-lists'>
       Others want to
       {
-        props.lists.map(list => (
-          <div
-            className='list-link'
-            key={list.cuid}>
-            <FontAwesome
-              name='angle-right'
-              className='bullet-icon' />
-            <Link to={`/lists/${list.cuid}`} >
-              {list.name}
-            </Link>
-          </div>
-        ))
+        _.uniqBy(props.lists, 'name')
+          .map(list => (
+            <div
+              className='list-link'
+              key={list.cuid}>
+              <FontAwesome
+                name='angle-right'
+                className='bullet-icon' />
+              <Link to={`/lists/${list.cuid}`} >
+                {list.name}
+              </Link>
+            </div>
+          ))
       }
     </Panel>
   )
