@@ -31,6 +31,7 @@ class PostListPage extends Component {
   // }
   
   componentDidMount() {
+    this.props.dispatch(templateActions.removeSelected());
     this.props.dispatch(fetchPosts());
     this.props.dispatch(templateActions.fetchTemplates());
     this.props.dispatch(fetchRecentLists());
@@ -97,6 +98,7 @@ class PostListPage extends Component {
                 lists={this.props.lists} />
                 :
                <NoLists
+                addSelectedTemplate={this.handleAddSelectedTemplate}
                 templates={this.props.templates} />
               }
             </Col>

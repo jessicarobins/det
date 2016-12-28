@@ -78,6 +78,7 @@ export class PostCreateWidget extends Component {
                   labelKey={'name'}
                   allowNew={true}
                   newSelectionPrefix={''}
+                  selected={[this.props.selectedTemplate]}
                   onInputChange={_.debounce(this.setSelected)}
                 />
               </FormGroup>
