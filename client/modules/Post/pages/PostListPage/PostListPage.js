@@ -13,14 +13,14 @@ import NoLists from '../../components/NoLists/NoLists';
 
 // Import Actions
 import { addListRequest, fetchPosts, fetchRecentLists, deletePostRequest } from '../../ListActions';
-import { fetchTemplates } from '../../../Template/TemplateActions';
+import * as templateActions from '../../../Template/TemplateActions';
 import { toggleAddWarning } from '../../../App/AppActions';
 import { logOut as logoutAction } from '../../../User/UserActions';
 
 // Import Selectors
 import { getShowAddWarning } from '../../../App/AppReducer';
 import { getPosts, getRecentLists } from '../../ListReducer';
-import { getTemplates } from '../../../Template/TemplateReducer';
+import { getTemplates, getSelected } from '../../../Template/TemplateReducer';
 import { getAuth, getUser } from '../../../User/UserReducer';
 
 class PostListPage extends Component {
@@ -32,7 +32,7 @@ class PostListPage extends Component {
   
   componentDidMount() {
     this.props.dispatch(fetchPosts());
-    this.props.dispatch(fetchTemplates());
+    this.props.dispatch(templateActions.fetchTemplates());
     this.props.dispatch(fetchRecentLists());
   }
 
@@ -54,6 +54,14 @@ class PostListPage extends Component {
     this.props.dispatch(toggleAddWarning());
   };
   
+  handleAddSelectedTemplate = (template) => {
+    this.props.dispatch(templateActions.addSelected(template));
+  };
+  
+  handleRemoveSelectedTemplate = () => {
+    this.props.dispatch(templateActions.removeSelected());
+  };
+  
   handleLogout = () => {
     this.props.dispatch(logoutAction());
   };
@@ -70,6 +78,9 @@ class PostListPage extends Component {
           <Row className='show-grid'>
             <Col md={12}>
               <PostCreateWidget 
+                selectedTemplate={this.props.selectedTemplate}
+                addSelectedTemplate={this.handleAddSelectedTemplate}
+                removeSelectedTemplate={this.handleRemoveSelectedTemplate}
                 toggleAddWarning={this.handleToggleAddWarning}
                 showAddWarning={this.props.showAddWarning}
                 addPost={this.handleAddList} 
@@ -104,7 +115,7 @@ class PostListPage extends Component {
 // Actions required to provide data for this component to render in sever side.
 PostListPage.need = [
   () => { return fetchPosts(); },
-  () => { return fetchTemplates(); },
+  () => { return templateActions.fetchTemplates(); },
   () => { return fetchRecentLists(); },
 ];
 
@@ -115,6 +126,7 @@ function mapStateToProps(state) {
     recentLists: getRecentLists(state),
     templates: getTemplates(state),
     showAddWarning: getShowAddWarning(state),
+    selectedTemplate: getSelected(state),
     authorized: getAuth(state),
     user: getUser(state)
   };
@@ -134,6 +146,7 @@ PostListPage.propTypes = {
   showAddWarning: PropTypes.bool.isRequired,
   authorized: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
+  selectedTemplate: PropTypes.string.isRequired,
 };
 
 PostListPage.contextTypes = {
