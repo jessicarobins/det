@@ -9,6 +9,7 @@ require('./ListListPage.css')
 import PostList from '../../components/PostList';
 import RecentLists from '../../components/RecentLists/RecentLists';
 import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget';
+import NoLists from '../../components/NoLists/NoLists';
 
 // Import Actions
 import { addListRequest, fetchPosts, fetchRecentLists, deletePostRequest } from '../../ListActions';
@@ -79,10 +80,14 @@ class PostListPage extends Component {
           </Row>
           <Row className="show-grid">
             <Col xs={12} md={7} mdOffset={2}>
-              
+              {this.props.lists.length ?
               <PostList 
                 handleDeletePost={this.handleDeletePost}
                 lists={this.props.lists} />
+                :
+               <NoLists
+                templates={this.props.templates} />
+              }
             </Col>
             <Col md={3}>
               <RecentLists
