@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 // Import Components
 import UnAuthWidget from '../../components/UnAuthWidget/UnAuthWidget';
@@ -20,6 +21,7 @@ class UnAuthPage extends Component {
     return (
       <div className='container'>
         <UnAuthWidget lists={this.props.lists}/>
+         <Link to="/help" >Learn More</Link>
       </div>
     );
   }
