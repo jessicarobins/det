@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import RestartingTypist from './RestartingTypist/RestartingTypist';
 import { Button, Jumbotron } from 'react-bootstrap';
+import { Link } from 'react-router';
 import * as _ from 'lodash';
 
 require('./UnAuthWidget.css');
@@ -39,7 +40,8 @@ export class UnAuthWidget extends Component {
           <h2>do<strong style={{color: '#91170a'}}>everything</strong></h2>
           <p>
             Keep track of what you want to do - with help from 
-            the rest of the internet.
+            the rest of the internet. <Link to="/help" >Click to 
+            learn more!</Link>
           </p>
           <p>
             <Button bsStyle="primary" href="/auth/google">Login with Google</Button>

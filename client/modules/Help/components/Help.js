@@ -6,10 +6,17 @@ function Help(props) {
     <h2>What is Do Everything?</h2>
     <p>
       Do Everything is a <strong>crowd-sourced bucket list for completionists</strong>.
-      Ever want to keep track of your progress towards categorically completing a task -  
-      run a 5k in every state, visit every European capital city, 
-      try every flavor of Oreo, watch every James Bond movie? Do Everything will 
-      help you keep track and keep your list up-to-date when another flavor of 
+      Ever wanted to keep track of your progress towards categorically completing a task?
+    </p>
+    <ul className="fa-ul">
+      <li><i className="fa-li fa fa-angle-right"></i>run a 5k in every state</li>
+      <li><i className="fa-li fa fa-angle-right"></i>visit every European capital city</li>
+      <li><i className="fa-li fa fa-angle-right"></i>try every flavor of Oreo</li>
+      <li><i className="fa-li fa fa-angle-right"></i>watch every James Bond movie</li>
+    </ul>
+    <p>
+      Do Everything will 
+      help you measure your progress, and keep your list up-to-date when another flavor of 
       Oreo comes out.
     </p>
     <h2>How does it work?</h2>
@@ -19,7 +26,8 @@ function Help(props) {
       that collection. When people add items to that collection, those items will 
       be automatically added to your list! So you'll never have to worry about 
       missing out when Halo Top releases a new flavor of ice cream.
-      <br/><br/>
+    </p>
+    <p>
       Sometimes, there won't be a pre-existing list to link to. Never fear! You 
       can create an empty list and add the items. Other people will be able to 
       use that collection of items as their own list. When they contribute 
