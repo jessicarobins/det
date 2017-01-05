@@ -29,12 +29,17 @@ if (process.env.NODE_ENV !== 'production') {
 // More info: http://blog.mxstbr.com/2016/01/react-apps-with-pages/
 export function createRoutes(store) {
   
-  const requireAuth = (nextState, replace, callback) => {
-    const { user: { authenticated }} = store.getState();
+  const listsRedirect = (nextState, replace, callback) => {
+    const { user: { authenticated, data } } = store.getState();
     if (!authenticated) {
       replace({
         pathname: '/login',
         state: { nextPathname: nextState.location.pathname }
+      });
+    }
+    else if (data && !data.username) {
+      replace({
+        pathname: '/username'
       });
     }
     else {
@@ -43,17 +48,60 @@ export function createRoutes(store) {
     callback();
   };
   
-  const startSpinner = (nextState, replace, callback) => {
-    store.dispatch(toggleSpinnerOn());
+  const detailRedirect = (nextState, replace, callback) => {
+    const { user: { authenticated, data } } = store.getState();
+    if (authenticated && data && !data.username) {
+      replace({
+        pathname: '/username'
+      });
+    }
+    else {
+      store.dispatch(toggleSpinnerOn());
+    }
     callback();
   };
 
-  const redirectAuth = (nextState, replace, callback) => {
-    const { user: { authenticated }} = store.getState();
+  const loginRedirect = (nextState, replace, callback) => {
+    const { user: { authenticated, data } } = store.getState();
     if (authenticated) {
-      store.dispatch(toggleSpinnerOn());
+      if(data && !data.username) {
+        replace({
+          pathname: '/username'
+        });
+      }
+      else {
+        store.dispatch(toggleSpinnerOn());
+        replace({
+          pathname: '/'
+        });
+      }
+    }
+    callback();
+  };
+  
+  const usernameRedirect = (nextState, replace, callback) => {
+    const { user: { authenticated, data } } = store.getState();
+    if (authenticated) {
+      if(data && data.username) {
+        store.dispatch(toggleSpinnerOn());
+        replace({
+          pathname: '/'
+        });
+      }
+    }
+    else {
       replace({
-        pathname: '/'
+        pathname: '/login'
+      });
+    }
+    callback();
+  };
+  
+  const helpRedirect = (nextState, replace, callback) => {
+    const { user: { authenticated, data } } = store.getState();
+    if (authenticated && data && !data.username) {
+      replace({
+        pathname: '/username'
       });
     }
     callback();
@@ -62,7 +110,7 @@ export function createRoutes(store) {
   return (
     <Route path="/" component={App}>
       <IndexRoute
-        onEnter={requireAuth}
+        onEnter={listsRedirect}
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
             cb(null, require('./modules/Post/pages/PostListPage/PostListPage').default);
@@ -71,7 +119,7 @@ export function createRoutes(store) {
       />
       <Route
         path="/login"
-        onEnter={redirectAuth}
+        onEnter={loginRedirect}
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
             cb(null, require('./modules/Post/pages/UnAuthPage/UnAuthPage').default);
@@ -79,7 +127,7 @@ export function createRoutes(store) {
         }}
       />
       <Route
-        onEnter={startSpinner}
+        onEnter={detailRedirect}
         path="/lists/:cuid"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
@@ -88,6 +136,7 @@ export function createRoutes(store) {
         }}
       />
       <Route
+        onEnter={helpRedirect}
         path="/help"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
@@ -96,6 +145,7 @@ export function createRoutes(store) {
         }}
       />
       <Route
+        onEnter={usernameRedirect}
         path="/username"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
