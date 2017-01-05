@@ -22,7 +22,7 @@ export function cloneList(req, res) {
       return list.cloneForUser(req.user);
     })
     .then( (list) => {
-      return List.populate(list, {path:'_users', select: 'name picture'});
+      return List.populate(list, {path:'_users', select: 'name picture username'});
     })
     .then( (list) => {
       res.json({ list });
@@ -43,7 +43,7 @@ export function getRecentLists(req, res) {
     .find()
     .byRecent()
     .ne('_users', req.user._id)
-    .populate('_users', 'name picture')
+    .populate('_users', 'name picture username')
     .exec()
     .then( (lists) => {
       res.json( { lists });
@@ -61,7 +61,7 @@ export function getLists(req, res) {
   
   List.find().forUser(req.user)
     .sort('-dateAdded')
-    .populate('_users', 'name picture')
+    .populate('_users', 'name picture username')
     .exec()
     .then( (lists) => {
       res.json({ lists });
@@ -99,7 +99,7 @@ export function addEmptyList(req, res) {
       return newList.addItemsFromTemplate(template);
     })
     .then( (list) => {
-      return List.populate(list, {path:'_users', select: 'name picture'});
+      return List.populate(list, {path:'_users', select: 'name picture username'});
     })
     .then( (list) => {
       res.json({ list });
@@ -141,7 +141,7 @@ export function findOrCreateListTemplate(req, res) {
       return newList.addItemsFromTemplate(template);
     })
     .then( (list) => {
-      return List.populate(list, {path:'_users', select: 'name picture'})
+      return List.populate(list, {path:'_users', select: 'name picture username'})
     })
     .then( (list) => {
       res.json({ list: list });
@@ -160,7 +160,7 @@ export function findOrCreateListTemplate(req, res) {
  */
 export function getList(req, res) {
   List.findOne({ cuid: req.params.cuid })
-    .populate('_users', 'name picture')
+    .populate('_users', 'name picture username')
     .exec()
     .then( (list) => {
       res.json({ list });
@@ -173,7 +173,7 @@ export function getList(req, res) {
 export function addListItem(req, res) {
   
   List.findOne({ cuid: req.params.cuid })
-    .populate('_users', 'name picture')
+    .populate('_users', 'name picture username')
     .exec()
     .then( (list) => {
       return list.addListItem(req.body.item, req.user);
@@ -188,7 +188,7 @@ export function addListItem(req, res) {
 
 export function deleteListItem(req, res) {
   List.findOne({ cuid: req.params.cuid })
-    .populate('_users', 'name picture')
+    .populate('_users', 'name picture username')
     .exec()
     .then( (list) => {
       return list.deleteListItem(req.params.id);
@@ -222,7 +222,7 @@ export function deleteList(req, res) {
 export function toggleListItem(req, res) {
  
   List.findOne( { cuid: req.params.cuid })
-    .populate('_users', 'name picture')
+    .populate('_users', 'name picture username')
     .exec()
     .then( (list ) => {
       const todo = list.items.id(req.params.list_item_id);

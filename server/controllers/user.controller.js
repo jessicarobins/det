@@ -1,21 +1,33 @@
+import * as Q from 'q';
+import mongoose from 'mongoose';
+mongoose.Promise = Q.Promise;
+
 import User from '../models/user';
 
 export function logout(req, res) {
   req.logout();
   res.status(200).send();
-  
-  // console.log('this is req user before', req.user)
-  // req.logout();
-  // console.log('this is req user after', req.user)
-  // res.redirect('/');
-  // res.cookie("sessionId", "", { expires: new Date() });
-  // console.log('res cookie?', res.cookie('sessionId'))
-  // req.session.destroy(function (err) {
-  //   console.log('error: ', err)
-  //   res.clearCookie('sessionId', { path: '/' });
-  //   console.log('res cookie?', res.cookie('sessionId'))
-  //   // res.cookie("sessionId", "", { expires: new Date() });
-  //   // res.clearCookie('sessionId', {path:'/'});
-  //   res.redirect('/'); //Inside a callback… bulletproof!
-  // });
 }
+
+export function setUsername(req, res) {
+  if (!req.user) {
+    res.status(401).send('Unauthorized');
+    return;
+  }
+  
+  if (!req.body.username) {
+    res.status(422).end();
+    return;
+  }
+  
+  req.user.username = req.body.username;
+  
+  req.user.save()
+    .then( (user) => {
+      res.status(200).send({user: user.getPublicFields()});
+    })
+    .catch( (err) => {
+      res.status(422).send(err);
+    });
+}
+

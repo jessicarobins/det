@@ -77,6 +77,8 @@ const data = (
   action
 ) => {
   switch (action.type) {
+    case UserActions.SET_USERNAME_SUCCESS:
+      return action.user;
     default:
       return state;
   }

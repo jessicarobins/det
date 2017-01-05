@@ -20,7 +20,7 @@ class Tiles extends Component {
       <div>
         <Panel className='detail-tile'>
           <p className='detail'><Image src={this.props.list._users[0].picture} rounded /></p>
-          <p className='caption'>{this.props.list._users[0].name}</p>
+          <p className='caption'>{this.props.list._users[0].username}</p>
         </Panel>
         <Panel className='detail-tile'>
           <p className='detail'>{this.percentLabel()}</p>

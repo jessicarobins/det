@@ -22,6 +22,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('./modules/Post/pages/PostDetailPage/PostDetailPage');
   require('./modules/Post/pages/UnAuthPage/UnAuthPage');
   require('./modules/Help/pages/HelpPage');
+  require('./modules/User/pages/CreateUsernamePage');
 }
 
 // react-router setup with code-splitting
@@ -91,6 +92,14 @@ export function createRoutes(store) {
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
             cb(null, require('./modules/Help/pages/HelpPage').default);
+          });
+        }}
+      />
+      <Route
+        path="/username"
+        getComponent={(nextState, cb) => {
+          require.ensure([], require => {
+            cb(null, require('./modules/User/pages/CreateUsernamePage').default);
           });
         }}
       />

@@ -1,5 +1,7 @@
 import { push } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
+import * as appActions from '../App/AppActions';
 import callApi from '../../util/apiCaller';
 
 export const TOGGLE_LOGIN_MODE = 'TOGGLE_LOGIN_MODE';
@@ -12,6 +14,8 @@ export const SIGNUP_ERROR_USER = 'SIGNUP_ERROR_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOGOUT_SUCCESS_USER = 'LOGOUT_SUCCESS_USER';
 export const LOGOUT_ERROR_USER = 'LOGOUT_ERROR_USER';
+export const SET_USERNAME_SUCCESS = 'SET_USERNAME_SUCCESS';
+export const SET_USERNAME_FAILURE = 'SET_USERNAME_FAILURE';
 
 export function beginLogout() {
   return { type: LOGOUT_USER};
@@ -25,8 +29,31 @@ export function logoutError() {
   return { type: LOGOUT_ERROR_USER };
 }
 
+export function setUsernameSuccess(user) {
+  return { 
+    type: SET_USERNAME_SUCCESS,
+    user
+  };
+}
+
 export function toggleLoginMode() {
   return { type: TOGGLE_LOGIN_MODE };
+}
+
+export function setUsernameRequest(props) {
+  return (dispatch) => {
+    return callApi(`user`, 'put', {
+      username: props.username,
+    }).then( (res) => {
+      if(res.user) {
+        dispatch(setUsernameSuccess(res.user));
+        dispatch(push('/'));
+      }
+      else {
+        dispatch(appActions.addSystemMessage(res, 'danger'));
+      }
+    });
+  };
 }
 
 export function logOut() {

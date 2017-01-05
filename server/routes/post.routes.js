@@ -28,5 +28,6 @@ router.route('/templates').get(ListTemplateController.getTemplates);
 
 // users
 router.route('/logout').post(UserController.logout);
+router.route('/user').put(UserController.setUsername);
 
 export default router;

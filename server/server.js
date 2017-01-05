@@ -199,7 +199,7 @@ const renderError = err => {
 // Server Side Rendering based on routes matched by React-router.
 app.use((req, res, next) => {
   const authenticated = req.isAuthenticated();
-  const userData = req.user ? _.pick(req.user, ['name', '_id', 'picture']) : null;
+  const userData = req.user ? _.pick(req.user, ['name', '_id', 'picture', 'username']) : null;
   const history = createMemoryHistory();
   const store = configureStore({
     user: {

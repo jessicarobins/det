@@ -16,7 +16,7 @@ export function Header(props, context) {
         <LinkContainer to="/help">
           <NavItem>About</NavItem>
         </LinkContainer>
-        <NavDropdown title={props.user.name} id="basic-nav-dropdown">
+        <NavDropdown title={props.user.username} id="basic-nav-dropdown">
           <MenuItem onClick={props.logout}>log out</MenuItem>
         </NavDropdown> 
       </Nav> :
