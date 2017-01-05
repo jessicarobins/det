@@ -98,12 +98,12 @@ class PostListPage extends Component {
           </Col>
         </Row>
         <Row className="show-grid">
-          <Col xs={12} md={3} mdOffset={3}>
+          <Col xs={12} md={4} mdOffset={2}>
             <Collections 
               templates={this.props.templates}
               addSelectedTemplate={this.handleAddSelectedTemplate}/>
           </Col>
-          <Col md={3}>
+          <Col md={4}>
             <RecentLists
               lists={this.props.recentLists} />
           </Col>

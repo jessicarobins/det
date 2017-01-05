@@ -16,15 +16,23 @@ export function Header(props, context) {
         <LinkContainer to="/help">
           <NavItem>About</NavItem>
         </LinkContainer>
-        <NavDropdown title={props.user.username} id="basic-nav-dropdown">
-          <MenuItem onClick={props.logout}>log out</MenuItem>
-        </NavDropdown> 
+        {userLink(props)}
       </Nav> :
       <Nav pullRight>
         <NavItem href="/auth/google">Login with Google</NavItem>
       </Nav>
       }
     </Navbar>
+  );
+}
+
+function userLink(props) {
+  return (
+    props.user.username ? 
+      <NavDropdown title={props.user.username} id="basic-nav-dropdown">
+        <MenuItem onClick={props.logout}>Log Out</MenuItem>
+      </NavDropdown> :
+      <NavItem onClick={props.logout}>Log Out</NavItem>
   );
 }
 

@@ -97,16 +97,6 @@ export function createRoutes(store) {
     callback();
   };
   
-  const helpRedirect = (nextState, replace, callback) => {
-    const { user: { authenticated, data } } = store.getState();
-    if (authenticated && data && !data.username) {
-      replace({
-        pathname: '/username'
-      });
-    }
-    callback();
-  };
-  
   return (
     <Route path="/" component={App}>
       <IndexRoute
@@ -136,7 +126,6 @@ export function createRoutes(store) {
         }}
       />
       <Route
-        onEnter={helpRedirect}
         path="/help"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {

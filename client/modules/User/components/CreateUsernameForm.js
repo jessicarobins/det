@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import { Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 
 export class UsernameCreateForm extends Component {
   
@@ -9,7 +9,8 @@ export class UsernameCreateForm extends Component {
       isLoading: false};
   }
   
-  createUsername = () => {
+  createUsername = (e) => {
+    e.preventDefault();
     if (this.usernameRef.value) {
       this.setState({isLoading: true});
       this.props.addUsername(this.usernameRef.value);
@@ -19,9 +20,9 @@ export class UsernameCreateForm extends Component {
 
   render() {
     return (
-      <form>
+      <Form onSubmit={this.createUsername}>
         <FormGroup>
-          <ControlLabel>Create a public-facing username</ControlLabel>
+          <ControlLabel>First, create a public-facing username</ControlLabel>
           <FormControl
             autoFocus={true}
             inputRef={ref => {this.usernameRef = ref}} 
@@ -33,7 +34,7 @@ export class UsernameCreateForm extends Component {
           onClick={!this.state.isLoading ? this.createUsername : null}>
            {this.state.isLoading ? 'Creating...' : 'Create!'}
         </Button>
-      </form>
+      </Form>
     );
   }
 }
