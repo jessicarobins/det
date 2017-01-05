@@ -47,7 +47,7 @@ function mapStateToProps(state) {
 
 CreateUsernamePage.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  // user: PropTypes.object.isRequired,
 };
 
 CreateUsernamePage.contextTypes = {

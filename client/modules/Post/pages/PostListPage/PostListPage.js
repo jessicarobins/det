@@ -177,7 +177,7 @@ PostListPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   showAddWarning: PropTypes.bool.isRequired,
   authorized: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
+  // user: PropTypes.object.isRequired,
   selectedTemplate: PropTypes.string.isRequired,
 };
 
