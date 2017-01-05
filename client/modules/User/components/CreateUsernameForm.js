@@ -13,6 +13,7 @@ export class UsernameCreateForm extends Component {
     if (this.usernameRef.value) {
       this.setState({isLoading: true});
       this.props.addUsername(this.usernameRef.value);
+      this.setState({isLoading: false});
     }
   };
 

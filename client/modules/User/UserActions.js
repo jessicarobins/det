@@ -50,7 +50,7 @@ export function setUsernameRequest(props) {
         dispatch(push('/'));
       }
       else {
-        dispatch(appActions.addSystemMessage(res, 'danger'));
+        dispatch(appActions.addSystemMessage(res.errors.username.message || res.message, 'danger'));
       }
     });
   };
