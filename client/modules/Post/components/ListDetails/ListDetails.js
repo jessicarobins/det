@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Grid, Col, Row } from 'react-bootstrap';
 import * as _ from 'lodash';
 
+import ListDetailHeader from './ListDetailHeader/ListDetailHeader';
 import Tiles from '../../components/PostListItem/Tiles/Tiles';
 import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
 import Progress from '../../components/PostListItem/Progress/Progress';
@@ -24,7 +25,11 @@ export class ListDetails extends Component {
       <Grid>
         <Row className="show-grid">
           <Col xs={12} md={6} mdOffset={3}>
-            <h2>I want to <strong>{this.props.list.name}</strong></h2>
+            <ListDetailHeader 
+              list={this.props.list}
+              belongsToUser={!!this.belongsToUser()}
+              loggedIn={this.loggedIn()}
+              cloneList={this.props.cloneList} />
           </Col>
         </Row>
         <Row>
@@ -43,10 +48,8 @@ export class ListDetails extends Component {
             : null }
           </Col>
           <Col md={1} mdOffset={1}>
-            { this.loggedIn() ?
             <Actions
-              cloneList={this.props.cloneList}
-              list={this.props.list} /> : null }
+              list={this.props.list} />
           </Col>
         </Row>
       </Grid>
