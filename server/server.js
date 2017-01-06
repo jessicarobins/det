@@ -184,7 +184,7 @@ const renderFullPage = (html, initialState) => {
         </script>
         <script src='${process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js'}'></script>
         <script src='${process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js'}'></script>
-        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=jrobins"></script> 
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=jrobins&async=1"></script> 
       </body>
     </html>
   `;
