@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React,{ Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
@@ -10,15 +10,20 @@ class Actions extends Component {
         Clone List
       </Tooltip>
     )
-  };
-  
+  }
+
   render() {
     return (
-      <OverlayTrigger placement="bottom" overlay={this.tooltip()}>
-        <Button onClick={this.props.cloneList}>
-          <FontAwesome name='clone'/>
-        </Button>
-      </OverlayTrigger>
+      <div>
+        <OverlayTrigger placement="right" overlay={this.tooltip()}>
+          <div>
+          <a onClick={this.props.cloneList}>
+            <FontAwesome name='clone'/>
+          </a>
+          </div>
+        </OverlayTrigger>
+        <div className="addthis_inline_share_toolbox"></div>
+      </div>
     )
   }
 }

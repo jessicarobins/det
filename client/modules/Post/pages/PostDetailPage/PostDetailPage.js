@@ -50,7 +50,7 @@ class PostDetailPage extends Component {
   render() {
     return (
       <div>
-        <Helmet title={this.props.list ? this.props.list.name : '404: List not found'} />
+        <Helmet title={this.props.list ? `I want to ${this.props.list.name}` : '404: List not found'} />
         <Header
           user={this.props.user}
           logout={this.handleLogout}
