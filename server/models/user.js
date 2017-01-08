@@ -18,6 +18,7 @@ userSchema.plugin(
 
 userSchema.methods.getPublicFields = function () {
   var returnObject = {
+    _id: this._id,
     name: this.name,
     picture: this.picture,
     username: this.username
