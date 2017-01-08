@@ -50,7 +50,7 @@ listSchema.query.byRecent = function() {
   return this
           .find()
           .sort('-dateAdded')
-          .limit(10);
+          .limit(20);
 };
 
 listSchema.methods.addListItem = function(item, user) {

@@ -13,15 +13,14 @@ function RecentLists(props) {
       Others want to
       <ul className="fa-ul">
       {
-        _.uniqBy(props.lists, 'name')
-          .map(list => (
-            <li key={list.cuid}>
-              <i className="fa-li fa fa-angle-right"></i>
-              <Link to={`/lists/${list.cuid}`} >
-                {list.name}
-              </Link>
-            </li>
-          ))
+        props.lists.map(list => (
+          <li key={list.cuid}>
+            <i className="fa-li fa fa-angle-right"></i>
+            <Link to={`/lists/${list.cuid}`} >
+              {list.name}
+            </Link>
+          </li>
+        ))
       }
       </ul>
     </Panel>

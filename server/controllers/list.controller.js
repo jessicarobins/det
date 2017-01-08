@@ -3,6 +3,7 @@ import ListTemplate from '../models/listTemplate';
 import cuid from 'cuid';
 import * as wolframHelper from '../util/wolframHelper';
 import * as Q from 'q';
+import * as _ from 'lodash';
 import mongoose from 'mongoose';
 mongoose.Promise = Q.Promise;
 
@@ -46,7 +47,11 @@ export function getRecentLists(req, res) {
     .populate('_users', 'name picture username')
     .exec()
     .then( (lists) => {
-      res.json( { lists });
+      const uniqueLists = _.chain(lists)
+        .uniqBy('name')
+        .take(10)
+        .value();
+      res.json( { lists: uniqueLists });
     })
     .catch( (err) => {
       res.status(422).send(err);
