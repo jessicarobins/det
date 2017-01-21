@@ -39,7 +39,7 @@ export class UnAuthWidget extends Component {
               {this.currentList()}
             </RestartingTypist>
           </h1>
-          <h2><Brand /></h2>
+          <h2><Brand />.io</h2>
           <p>
             Keep track of what you want to do - with help from 
             the rest of the internet. <Link to="/help" >Click to 

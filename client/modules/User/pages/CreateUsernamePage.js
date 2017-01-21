@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Row, Col } from 'react-bootstrap';
 
+import Brand from '../../App/components/Brand/Brand';
 import CreateUsernameForm from '../components/CreateUsernameForm';
 import Header from '../../App/components/Header/Header';
 
@@ -27,7 +28,7 @@ class CreateUsernamePage extends Component {
         <Grid>
           <Row>
             <Col md={8} mdOffset={2}>
-              <h1>Welcome to Do Everything!</h1>
+              <h1>Welcome to <Brand />.io</h1>
               <CreateUsernameForm
                 addUsername={this.handleAddUsername} />
             </Col>
