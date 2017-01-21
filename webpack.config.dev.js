@@ -40,11 +40,14 @@ module.exports = {
         test: /\.css$/,
         exclude: /node_modules/,
         loaders: ExtractTextPlugin.extract('style-loader', 'css-loader'),
-      }, {
+      }, { 
+        test: /\.scss$/,
+        loaders: ["style", "css", "sass"]
+      },{
         test: /\.css$/,
         include: /node_modules/,
         loaders: ['style-loader', 'css-loader'],
-      },, {
+      }, {
         test: /\.jsx*$/,
         exclude: [/node_modules/, /.+\.config.js/],
         loader: 'babel',
