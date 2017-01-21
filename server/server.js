@@ -169,7 +169,12 @@ const renderFullPage = (html, initialState) => {
         ${head.meta.toString()}
         ${head.link.toString()}
         ${head.script.toString()}
-
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="/manifest.json">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#91170a">
+        <meta name="theme-color" content="#ffffff">
         <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'/>
         <link href='/styles.css' rel='stylesheet' type='text/css'/>
       </head>

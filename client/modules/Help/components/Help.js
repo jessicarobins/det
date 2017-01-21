@@ -43,7 +43,7 @@ function Help(props) {
     </p>
     <h2>Still have questions?</h2>
     <p>
-      <a href='mailto:appdoeverything@gmail.com' target='_blank'>Shoot me an email.</a>
+      <a href='mailto:evereeapp@gmail.com' target='_blank'>Shoot me an email.</a>
     </p>
     </div>
   );
