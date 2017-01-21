@@ -37,8 +37,8 @@ export class App extends Component {
       <div>
         <div>
           <Helmet
-            title="do everything"
-            titleTemplate="%s - do everything"
+            title="everee.io"
+            titleTemplate="%s"
             meta={[
               { charset: 'utf-8' },
               {

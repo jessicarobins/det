@@ -3,12 +3,14 @@ import { Link } from 'react-router';
 import { Navbar, Nav, NavDropdown, MenuItem, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
+import Brand from '../Brand/Brand'
+
 export function Header(props, context) {
   return (
     <Navbar>
       <Navbar.Header>
         <Navbar.Brand>
-          <Link to="/" >do<strong style={{color: '#91170a'}}>everything</strong></Link>
+          <Link to="/" ><Brand />.io</Link>
         </Navbar.Brand>
       </Navbar.Header>
       {props.user ? 

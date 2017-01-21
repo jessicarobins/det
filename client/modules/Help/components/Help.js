@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
 
+import Brand from '../../App/components/Brand/Brand';
+
 function Help(props) {
   return (
     <div>
-    <h2>What is Do Everything?</h2>
+    <h2>What is <Brand />?</h2>
     <p>
-      Do Everything is a <strong>crowd-sourced bucket list for completionists</strong>.
+      <Brand /> is a <strong>crowd-sourced bucket list for completionists</strong>.
       Ever wanted to keep track of your progress towards categorically completing a task?
     </p>
     <ul className="fa-ul">
@@ -15,13 +17,13 @@ function Help(props) {
       <li><i className="fa-li fa fa-angle-right"></i>watch every James Bond movie</li>
     </ul>
     <p>
-      Do Everything will 
+      <Brand /> will 
       help you measure your progress, and keep your list up-to-date when another flavor of 
       Oreo comes out.
     </p>
     <h2>How does it work?</h2>
     <p>
-      When you create a list, Do Everything will search existing lists to see if 
+      When you create a list, <Brand /> will search existing lists to see if 
       a collection of items already exists. If it does, it will link your list to 
       that collection. When people add items to that collection, those items will 
       be automatically added to your list! So you'll never have to worry about 
@@ -41,7 +43,7 @@ function Help(props) {
     </p>
     <h2>Still have questions?</h2>
     <p>
-      <a href='mailto:appdoeverything@gmail.com?subject=Do Everything is awesome!' target='_blank'>Shoot me an email.</a>
+      <a href='mailto:appdoeverything@gmail.com' target='_blank'>Shoot me an email.</a>
     </p>
     </div>
   );

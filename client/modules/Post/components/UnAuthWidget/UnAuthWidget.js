@@ -6,6 +6,8 @@ import * as _ from 'lodash';
 
 require('./UnAuthWidget.css');
 
+import Brand from '../../../App/components/Brand/Brand';
+
 export class UnAuthWidget extends Component {
   
   constructor(props) {
@@ -37,7 +39,7 @@ export class UnAuthWidget extends Component {
               {this.currentList()}
             </RestartingTypist>
           </h1>
-          <h2>do<strong style={{color: '#91170a'}}>everything</strong></h2>
+          <h2><Brand /></h2>
           <p>
             Keep track of what you want to do - with help from 
             the rest of the internet. <Link to="/help" >Click to 
