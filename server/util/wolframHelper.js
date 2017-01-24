@@ -1,20 +1,18 @@
-import wajs from 'wajs';
 import * as Q from 'q';
 import * as _ from 'lodash';
+import axios from 'axios';
+
 import secrets from '../../secrets';
 export const WA_APP_ID = secrets.wolframAlphaId;
 
-export const waClient = new wajs(WA_APP_ID);
+export const uri = (input) => `http://api.wolframalpha.com/v2/query?input=${encodeURIComponent(input)}&format=plaintext&output=json&scanner=Data&podstate=100@More&appid=${WA_APP_ID}`;
 
-export const QUERY_OPTIONS = {
-  format: 'plaintext',
-  podState: '100@More',
-  ignoreCase: true,
-  includePodId: ['Result'],
-  scanner: ['Data']
+export const query = (input) => {
+  return axios.get(uri(input))
+    .then(response => {
+      return response.data.queryresult;
+    });
 };
-
-export const formatQuery = (query) => query //`${query} list`;
 
 export const queryFormats = (query) => {
   return [
@@ -30,7 +28,7 @@ export const tryQueries = (action) => {
 }
 
 export const getItems = (action) => {
-  return waClient.query(action, QUERY_OPTIONS)
+  return query(action)
     .then( (response) => {
       return formatResponse(response);
     })
@@ -40,16 +38,21 @@ export const getItems = (action) => {
     });
 };
 
+const getPod = (results) => {
+  return _.find(results.pods, {id: 'Result'});
+}
+
 export const formatResponse = (response) => {
-  if (!response.pods()[0]){
+  const resultPod = getPod(response);
+  if (!resultPod){
     console.log('no pods in response');
-    return Q.reject();
+    return Q.reject('no pods in response');
   }
-  let queryString = response.pods()[0].subpod[0].plaintext[0];
+  let queryString = resultPod.subpods[0].plaintext;
   console.log('querystring', queryString)
   if (queryString === '(data not available)'){
     console.log('data not available');
-    return Q.reject();
+    return Q.reject('data not available');
   }
   const totalIndex = queryString.indexOf('(total:');
   if (totalIndex > -1) {
@@ -64,7 +67,7 @@ export const formatResponse = (response) => {
   // it's probably not a legit query
   if(resultArray.length === 1) {
     console.log('response was only 1 item');
-    return Q.reject();
+    return Q.reject('response was only 1 item');
   }
   return Q.when(resultArray);
 }
