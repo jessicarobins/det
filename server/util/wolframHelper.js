@@ -10,7 +10,7 @@ export const QUERY_OPTIONS = {
   format: 'plaintext',
   podState: '100@More',
   ignoreCase: true,
-  includePodId: ['Result'],
+  podTitle: 'Result',
   scanner: ['Data']
 };
 
