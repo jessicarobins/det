@@ -54,4 +54,5 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  flex-wrap: wrap;
 }
