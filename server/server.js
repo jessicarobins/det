@@ -22,6 +22,8 @@ import secrets from '../secrets';
 import { OAuth2Strategy } from 'passport-google-oauth';
 import User from './models/user';
 
+delete process.env.BROWSER;
+
 // Initialize the Express App
 const app = new Express();
 

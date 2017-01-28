@@ -10,7 +10,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { createRoutes } from './routes';
 
 // Base stylesheet
-require('./main.css');
+require('./main.scss');
 
 export default function App(props) {
   const history = syncHistoryWithStore(browserHistory, props.store);

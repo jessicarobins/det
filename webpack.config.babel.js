@@ -1,3 +1,4 @@
+var path = require('path');
 var cssnext = require('postcss-cssnext');
 var postcssFocus = require('postcss-focus');
 var postcssReporter = require('postcss-reporter');
@@ -21,7 +22,10 @@ module.exports = {
   },
   module: {
     loaders: [
-      {
+      { 
+        test: /\.scss$/,
+        loaders: ["style-loader", "css-loader", "sass-loader"]
+      },{
         test: /\.css$/,
         exclude: /node_modules/,
         loader: 'style-loader!css-loader?localIdentName=' + cssModulesIdentName + '&modules&importLoaders=1&sourceMap!postcss-loader',
@@ -31,6 +35,12 @@ module.exports = {
         loader: 'url-loader?limit=10000',
       },
     ],
+  },
+  sassLoader: {
+    data: '@import "variables";',
+    includePaths: [
+      path.resolve(__dirname, "./client")
+    ]
   },
   postcss: () => [
     postcssFocus(),

@@ -3,6 +3,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var cssnext = require('postcss-cssnext');
 var postcssFocus = require('postcss-focus');
 var postcssReporter = require('postcss-reporter');
+var path = require('path');
 
 module.exports = {
 
@@ -40,11 +41,14 @@ module.exports = {
         test: /\.css$/,
         exclude: /node_modules/,
         loaders: ExtractTextPlugin.extract('style-loader', 'css-loader'),
-      }, {
+      }, { 
+        test: /\.scss$/,
+        loaders: ["style-loader", "css-loader", "sass-loader"]
+      },{
         test: /\.css$/,
         include: /node_modules/,
         loaders: ['style-loader', 'css-loader'],
-      },, {
+      }, {
         test: /\.jsx*$/,
         exclude: [/node_modules/, /.+\.config.js/],
         loader: 'babel',
@@ -68,12 +72,20 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
+        BROWSER: JSON.stringify(true),
         CLIENT: JSON.stringify(true),
         'NODE_ENV': JSON.stringify('development'),
       }
     }),
   ],
-
+  
+  sassLoader: {
+    data: '@import "variables";',
+    includePaths: [
+      path.resolve(__dirname, "./client")
+    ]
+  },
+  
   postcss: () => [
     postcssFocus(),
     cssnext({

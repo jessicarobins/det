@@ -1,8 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import { Media } from 'react-bootstrap';
+import FontAwesome from 'react-fontawesome';
 
 // Import Components
 import UnAuthWidget from '../../components/UnAuthWidget/UnAuthWidget';
+import About from '../../../App/components/About/About';
 
 // Import Actions
 import { fetchDemoLists } from '../../ListActions';
@@ -18,8 +21,9 @@ class UnAuthPage extends Component {
 
   render() {
     return (
-      <div className='container'>
+      <div>
         <UnAuthWidget lists={this.props.lists}/>
+        <About />
       </div>
     );
   }
