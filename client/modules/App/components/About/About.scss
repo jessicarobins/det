@@ -1,10 +1,60 @@
-.about-title {
-    font-size: 30px;
-    font-weight: bold;
-    margin-left: 15px;
-}
-
-.card-primary {
-    background-color: $primary !important;
-    border-color: $primary !important;
+.about {
+    
+    section {
+        min-height: 350px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .about-title {
+        color: $primary-text;
+        font-family: $fancy-font;
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    .steps {
+        background-color: $primary;
+        padding: 40px 0;
+        color: $text;
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            .step-icon {
+                margin: 30px 0;
+                color: $accent;
+            }
+            
+            .step-text {
+                font-size: 16px;
+                margin: 0 30px;
+                color: $divider;
+            }
+        }
+        
+        .step-number {
+            border: 1px solid $text;
+            border-radius: 100px;
+            width: 37.5px;
+            margin-right: 10px;
+            display: inline-block;
+        }
+        
+        .about-title {
+            color: $text;
+        }
+        
+        .steps-title {
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            color: $text;
+            margin: 15px;
+        }
+    }
 }
