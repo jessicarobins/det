@@ -36,8 +36,7 @@ export function cloneList(req, res) {
 
 export function getRecentLists(req, res) {
   if (!req.user) {
-    res.json({lists: []});
-    return;
+    req.user = {_id: null}
   }
   
   List

@@ -8,22 +8,23 @@ import UnAuthWidget from '../../components/UnAuthWidget/UnAuthWidget';
 import About from '../../../App/components/About/About';
 
 // Import Actions
-import { fetchDemoLists } from '../../ListActions';
+import { fetchDemoLists, fetchRecentLists } from '../../ListActions';
 
 // Import Selectors
-import { getDemoLists } from '../../ListReducer';
+import { getDemoLists, getRecentLists } from '../../ListReducer';
 
 class UnAuthPage extends Component {
     
   componentDidMount() {
     this.props.dispatch(fetchDemoLists());
+    this.props.dispatch(fetchRecentLists());
   }
 
   render() {
     return (
       <div>
         <UnAuthWidget lists={this.props.lists}/>
-        <About />
+        <About recentLists={this.props.recentLists}/>
       </div>
     );
   }
@@ -32,18 +33,24 @@ class UnAuthPage extends Component {
 // Actions required to provide data for this component to render in sever side.
 UnAuthPage.need = [
   () => { return fetchDemoLists(); },
+  () => { return fetchRecentLists(); },
 ];
 
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
     lists: getDemoLists(state),
+    recentLists: getRecentLists(state),
   };
 }
 
 UnAuthPage.propTypes = {
   lists: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired
+  })).isRequired,
+  recentLists: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    cuid: PropTypes.string.isRequired,
   })).isRequired,
   dispatch: PropTypes.func.isRequired,
 };

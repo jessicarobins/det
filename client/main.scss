@@ -3,7 +3,7 @@
 */
 @import url('~bootstrap/dist/css/bootstrap.css');
 @import url('//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css');
-@import './bootstrap.css';
+// @import './bootstrap.css';
 @import '~react-typist/dist/Typist.css';
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import url('https://fonts.googleapis.com/css?family=Arima+Madurai');
@@ -31,8 +31,16 @@ body {
 	font-size: 16px;
 }
 
-a {
+a, a:hover {
 	cursor: pointer;
+}
+
+a:hover {
+	color: $primary-dark;
+}
+
+a {
+	color: $primary;
 }
 
 .vertical-align {

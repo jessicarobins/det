@@ -26,6 +26,11 @@ listSchema.virtual('name').get( function() {
   return `${this.verb} every ${this.action}`;
 });
 
+listSchema.virtual('fullName').get( function() {
+  const user = this._users[0].username;
+  return `${user} wants to ${this.verb} every ${this.action}`;
+});
+
 listSchema.virtual('percentComplete').get( function() {
   const numItems = this.items.length;
   const numComplete = _.filter(this.items, 'complete').length;

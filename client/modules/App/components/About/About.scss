@@ -1,24 +1,38 @@
 .about {
     
     section {
-        min-height: 350px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding-bottom: 15px;
+        
+        &.tall-section {
+            min-height: 350px;
+            padding-top: 20px;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+        }
+        
+        .title-line {
+            width: 100px;
+            color: $secondary-text;
+            border-top-color: $secondary-text;
+            margin-top: 0px;
+        }
     }
     
     .about-title {
         color: $primary-text;
         font-family: $fancy-font;
-        font-weight: bold;
         text-align: center;
     }
     
     .steps {
-        background-color: $primary;
-        padding: 40px 0;
-        color: $text;
+        background-color: $text;
+        color: $secondary-text;
         
         .step {
             display: flex;
@@ -26,35 +40,78 @@
             align-items: center;
             
             .step-icon {
-                margin: 30px 0;
-                color: $accent;
+                margin: 10px 0;
+                color: $primary-dark;
             }
             
             .step-text {
                 font-size: 16px;
                 margin: 0 30px;
-                color: $divider;
+                color: $secondary-text;
             }
         }
         
         .step-number {
-            border: 1px solid $text;
+            border: 1px solid $primary-text;
             border-radius: 100px;
             width: 37.5px;
             margin-right: 10px;
             display: inline-block;
         }
         
-        .about-title {
-            color: $text;
+        .about-title, .title-line {
+            color: $secondary-text;
+        }
+        
+        .title-line {
+            border-top-color: $primary-text;
         }
         
         .steps-title {
             font-size: 25px;
             font-weight: bold;
             text-align: center;
-            color: $text;
+            color: $primary-text;
             margin: 15px;
         }
     }
+    
+    .contact {
+        text-align: center;
+    }
+    
+    .recent-section {
+        position: relative;
+        
+        &:before {
+            background-image: url(../../../../resources/cork.jpg);
+            content : "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter : blur(1px);
+            opacity : 0.4;
+            z-index: -1;
+        }
+        
+        .about-title {
+            color: $secondary-text;
+        }
+        
+        .subtitle {
+            color: $primary-text;
+        }
+        
+        .recent-ul {
+            font-size: 30px;
+            
+            i {
+                color: $primary-dark;
+            }
+        }
+    }
+    
 }
