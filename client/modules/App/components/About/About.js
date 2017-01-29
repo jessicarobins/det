@@ -50,8 +50,7 @@ function StepsSection(props) {
               </span>
             </div>
             <p className='step-text'>
-              everee looks at <strong>existing lists</strong>
-              that others have made to see if we have a collection of items that matches.
+              everee looks at <strong>existing lists</strong> that others have made to see if we have a collection of items that matches.
             </p>
           </Col>
           <Col md='4' xs='12' className='step'>
@@ -90,32 +89,19 @@ function ContactSection(props) {
 }
 
 function RecentListsSection(props) {
-  
-  const length = _.round(props.recentLists.length/2);
-  const colOne = _.slice(props.recentLists, 0, length);
-  const colTwo = _.slice(props.recentLists, length);
-  
   return (
     <section className='tall-section recent-section'>
-      <p className='subtitle'>
-        Want some <strong>examples</strong>? Get started with these recently created lists.
-      </p>
       <Row>
-        <Col md='6' xs='12'>
-          <ListGroup>
-          {
-            colOne.map(list => (
-              <ListGroupItem key={list.cuid} action tag={Link} to={`/lists/${list.cuid}`}>
-                  {list.fullName}
-              </ListGroupItem>
-            ))
-          }
-          </ListGroup>
+        <Col md={{size: '4', offset:'3'}} xs='12' className='align-self-center'>
+          <p className='subtitle'>
+            Want some <strong>examples</strong>? Get started with these recently created lists.
+          </p>
+          <div className='button'>{GetStartedButton('Sign up with Google')}</div>
         </Col>
-        <Col md='6' xs='12'>
+        <Col md='5' xs='12'>
           <ListGroup>
           {
-            colTwo.map(list => (
+            props.recentLists.map(list => (
               <ListGroupItem key={list.cuid} action tag={Link} to={`/lists/${list.cuid}`}>
                   {list.fullName}
               </ListGroupItem>
@@ -124,7 +110,6 @@ function RecentListsSection(props) {
           </ListGroup>
         </Col>
       </Row>
-      {GetStartedButton('Sign up with Google')}
     </section>
   )
 }

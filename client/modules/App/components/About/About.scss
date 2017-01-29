@@ -17,18 +17,6 @@
             margin-bottom: 30px;
         }
         
-        .title-line {
-            width: 100px;
-            color: $secondary-text;
-            border-top-color: $secondary-text;
-            margin-top: 0px;
-        }
-    }
-    
-    .about-title {
-        color: $primary-text;
-        font-family: $fancy-font;
-        text-align: center;
     }
     
     .steps {
@@ -103,10 +91,16 @@
         
         .subtitle {
             color: $primary-dark;
+            margin-bottom: 50px;
+            text-align: right;
+        }
+        
+        .button {
+            text-align: right;
         }
         
         .list-group {
-            font-size: 25px;
+            font-size: 20px;
             
             .list-group-item {
                 border: none;
@@ -115,7 +109,6 @@
                 
                 &:hover {
                     color: $accent;
-                    background-color: $primary-dark;
                 }
             }
         }
@@ -123,15 +116,12 @@
     
     .what-is {
         background-color: $primary-dark;
-        color: $text;
+        color: $primary-light;
         text-align: center;
-        
-        .about-title {
-            color: $divider;
-        }
         
         .what-is-title {
             padding: 20px;
+            color: $text;
         }
     }
     
