@@ -1,41 +1,56 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Navbar, Nav, NavDropdown, MenuItem, NavItem } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 import Brand from '../Brand/Brand'
 
 export function Header(props, context) {
   return (
-    <Navbar>
-      <Navbar.Header>
-        <Navbar.Brand>
-          <Link to="/" ><Brand />.io</Link>
-        </Navbar.Brand>
-      </Navbar.Header>
-      {props.user ? 
-      <Nav pullRight>
-        <LinkContainer to="/help">
-          <NavItem>About</NavItem>
-        </LinkContainer>
-        {userLink(props)}
-      </Nav> :
-      <Nav pullRight>
-        <NavItem href="/auth/google">Login with Google</NavItem>
+    <Navbar color="faded" full toggleable>
+      <NavbarBrand tag={Link} to="/"><Brand />.io</NavbarBrand>
+      <Nav className="ml-auto" navbar>
+        { props.user ? <UserLink logout={props.logout} user={props.user} /> :
+          <NavItem>
+            <NavLink href="/auth/google">Login with Google</NavLink>
+          </NavItem>
+        }
       </Nav>
-      }
     </Navbar>
   );
 }
 
-function userLink(props) {
-  return (
-    props.user.username ? 
-      <NavDropdown title={props.user.username} id="basic-nav-dropdown">
-        <MenuItem onClick={props.logout}>Log Out</MenuItem>
-      </NavDropdown> :
-      <NavItem onClick={props.logout}>Log Out</NavItem>
-  );
+class UserLink extends Component{
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      dropdownOpen: false
+    };
+  }
+
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+  
+  render() {
+    return (
+      this.props.user.username ? 
+        <NavDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+          <DropdownToggle nav caret>
+            {this.props.user.username}
+          </DropdownToggle>
+          <DropdownMenu right>
+            <DropdownItem onClick={this.props.logout}>Log Out</DropdownItem>
+          </DropdownMenu>
+        </NavDropdown> :
+        <NavItem>
+          <NavLink onClick={this.props.logout}>Log Out</NavLink>
+        </NavItem>
+    );
+  }
 }
 
 Header.contextTypes = {
