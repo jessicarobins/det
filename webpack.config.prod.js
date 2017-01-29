@@ -6,6 +6,7 @@ var cssnext = require('postcss-cssnext');
 var postcssFocus = require('postcss-focus');
 var postcssReporter = require('postcss-reporter');
 var cssnano = require('cssnano');
+var path = require('path');
 
 module.exports = {
   devtool: 'hidden-source-map',
@@ -40,6 +41,9 @@ module.exports = {
         test: /\.css$/,
         exclude: /node_modules/,
         loaders: ExtractTextPlugin.extract('style-loader', 'css-loader'),
+      }, { 
+        test: /\.scss$/,
+        loaders: ["style-loader", "css-loader", "sass-loader"]
       }, {
         test: /\.css$/,
         include: /node_modules/,
@@ -61,6 +65,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
+        BROWSER: JSON.stringify(true),
         'NODE_ENV': JSON.stringify('production'),
       }
     }),
@@ -83,6 +88,13 @@ module.exports = {
       }
     }),
   ],
+  
+  sassLoader: {
+    data: '@import "variables";',
+    includePaths: [
+      path.resolve(__dirname, "./client")
+    ]
+  },
 
   postcss: () => [
     postcssFocus(),
