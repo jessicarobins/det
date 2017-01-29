@@ -5,15 +5,16 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding-bottom: 15px;
+        padding: 20px;
         
         &.tall-section {
-            min-height: 350px;
+            min-height: 600px;
             padding-top: 20px;
         }
         
         .subtitle {
             font-size: 20px;
+            margin-bottom: 30px;
         }
         
         .title-line {
@@ -78,6 +79,8 @@
     
     .contact {
         text-align: center;
+        padding: 20px;
+        background-color: rgba(189, 189, 189, .1);
     }
     
     .recent-section {
@@ -97,21 +100,37 @@
             z-index: -1;
         }
         
-        .about-title {
-            color: $secondary-text;
-        }
-        
         .subtitle {
-            color: $primary-text;
+            color: $primary-dark;
         }
         
-        .recent-ul {
-            font-size: 30px;
+        .list-group {
+            font-size: 25px;
             
-            i {
-                color: $primary-dark;
+            .list-group-item {
+                border: none;
+                color: $primary;
+                background-color: rgba(255, 255, 255, 0.6);
+                
+                &:hover {
+                    color: $accent;
+                    background-color: $primary-dark;
+                }
             }
         }
     }
     
+    .what-is {
+        background-color: $primary-dark;
+        color: $text;
+        text-align: center;
+        
+        .about-title {
+            color: $divider;
+        }
+        
+        .what-is-title {
+            padding: 20px;
+        }
+    }
 }

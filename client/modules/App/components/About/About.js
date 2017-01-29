@@ -1,8 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
-import { Col, Row } from 'reactstrap';
+import { Col, Row, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
 import { SocialIcon } from 'react-social-icons';
+
+import * as _ from 'lodash';
 
 if (process.env.BROWSER) {
   require('./About.scss');
@@ -11,16 +13,8 @@ if (process.env.BROWSER) {
 function About(props) {
   return (
     <div className='about'>
-      <section className='tall-section'>
-        <h1 className='about-title'>What is everee?</h1>
-        <hr className='title-line' />
-        <p>
-          everee is a <strong>crowd-sourced bucket list for completionists</strong>.
-        </p>
-      </section>
-      
+      {WhatIsEvereeSection()}
       {StepsSection()}
-      
       {RecentListsSection(props)}
       {ContactSection()}
     </div>  
@@ -31,8 +25,6 @@ function StepsSection(props) {
   return (
     <section className="steps">
       <div className='container'>
-        <h1 className='about-title'>How does it work?</h1>
-        <hr className='title-line' />
         <Row>
           <Col md='4' xs='12' className='step'>
             <FontAwesome name='plus' className='fa-4x fa-fw step-icon'/>
@@ -81,10 +73,8 @@ function ContactSection(props) {
     twitter: 'http://twitter.com/evereeapp'
   };
   return (
-    <section>
-      <div className='container contact'>
-        <h1 className='about-title'>Contact</h1>
-        <hr className='title-line' />
+    <section className='contact'>
+      <div className='container'>
         <p className='subtitle'>Questions? Comments? Heaps of praise? Reach out via email or Twitter!</p>
         <div>
           <SocialIcon url={urls.email} color="#CDDC39" network="email" />
@@ -96,24 +86,67 @@ function ContactSection(props) {
 }
 
 function RecentListsSection(props) {
+  
+  const length = _.round(props.recentLists.length/2);
+  const colOne = _.slice(props.recentLists, 0, length);
+  const colTwo = _.slice(props.recentLists, length);
+  
   return (
     <section className='tall-section recent-section'>
-      <h1 className='about-title'>Explore</h1>
-      <hr className='title-line' />
-      <p className='subtitle'>Get started with these recently created lists.</p>
-      <ul className="fa-ul recent-ul">
-      {
-        props.recentLists.map(list => (
-          <li key={list.cuid}>
-            <i className="fa-li fa fa-angle-right"></i>
-            <Link to={`/lists/${list.cuid}`} >
-              {list.fullName}
-            </Link>
-          </li>
-        ))
-      }
-      </ul>
+      <p className='subtitle'>
+        Want some <strong>examples</strong>? Get started with these recently created lists.
+      </p>
+      <Row>
+        <Col md='6' xs='12'>
+          <ListGroup>
+          {
+            colOne.map(list => (
+              <ListGroupItem key={list.cuid} action tag={Link} to={`/lists/${list.cuid}`}>
+                  {list.fullName}
+              </ListGroupItem>
+            ))
+          }
+          </ListGroup>
+        </Col>
+        <Col md='6' xs='12'>
+          <ListGroup>
+          {
+            colTwo.map(list => (
+              <ListGroupItem key={list.cuid} action tag={Link} to={`/lists/${list.cuid}`}>
+                  {list.fullName}
+              </ListGroupItem>
+            ))
+          }
+          </ListGroup>
+        </Col>
+      </Row>
+      {GetStartedButton('Sign up with Google')}
     </section>
+  )
+}
+
+function WhatIsEvereeSection() {
+  return (
+    <section className='tall-section what-is'>
+      <div className='container'>
+        <h2 className='what-is-title'>
+          everee is a <strong>crowd-sourced bucket list</strong> for <strong>completionists</strong>.
+        </h2>
+        <p className='subtitle'>
+          Ever wanted to keep track of your progress towards categorically completing a task?
+          Trying every flavor of Oreo, for example.
+          everee generates the list of items for you based on lists made by other users, and keeps your list 
+          in sync, so that it stays up-to-date when another flavor of Oreo comes out.
+        </p>
+        {GetStartedButton('Get Started!')}
+      </div>
+    </section>
+  )
+}
+
+function GetStartedButton(text) {
+  return (
+    <Button size='lg' href="/auth/google">{text}</Button>
   )
 }
 
