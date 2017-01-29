@@ -87,7 +87,8 @@
         position: relative;
         
         &:before {
-            background-image: url(../../../../resources/cork.jpg);
+            background-image: url(../../../../resources/dream.jpeg);
+            background-position: 35% 50%;
             content : "";
             display: block;
             position: absolute;
@@ -131,6 +132,24 @@
         
         .what-is-title {
             padding: 20px;
+        }
+    }
+    
+    .typeahead-section {
+        position: relative;
+        margin-top: -20px;
+        
+        &:before {
+            background-image: url(../../../../resources/dream.jpeg);
+            content : "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter : blur(2px);
+            z-index: -1;
         }
     }
 }

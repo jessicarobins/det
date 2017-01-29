@@ -1,0 +1,23 @@
+.want-to {
+  .Typist {
+    display: inline-block;
+  }
+  
+  .wanttoText {
+    font-size: 60px !important;
+    margin-bottom: 70px;
+  }
+  
+  .button-container {
+    text-align: center;
+  }
+  
+  .action-text {
+    font-weight: 600;
+  }
+  
+  .subtitle {
+    font-size: 20px;
+    color: $secondary-text;
+  }
+}

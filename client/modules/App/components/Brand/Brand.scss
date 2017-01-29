@@ -1,0 +1,25 @@
+.brand {
+    font-weight: bold;
+    
+    .brand-check {
+        vertical-align: middle;
+        margin: 0px 1px;
+    }
+    
+    &.dark {
+        color: $secondary-text;
+        
+        .brand-check {
+            color: $primary-dark;
+        }
+    }
+    
+    &.light {
+        color: $primary-light;
+        
+        .brand-check {
+            color: $accent;
+        }
+    }
+}
+

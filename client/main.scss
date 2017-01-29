@@ -29,6 +29,7 @@ body {
 	background: #FFF;
 	font-family: 'Lato', sans-serif;
 	font-size: 16px;
+	color: $primary-text !important;
 }
 
 a, a:hover {
@@ -41,6 +42,16 @@ a:hover {
 
 a {
 	color: $primary;
+}
+
+.btn-primary {
+	background-color: $primary;
+	border-color: $primary-dark;
+	
+	&:hover {
+		background-color: $primary-dark;
+		border-color: $primary-darkest;
+	}
 }
 
 .vertical-align {

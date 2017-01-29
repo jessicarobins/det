@@ -6,6 +6,9 @@ import { SocialIcon } from 'react-social-icons';
 
 import * as _ from 'lodash';
 
+import UnAuthWidget from './UnAuthWidget/UnAuthWidget';
+import Brand from '../Brand/Brand';
+
 if (process.env.BROWSER) {
   require('./About.scss');
 }
@@ -13,6 +16,7 @@ if (process.env.BROWSER) {
 function About(props) {
   return (
     <div className='about'>
+      {TypeaheadWidgetSection(props)}
       {WhatIsEvereeSection()}
       {StepsSection()}
       {RecentListsSection(props)}
@@ -77,8 +81,8 @@ function ContactSection(props) {
       <div className='container'>
         <p className='subtitle'>Questions? Comments? Heaps of praise? Reach out via email or Twitter!</p>
         <div>
-          <SocialIcon url={urls.email} color="#CDDC39" network="email" />
-          <SocialIcon url={urls.twitter} color="#CDDC39" network="twitter" />
+          <SocialIcon url={urls.email} color="#03A9F4" network="email" />
+          <SocialIcon url={urls.twitter} color="#03A9F4" network="twitter" />
         </div>
       </div>
     </section>
@@ -130,7 +134,7 @@ function WhatIsEvereeSection() {
     <section className='tall-section what-is'>
       <div className='container'>
         <h2 className='what-is-title'>
-          everee is a <strong>crowd-sourced bucket list</strong> for <strong>completionists</strong>.
+          <Brand light /> is a <strong>crowd-sourced bucket list</strong> for <strong>completionists</strong>.
         </h2>
         <p className='subtitle'>
           Ever wanted to keep track of your progress towards categorically completing a task?
@@ -140,6 +144,14 @@ function WhatIsEvereeSection() {
         </p>
         {GetStartedButton('Get Started!')}
       </div>
+    </section>
+  )
+}
+
+function TypeaheadWidgetSection(props) {
+  return (
+    <section className='tall-section typeahead-section'>
+      <UnAuthWidget lists={props.demoLists}/>  
     </section>
   )
 }

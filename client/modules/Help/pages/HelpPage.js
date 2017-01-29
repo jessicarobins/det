@@ -19,9 +19,6 @@ class HelpPage extends Component {
   render() {
     return (
       <div>
-        <Header
-          user={this.props.user}
-          logout={this.handleLogout} />
         <Grid>
           <Row>
             <Col md={8} mdOffset={2}>

@@ -275,7 +275,7 @@ listSchema.statics.demoLists = function() {
     {name: 'visit every country in Europe'},
     {name: 'visit every continent'},
     {name: 'visit every zoo in the USA'},
-    {name: 'visit European capital city'},
+    {name: 'visit every European capital city'},
     {name: 'listen to every Oasis album'},
     {name: 'play every board game'},
     {name: 'watch every Shrek movie'},

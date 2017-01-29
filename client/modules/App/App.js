@@ -57,6 +57,10 @@ export class App extends Component {
             message={this.spinner()}
             contentBlur={5}
             show={this.props.showSpinner}>
+            <Header
+              user={this.props.user.data}
+              logout={this.handleLogout}
+            />
             <SystemMessage 
               dispatch={this.props.dispatch}
               alerts={this.props.alerts} />

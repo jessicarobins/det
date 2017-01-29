@@ -115,10 +115,6 @@ class PostListPage extends Component {
   render() {
     return (
       <div>
-        <Header
-          user={this.props.user}
-          logout={this.handleLogout}
-        />
         <Grid>
           <Row className='show-grid'>
             <Col md={12}>
