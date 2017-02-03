@@ -10,3 +10,7 @@
   right: 0;
 }
 
+.Loader {
+  overflow: hidden;
+  height:100vh;
+}

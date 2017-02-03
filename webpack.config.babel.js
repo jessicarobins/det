@@ -39,16 +39,7 @@ module.exports = {
   sassLoader: {
     data: '@import "variables";',
     includePaths: [
-      path.resolve(__dirname, "./client")
+      path.resolve(__dirname, "./client/styles")
     ]
-  },
-  postcss: () => [
-    postcssFocus(),
-    cssnext({
-      browsers: ['last 2 versions', 'IE > 10'],
-    }),
-    postcssReporter({
-      clearMessages: true,
-    }),
-  ],
+  }
 };

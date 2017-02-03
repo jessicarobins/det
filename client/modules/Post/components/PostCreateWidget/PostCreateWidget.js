@@ -4,7 +4,9 @@ import Typeahead from 'react-bootstrap-typeahead';
 import * as _ from 'lodash';
 
 // Import Style
-require('./ListCreateWidget.css');
+if (process.env.BROWSER) {
+  require('./ListCreateWidget.scss');
+}
 
 export class PostCreateWidget extends Component {
   
@@ -58,9 +60,11 @@ export class PostCreateWidget extends Component {
   render() {
     return (
       <div className='wantto'>
-          <Form inline className='wantto-form-container'>
+          <Form className='wantto-form-container'>
             <h1>
-              {'I want to '}
+              I want to
+            </h1>
+            <h1>
               <FormGroup>
                 <FormControl
                   autoFocus={true}
@@ -69,7 +73,9 @@ export class PostCreateWidget extends Component {
                   type="text" 
                   placeholder="climb" />
               </FormGroup>
-              {' every '}
+            </h1>
+            <h1>every</h1>
+            <h1>
               <FormGroup>
                 <Typeahead
                   ref="typeahead"
@@ -82,13 +88,12 @@ export class PostCreateWidget extends Component {
                   onInputChange={_.debounce(this.setSelected)}
                 />
               </FormGroup>
-              { ' ' }
+            </h1>
               <Button 
                 disabled={this.state.isLoading || this.props.showAddWarning}
                 onClick={!this.state.isLoading ? this.addList : null}>
                  {(this.state.isLoading && !this.props.showAddWarning) ? 'Creating...' : 'Create!'}
               </Button>
-            </h1>
           </Form>
           { this.props.showAddWarning ? this.renderAlert() : ''}
       </div>

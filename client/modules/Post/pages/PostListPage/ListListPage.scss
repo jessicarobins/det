@@ -1,0 +1,30 @@
+@import "background";
+
+.post-list-page {
+  min-height: 100%;
+  
+  .container {
+    margin-top: 40px;
+  }
+  
+  &:before {
+    @extend .static-background;
+    background-image: url(../../../../resources/dream.jpeg);
+    background-position: 75% 35%;
+  }
+  
+  .list-group-item {
+    background-color: rgba(255, 255, 255, 0.6);
+    &:hover {
+      color: $accent;
+    }
+  }
+}
+
+.wantto-header {
+  font-size: 50px;
+}
+
+.no-lists-container {
+    margin-top: 40px;
+}

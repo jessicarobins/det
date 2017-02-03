@@ -1,5 +1,7 @@
 .wantto {
-  margin-top: 40px;
+  input {
+    padding-left: 0px;
+  }
 }
 
 .bootstrap-typeahead-input-main, .wantto-input {
@@ -11,18 +13,11 @@
   box-shadow: none !important;
 }
 
-.bootstrap-typeahead-input-main {
-  max-width: 350px;
-}
-
-.wantto-input {
-  max-width: 250px;
-}
-
 .wantto-input::-webkit-input-placeholder,
 .bootstrap-typeahead-input-main::-webkit-input-placeholder {
-  text-align: center;
   font-weight: bold;
+  color: $primary-dark !important;
+  opacity: 0.25 !important;
 }
 
 .form-control.bootstrap-typeahead-input-hint {
@@ -36,10 +31,6 @@
   margin-bottom: 0px !important;
 }
 
-.wantto-form-container {
-  text-align: center;
-}
-
 .wantto-alert {
   margin-top: 40px;
 }
@@ -50,9 +41,6 @@
 
 .wantto-form-container h1 {
   font-size: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-weight: bold;
-  flex-wrap: wrap;
+  color: $primary-darkest;
 }

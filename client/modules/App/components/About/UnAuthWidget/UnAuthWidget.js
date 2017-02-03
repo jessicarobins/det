@@ -43,7 +43,6 @@ export class UnAuthWidget extends Component {
         </p>
         <p>
           <Button
-            color='primary'
             size='lg'
             href="/auth/google">Sign up with Google</Button>
         </p>

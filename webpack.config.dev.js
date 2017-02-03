@@ -82,7 +82,7 @@ module.exports = {
   sassLoader: {
     data: '@import "variables";',
     includePaths: [
-      path.resolve(__dirname, "./client")
+      path.resolve(__dirname, "./client/styles")
     ]
   },
   

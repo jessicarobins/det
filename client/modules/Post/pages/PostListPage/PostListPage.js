@@ -1,22 +1,21 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Row, Col } from 'react-bootstrap';
-import Header from '../../../App/components/Header/Header';
+import { Container, Row, Col } from 'reactstrap';
 
-require('./ListListPage.css')
+if (process.env.BROWSER) {
+  require('./ListListPage.scss')
+}
 
 // Import Components
 import PostList from '../../components/PostList';
 import RecentLists from '../../components/RecentLists/RecentLists';
 import Collections from '../../components/Collections/Collections';
 import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget';
-import NoLists from '../../components/NoLists/NoLists';
 
 // Import Actions
-import { addListRequest, fetchPosts, fetchRecentLists, deletePostRequest } from '../../ListActions';
+import { addListRequest, fetchPosts, fetchRecentLists } from '../../ListActions';
 import * as templateActions from '../../../Template/TemplateActions';
 import { toggleAddWarning } from '../../../App/AppActions';
-import { logOut as logoutAction } from '../../../User/UserActions';
 
 // Import Selectors
 import { getShowAddWarning } from '../../../App/AppReducer';
@@ -26,23 +25,12 @@ import { getAuth, getUser } from '../../../User/UserReducer';
 
 class PostListPage extends Component {
   
-  // constructor(props) {
-  //   super(props);
-  //   this.props.dispatch(toggleSpinnerOn());
-  // }
-  
   componentDidMount() {
     this.props.dispatch(templateActions.removeSelected());
     this.props.dispatch(fetchPosts());
     this.props.dispatch(templateActions.fetchTemplates());
     this.props.dispatch(fetchRecentLists());
   }
-
-  handleDeletePost = post => {
-    if (confirm('Do you want to delete this post')) { // eslint-disable-line
-      this.props.dispatch(deletePostRequest(post));
-    }
-  };
 
   handleAddList = (verb, action) => {
     this.props.dispatch(addListRequest({ verb, action }));
@@ -64,24 +52,12 @@ class PostListPage extends Component {
     this.props.dispatch(templateActions.removeSelected());
   };
   
-  handleLogout = () => {
-    this.props.dispatch(logoutAction());
-  };
-  
   lists() {
     return (
-      <Row className="show-grid">
-        <Col xs={12} md={7} mdOffset={2}>
+      <Row>
+        <Col>
           <PostList 
-            handleDeletePost={this.handleDeletePost}
             lists={this.props.lists} />
-        </Col>
-        <Col md={3}>
-          <RecentLists
-            lists={this.props.recentLists} />
-          <Collections 
-            templates={this.props.templates}
-            addSelectedTemplate={this.handleAddSelectedTemplate}/>
         </Col>
       </Row>
     )
@@ -91,19 +67,19 @@ class PostListPage extends Component {
     return (
       <div className='no-lists-container'>
         <Row>
-          <Col md={6} mdOffset={3}>
+          <Col>
             <h3>
               You have no lists. Need some inspiration?
             </h3>
           </Col>
         </Row>
-        <Row className="show-grid">
-          <Col xs={12} md={4} mdOffset={2}>
+        <Row>
+          <Col>
             <Collections 
               templates={this.props.templates}
               addSelectedTemplate={this.handleAddSelectedTemplate}/>
           </Col>
-          <Col md={4}>
+          <Col>
             <RecentLists
               lists={this.props.recentLists} />
           </Col>
@@ -114,10 +90,10 @@ class PostListPage extends Component {
   
   render() {
     return (
-      <div>
-        <Grid>
-          <Row className='show-grid'>
-            <Col md={12}>
+      <div className='post-list-page'>
+        <Container>
+          <Row className='align-items-center'>
+            <Col md='6' xs='12'>
               <PostCreateWidget 
                 selectedTemplate={this.props.selectedTemplate}
                 addSelectedTemplate={this.handleAddSelectedTemplate}
@@ -129,11 +105,14 @@ class PostListPage extends Component {
                 showAddPost={true} 
                 templates={this.props.templates} />
             </Col>
+            <Col md='6' xs='12'>
+              {this.props.lists.length ?
+                this.lists() :
+                this.noLists() 
+              }
+            </Col>
           </Row>
-          {this.props.lists.length ?
-            this.lists() :
-            this.noLists() }
-        </Grid>
+        </Container>
       </div>
       
     );

@@ -8,27 +8,7 @@
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import url('https://fonts.googleapis.com/css?family=Arima+Madurai');
 
-::-webkit-input-placeholder {
-	color:#aaa;
-	font-weight: 300;
-}
-::-moz-placeholder {
-	color:#aaa;
-	font-weight: 300;
-}
-:-ms-input-placeholder {
-	color:#aaa;
-	font-weight: 300;
-}
-input:-moz-placeholder {
-	color:#aaa;
-	font-weight: 300;
-}
-
 body {
-	background: #FFF;
-	font-family: 'Lato', sans-serif;
-	font-size: 16px;
 	color: $primary-text !important;
 }
 
@@ -58,3 +38,4 @@ a {
 	display: flex;
 	align-items: center;
 }
+

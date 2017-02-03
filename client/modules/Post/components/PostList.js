@@ -1,23 +1,29 @@
 import React, { PropTypes } from 'react';
+import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
+import { Link } from 'react-router';
+import FontAwesome from 'react-fontawesome';
 
 require('./ListList.css');
 
-// Import Components
-import PostListItem from './PostListItem/PostListItem';
-
 function PostList(props) {
   return (
-    <div className="list-list">
+    <ListGroup>
       {
         props.lists.map(list => (
-          <PostListItem
-            post={list}
+          <ListGroupItem
+            className="justify-content-between"
             key={list.cuid}
-            onDelete={() => props.handleDeletePost(list.cuid)}
-          />
+            tag={Link}
+            to={`/lists/${list.cuid}`}>
+            {list.name}
+            { list.percentComplete < 100 ?
+              <Badge pill>{list.percentComplete}%</Badge> :
+              <FontAwesome name='trophy'/>
+            }
+          </ListGroupItem>
         ))
       }
-    </div>
+    </ListGroup>
   );
 }
 
@@ -26,7 +32,6 @@ PostList.propTypes = {
     name: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
   })).isRequired,
-  handleDeletePost: PropTypes.func.isRequired,
 };
 
 export default PostList;
