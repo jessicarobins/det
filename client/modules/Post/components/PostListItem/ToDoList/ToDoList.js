@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 
+require('./ToDoList.css');
+
 // Import Components
 import PostListItem from './ToDoListItem/ToDoListItem';
 

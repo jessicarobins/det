@@ -9,7 +9,7 @@ var Checkbox = React.createClass({
       borderStyle: 'solid',
       borderColor: '#c3c4c6',
       borderRadius: '4px',
-      checkColor: '#d9230f',
+      checkColor: '#9C27B0',
       height: '1px',
       width: '',
       namePaddingLeft: '10px',

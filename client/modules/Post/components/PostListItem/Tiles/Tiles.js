@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { Row, Col } from 'reactstrap';
 
-require('./Tiles.css');
+if (process.env.BROWSER) {
+  require('./Tiles.scss');
+}
 
 class Tiles extends Component {
   

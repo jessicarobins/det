@@ -3,14 +3,12 @@
 .post-list-page {
   min-height: 100%;
   
-  .container {
-    margin-top: 40px;
-  }
-  
   &:before {
     @extend .static-background;
     background-image: url(../../../../resources/dream.jpeg);
     background-position: 75% 35%;
+    width: 100%;
+    height: 100%;
   }
   
   .list-group-item {

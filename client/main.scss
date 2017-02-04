@@ -1,7 +1,7 @@
 /*
   Global CSS file
 */
-@import url('~bootstrap/dist/css/bootstrap.css');
+@import '~bootstrap/scss/bootstrap.scss';
 // @import url('//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css');
 // @import './bootstrap.css';
 @import '~react-typist/dist/Typist.css';
@@ -24,21 +24,11 @@ a {
 	color: $primary;
 }
 
-.btn-primary {
-	background-color: $primary;
-	border-color: $primary-dark;
-	
-	&:hover {
-		background-color: $primary-dark;
-		border-color: $primary-darkest;
-	}
-}
-
 .vertical-align {
 	display: flex;
 	align-items: center;
 }
 
 .container {
-	margin-top: 40px;
+	padding-top: 40px;
 }

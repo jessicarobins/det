@@ -1,20 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Container, Navbar, NavbarBrand, Nav, NavItem, NavLink, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 import Brand from '../Brand/Brand'
 
+if (process.env.BROWSER) {
+  require('./Header.scss');
+}
+
 export function Header(props, context) {
   return (
-    <Navbar color="faded" full toggleable>
-      <NavbarBrand tag={Link} to="/"><Brand />.io</NavbarBrand>
-      <Nav className="ml-auto" navbar>
-        { props.user ? <UserLink logout={props.logout} user={props.user} /> :
-          <NavItem>
-            <NavLink href="/auth/google">Login with Google</NavLink>
-          </NavItem>
-        }
-      </Nav>
+    <Navbar color="faded" full toggleable className='header'>
+      <Container>
+        <NavbarBrand tag={Link} to="/"><Brand />.io</NavbarBrand>
+        <Nav className="ml-auto" navbar>
+          { props.user ? <UserLink logout={props.logout} user={props.user} /> :
+            <NavItem>
+              <NavLink href="/auth/google">Login with Google</NavLink>
+            </NavItem>
+          }
+        </Nav>
+      </Container>
     </Navbar>
   );
 }

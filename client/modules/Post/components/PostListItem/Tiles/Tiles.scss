@@ -1,0 +1,28 @@
+.tiles {
+    padding: 15px 0;
+    
+    .detail-tile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    
+    .detail-tile .panel-body {
+        padding: 0px;
+    }
+    
+    .detail {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        margin: 0px;
+        color: $accent;
+    }
+    
+    .caption {
+        font-size: 12px;
+        margin: 0px;
+        text-align: center;
+    }
+}

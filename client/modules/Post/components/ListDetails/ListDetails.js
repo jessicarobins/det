@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Container, Col, Row, Card } from 'reactstrap';
+import { StickyContainer, Sticky } from 'react-sticky';
 import * as _ from 'lodash';
 
 import ListDetailHeader from './ListDetailHeader/ListDetailHeader';
@@ -22,20 +23,25 @@ export class ListDetails extends Component {
   render() {
     return (
       <Container>
+        <StickyContainer>
         <Row>
           <Col xs={12} md={5}>
-            <Card block>
-              <ListDetailHeader 
-                list={this.props.list}
-                belongsToUser={!!this.belongsToUser()}
-                loggedIn={this.loggedIn()}
-                cloneList={this.props.cloneList} />
-              <Progress list={this.props.list}/>
-              <Tiles list={this.props.list} />
-              { this.belongsToUser() ? 
-              <ListItemCreateWidget addListItem={this.props.addListItem} />
-              : null }
-            </Card>
+            
+              <Sticky>
+              <Card block>
+                <ListDetailHeader 
+                  list={this.props.list}
+                  belongsToUser={!!this.belongsToUser()}
+                  loggedIn={this.loggedIn()}
+                  cloneList={this.props.cloneList} />
+                <Progress list={this.props.list}/>
+                <Tiles list={this.props.list} />
+                { this.belongsToUser() ? 
+                <ListItemCreateWidget addListItem={this.props.addListItem} />
+                : null }
+              </Card>
+              </Sticky>
+            
           </Col>
           <Col xs={12} md={7}>
             <ToDoList 
@@ -45,6 +51,7 @@ export class ListDetails extends Component {
               toggleListItem={this.props.toggleListItem} />
           </Col>
         </Row>
+        </StickyContainer>
       </Container>
     );
   }
