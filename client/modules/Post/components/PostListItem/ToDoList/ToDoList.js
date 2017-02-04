@@ -1,7 +1,5 @@
 import React, { PropTypes } from 'react';
-import { ListGroup } from 'react-bootstrap';
-
-require('./ToDoList.css');
+import { ListGroup, ListGroupItem } from 'reactstrap';
 
 // Import Components
 import PostListItem from './ToDoListItem/ToDoListItem';
@@ -12,13 +10,15 @@ function ToDoList(props) {
       <ListGroup>
       {
         props.todos.map(todo => (
-          <PostListItem
-            readOnly={props.readOnly}
-            todo={todo}
-            key={todo._id}
-            toggleListItem={props.toggleListItem}
-            deleteListItem={props.deleteListItem}
-          />
+          <ListGroupItem 
+            key={todo._id}>
+            <PostListItem
+              readOnly={props.readOnly}
+              todo={todo}
+              toggleListItem={props.toggleListItem}
+              deleteListItem={props.deleteListItem}
+            />
+          </ListGroupItem>
         ))
       }
       </ListGroup>

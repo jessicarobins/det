@@ -6,3 +6,9 @@
     float: right;
     line-height: 28px !important;
 }
+
+.progressive {
+    .progress-bar {
+        height: 30px;
+    }
+}

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Grid, Col, Row } from 'react-bootstrap';
+import { Container, Col, Row, Card } from 'reactstrap';
 import * as _ from 'lodash';
 
 import ListDetailHeader from './ListDetailHeader/ListDetailHeader';
@@ -7,7 +7,6 @@ import Tiles from '../../components/PostListItem/Tiles/Tiles';
 import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
 import Progress from '../../components/PostListItem/Progress/Progress';
 import ListItemCreateWidget from '../../components/PostListItem/ListItemCreateWidget/ListItemCreateWidget';
-import Actions from '../../components/PostListItem/Actions/Actions';
 
 export class ListDetails extends Component {
   
@@ -22,37 +21,31 @@ export class ListDetails extends Component {
   
   render() {
     return (
-      <Grid>
-        <Row className="show-grid">
-          <Col xs={12} md={6} mdOffset={3}>
-            <ListDetailHeader 
-              list={this.props.list}
-              belongsToUser={!!this.belongsToUser()}
-              loggedIn={this.loggedIn()}
-              cloneList={this.props.cloneList} />
-          </Col>
-        </Row>
+      <Container>
         <Row>
-          <Col md={1} mdOffset={1}>
-            <Tiles list={this.props.list} />
+          <Col xs={12} md={5}>
+            <Card block>
+              <ListDetailHeader 
+                list={this.props.list}
+                belongsToUser={!!this.belongsToUser()}
+                loggedIn={this.loggedIn()}
+                cloneList={this.props.cloneList} />
+              <Progress list={this.props.list}/>
+              <Tiles list={this.props.list} />
+              { this.belongsToUser() ? 
+              <ListItemCreateWidget addListItem={this.props.addListItem} />
+              : null }
+            </Card>
           </Col>
-          <Col xs={12} md={6} mdOffset={1}>
-            <Progress list={this.props.list}/>
+          <Col xs={12} md={7}>
             <ToDoList 
               readOnly={!this.belongsToUser()}
               todos={this.props.list.items}
               deleteListItem={this.props.deleteListItem}
               toggleListItem={this.props.toggleListItem} />
-            { this.belongsToUser() ? 
-            <ListItemCreateWidget addListItem={this.props.addListItem} />
-            : null }
-          </Col>
-          <Col md={1} mdOffset={1}>
-            <Actions
-              list={this.props.list} />
           </Col>
         </Row>
-      </Grid>
+      </Container>
     );
   }
 }

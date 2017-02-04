@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
-import { Image, Panel } from 'react-bootstrap';
+import { Row, Col } from 'reactstrap';
 
 require('./Tiles.css');
 
@@ -17,23 +17,31 @@ class Tiles extends Component {
   
   render() {
     return (
-      <div>
-        <Panel className='detail-tile'>
-          <p className='detail'><Image src={this.props.list._users[0].picture} rounded /></p>
-          <p className='caption'>{this.props.list._users[0].username}</p>
-        </Panel>
-        <Panel className='detail-tile'>
-          <p className='detail'>{this.percentLabel()}</p>
-        </Panel>
-        <Panel className='detail-tile'>
-          <p className='detail'>{this.props.list.fractionComplete.numerator}</p>
-          <p className='caption'>complete</p>
-        </Panel>
-        <Panel className='detail-tile'>
-          <p className='detail'>{this.props.list.fractionComplete.denominator}</p>
-          <p className='caption'>total</p>
-        </Panel>
-      </div>
+      <Row className='align-items-center tiles'>
+        <Col>
+          <div className='detail-tile'>
+            <p className='detail'><img src={this.props.list._users[0].picture} className='rounded' /></p>
+            <p className='caption'>{this.props.list._users[0].username}</p>
+          </div>
+        </Col>
+        <Col>
+          <div className='detail-tile'>
+            <p className='detail'>{this.percentLabel()}</p>
+          </div>
+        </Col>
+        <Col>
+          <div className='detail-tile'>
+            <p className='detail'>{this.props.list.fractionComplete.numerator}</p>
+            <p className='caption'>complete</p>
+          </div>
+        </Col>
+        <Col>
+          <div className='detail-tile'>
+            <p className='detail'>{this.props.list.fractionComplete.denominator}</p>
+            <p className='caption'>total</p>
+          </div>
+        </Col>
+      </Row>
     )
   }
 }

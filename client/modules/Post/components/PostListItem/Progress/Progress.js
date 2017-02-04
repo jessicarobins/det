@@ -1,27 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import { ProgressBar } from 'react-bootstrap';
-import FontAwesome from 'react-fontawesome';
+import { Progress as ProgressBar } from 'reactstrap';
 
-require('./Progress.css');
+if (process.env.BROWSER) {
+  require('./Progress.scss');
+}
 
 class Progress extends Component {
-  
-  progressLabel() {
-    switch(this.props.list.percentComplete) {
-      case 0:
-        return;
-      case 100:
-        return <FontAwesome className='progress-percent' name='trophy'/>
-      default:
-        return <span className='progress-percent'>{this.props.list.percentComplete}%</span>
-    }
-  }
-  
   render() {
     return (
-      <ProgressBar 
+      <ProgressBar
+        className='progressive'
         striped
-        now={this.props.list.percentComplete}/>
+        value={this.props.list.percentComplete}/>
     )
   }
 }

@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 
 import ListDetails from '../../components/ListDetails/ListDetails';
-import Header from '../../../App/components/Header/Header';
-import { Grid, Col, Row } from 'react-bootstrap';
+import { Container, Col, Row } from 'reactstrap';
 
 // Import Actions
 import { fetchList, addListItemRequest, toggleListItemRequest, deleteListItemRequest, cloneListRequest } from '../../ListActions';
@@ -61,13 +60,13 @@ class PostDetailPage extends Component {
           list={this.props.list}
           user={this.props.user}/>
         : 
-        <Grid>
+        <Container>
           <Row>
             <Col>
               <h2>404: List not found</h2>
             </Col>
           </Row>
-        </Grid>}
+        </Container>}
       </div>
       
     );
