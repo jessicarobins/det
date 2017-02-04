@@ -2,6 +2,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './modules/App/App';
+import AppWithHeader from './modules/App/components/AppWithHeader/AppWithHeader';
 
 import { toggleSpinnerOn } from './modules/App/AppActions';
 
@@ -23,6 +24,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('./modules/Post/pages/UnAuthPage/UnAuthPage');
   require('./modules/Help/pages/HelpPage');
   require('./modules/User/pages/CreateUsernamePage');
+  require('./modules/App/components/AppWithHeader/AppWithHeader');
 }
 
 // react-router setup with code-splitting
@@ -99,14 +101,6 @@ export function createRoutes(store) {
   
   return (
     <Route path="/" component={App}>
-      <IndexRoute
-        onEnter={listsRedirect}
-        getComponent={(nextState, cb) => {
-          require.ensure([], require => {
-            cb(null, require('./modules/Post/pages/PostListPage/PostListPage').default);
-          });
-        }}
-      />
       <Route
         path="/login"
         onEnter={loginRedirect}
@@ -116,32 +110,42 @@ export function createRoutes(store) {
           });
         }}
       />
-      <Route
-        onEnter={detailRedirect}
-        path="/lists/:cuid"
-        getComponent={(nextState, cb) => {
-          require.ensure([], require => {
-            cb(null, require('./modules/Post/pages/PostDetailPage/PostDetailPage').default);
-          });
-        }}
-      />
-      <Route
-        path="/help"
-        getComponent={(nextState, cb) => {
-          require.ensure([], require => {
-            cb(null, require('./modules/Help/pages/HelpPage').default);
-          });
-        }}
-      />
-      <Route
-        onEnter={usernameRedirect}
-        path="/username"
-        getComponent={(nextState, cb) => {
-          require.ensure([], require => {
-            cb(null, require('./modules/User/pages/CreateUsernamePage').default);
-          });
-        }}
-      />
+      <Route component={AppWithHeader}>
+        <IndexRoute
+          onEnter={listsRedirect}
+          getComponent={(nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./modules/Post/pages/PostListPage/PostListPage').default);
+            });
+          }}
+        />
+        <Route
+          onEnter={detailRedirect}
+          path="/lists/:cuid"
+          getComponent={(nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./modules/Post/pages/PostDetailPage/PostDetailPage').default);
+            });
+          }}
+        />
+        <Route
+          path="/help"
+          getComponent={(nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./modules/Help/pages/HelpPage').default);
+            });
+          }}
+        />
+        <Route
+          onEnter={usernameRedirect}
+          path="/username"
+          getComponent={(nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./modules/User/pages/CreateUsernamePage').default);
+            });
+          }}
+        />
+      </Route>
     </Route>
   )
 };
