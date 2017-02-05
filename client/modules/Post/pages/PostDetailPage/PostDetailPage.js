@@ -14,6 +14,10 @@ import { logOut as logoutAction } from '../../../User/UserActions';
 import { getPost } from '../../ListReducer';
 import { getUser } from '../../../User/UserReducer'; 
 
+if (process.env.BROWSER) {
+  require('./ListDetailPage.scss')
+}
+
 class PostDetailPage extends Component {
   
   componentDidMount() {
@@ -48,7 +52,7 @@ class PostDetailPage extends Component {
   
   render() {
     return (
-      <div>
+      <div className='list-detail-page'>
         <Helmet 
           title={this.props.list ? `I want to ${this.props.list.name}` : '404: List not found'}/>
         {this.props.list ?

@@ -9,6 +9,10 @@ import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
 import Progress from '../../components/PostListItem/Progress/Progress';
 import ListItemCreateWidget from '../../components/PostListItem/ListItemCreateWidget/ListItemCreateWidget';
 
+if (process.env.BROWSER) {
+  require('./ListDetails.scss')
+}
+
 export class ListDetails extends Component {
   
   belongsToUser() {
@@ -24,33 +28,31 @@ export class ListDetails extends Component {
     return (
       <Container>
         <StickyContainer>
-        <Row>
-          <Col xs={12} md={5}>
-            
+          <Row>
+            <Col xs={12} md={5}>
               <Sticky>
-              <Card block>
-                <ListDetailHeader 
-                  list={this.props.list}
-                  belongsToUser={!!this.belongsToUser()}
-                  loggedIn={this.loggedIn()}
-                  cloneList={this.props.cloneList} />
-                <Progress list={this.props.list}/>
-                <Tiles list={this.props.list} />
-                { this.belongsToUser() ? 
-                <ListItemCreateWidget addListItem={this.props.addListItem} />
-                : null }
-              </Card>
+                <Card block className='list-card'>
+                  <ListDetailHeader 
+                    list={this.props.list}
+                    belongsToUser={!!this.belongsToUser()}
+                    loggedIn={this.loggedIn()}
+                    cloneList={this.props.cloneList} />
+                  <Progress list={this.props.list}/>
+                  <Tiles list={this.props.list} />
+                  { this.belongsToUser() ? 
+                  <ListItemCreateWidget addListItem={this.props.addListItem} />
+                  : null }
+                </Card>
               </Sticky>
-            
-          </Col>
-          <Col xs={12} md={7}>
-            <ToDoList 
-              readOnly={!this.belongsToUser()}
-              todos={this.props.list.items}
-              deleteListItem={this.props.deleteListItem}
-              toggleListItem={this.props.toggleListItem} />
-          </Col>
-        </Row>
+            </Col>
+            <Col xs={12} md={7}>
+              <ToDoList 
+                readOnly={!this.belongsToUser()}
+                todos={this.props.list.items}
+                deleteListItem={this.props.deleteListItem}
+                toggleListItem={this.props.toggleListItem} />
+            </Col>
+          </Row>
         </StickyContainer>
       </Container>
     );

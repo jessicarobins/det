@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, FormGroup, FormControl, Button, Alert, Panel } from 'react-bootstrap';
+import { Button, Form, FormGroup, Input } from 'reactstrap';
 import Typeahead from 'react-bootstrap-typeahead';
 import * as _ from 'lodash';
 
@@ -7,6 +7,8 @@ import * as _ from 'lodash';
 if (process.env.BROWSER) {
   require('./ListCreateWidget.scss');
 }
+
+import NoResultsModal from './NoResultsModal/NoResultsModal';
 
 export class PostCreateWidget extends Component {
   
@@ -16,7 +18,8 @@ export class PostCreateWidget extends Component {
       isLoading: false};
   }
   
-  addList = () => {
+  addList = (e) => {
+    e.preventDefault();
     if (this.verbRef.value && this.props.selectedTemplate.length) {
       this.setState({isLoading: true});
       this.props.addPost(this.verbRef.value, this.props.selectedTemplate);
@@ -48,12 +51,10 @@ export class PostCreateWidget extends Component {
  
   renderAlert() {
     return (
-      <Alert bsStyle="info" className='wantto-alert' onDismiss={this.handleAlertDismiss}>
-        <h4>No results found for <strong>{this.props.selectedTemplate}</strong>.</h4>
-        <div className='wantto-alert-buttons'>
-          <Button bsStyle="default" onClick={this.addEmptyList}>Create an empty list!</Button>
-        </div>
-      </Alert>
+      <NoResultsModal 
+        addEmptyList={this.addEmptyList}
+        handleAlertDismiss={this.handleAlertDismiss}
+        selectedTemplate={this.props.selectedTemplate} />
     );
   }
 
@@ -66,10 +67,10 @@ export class PostCreateWidget extends Component {
             </h1>
             <h1>
               <FormGroup>
-                <FormControl
+                <Input
                   autoFocus={true}
                   className='wantto-input'
-                  inputRef={ref => {this.verbRef = ref}} 
+                  getRef={ref => {this.verbRef = ref}} 
                   type="text" 
                   placeholder="climb" />
               </FormGroup>
@@ -90,6 +91,7 @@ export class PostCreateWidget extends Component {
               </FormGroup>
             </h1>
               <Button 
+                size="lg"
                 disabled={this.state.isLoading || this.props.showAddWarning}
                 onClick={!this.state.isLoading ? this.addList : null}>
                  {(this.state.isLoading && !this.props.showAddWarning) ? 'Creating...' : 'Create!'}

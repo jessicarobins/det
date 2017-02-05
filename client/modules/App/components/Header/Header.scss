@@ -1,12 +1,10 @@
 .header {
+  background-color: $primary-lightest;
+  
+  &.navbar-inverse {
+    background-color: $primary-dark;
+  }
   .container {
     padding-top: 0;
-  }
-  
-}
-
-.about {
-  .header {
-    background-color: $primary-dark;
   }
 }

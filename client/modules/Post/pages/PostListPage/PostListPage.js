@@ -91,28 +91,30 @@ class PostListPage extends Component {
   render() {
     return (
       <div className='post-list-page'>
-        <Container>
-          <Row className='align-items-center'>
-            <Col md='6' xs='12'>
-              <PostCreateWidget 
-                selectedTemplate={this.props.selectedTemplate}
-                addSelectedTemplate={this.handleAddSelectedTemplate}
-                removeSelectedTemplate={this.handleRemoveSelectedTemplate}
-                toggleAddWarning={this.handleToggleAddWarning}
-                showAddWarning={this.props.showAddWarning}
-                addPost={this.handleAddList} 
-                addEmptyList={this.handleAddEmptyList}
-                showAddPost={true} 
-                templates={this.props.templates} />
-            </Col>
-            <Col md='6' xs='12'>
-              {this.props.lists.length ?
-                this.lists() :
-                this.noLists() 
-              }
-            </Col>
-          </Row>
-        </Container>
+        <div className='post-list-page-container'>
+          <Container>
+            <Row>
+              <Col md='6' xs='12'>
+                <PostCreateWidget 
+                  selectedTemplate={this.props.selectedTemplate}
+                  addSelectedTemplate={this.handleAddSelectedTemplate}
+                  removeSelectedTemplate={this.handleRemoveSelectedTemplate}
+                  toggleAddWarning={this.handleToggleAddWarning}
+                  showAddWarning={this.props.showAddWarning}
+                  addPost={this.handleAddList} 
+                  addEmptyList={this.handleAddEmptyList}
+                  showAddPost={true} 
+                  templates={this.props.templates} />
+              </Col>
+              <Col md='6' xs='12'>
+                {this.props.lists.length ?
+                  this.lists() :
+                  this.noLists() 
+                }
+              </Col>
+            </Row>
+          </Container>
+        </div>
       </div>
       
     );

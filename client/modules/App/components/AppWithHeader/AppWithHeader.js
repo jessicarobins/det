@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 // Import Components
 import Header from '../../components/Header/Header';
@@ -15,15 +16,17 @@ export class AppWithHeader extends Component {
 
   render() {
     return (
-      <div>
-        <Header
-          user={this.props.user.data}
-          logout={this.handleLogout}
-        />
+      <StickyContainer>
+        <Sticky className='top'>
+          <Header
+            user={this.props.user.data}
+            logout={this.handleLogout}
+          />
+        </Sticky>
         <div>
           {this.props.children}
         </div>
-      </div>
+      </StickyContainer>
     );
   }
 }
