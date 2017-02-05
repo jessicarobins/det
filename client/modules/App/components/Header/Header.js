@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Container, Navbar, NavbarBrand, Nav, NavItem, NavLink, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Container, Navbar, NavbarBrand, Nav, NavItem, NavLink, 
+  NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import classnames from 'classnames';
+import FontAwesome from 'react-fontawesome';
 
 import Brand from '../Brand/Brand'
 
@@ -11,9 +14,13 @@ if (process.env.BROWSER) {
 export function Header(props, context) {
   return (
     <Navbar toggleable inverse={props.inverse} className='header'>
-      <Container>
+      <Container className='justify-content-between'>
+        { props.tabs ?
+        <Tabs 
+          currentTab={props.currentTab}
+          changeTab={props.changeTab}/> : null }
         <NavbarBrand tag={Link} to="/"><Brand light={props.inverse}/>.io</NavbarBrand>
-        <Nav className="ml-auto" navbar>
+        <Nav navbar>
           { props.user ? <UserLink logout={props.logout} user={props.user} /> :
             <NavItem>
               <NavLink href="/auth/google">Login with Google</NavLink>
@@ -23,6 +30,36 @@ export function Header(props, context) {
       </Container>
     </Navbar>
   );
+}
+
+class Tabs extends Component {
+  
+  toggle(tab) {
+    if (this.props.activeTab !== tab) {
+      this.props.changeTab(tab);
+    }
+  }
+  
+  render() {
+    return (
+      <Nav tabs>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: this.props.currentTab === 'home' })}
+            onClick={() => { this.toggle('home'); }} >
+            <FontAwesome name='home' /> Home
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: this.props.currentTab === 'explore' })}
+            onClick={() => { this.toggle('explore'); }} >
+            <FontAwesome name='compass' /> Explore
+          </NavLink>
+        </NavItem>
+      </Nav>
+    )
+  }
 }
 
 class UserLink extends Component{
@@ -66,6 +103,8 @@ Header.contextTypes = {
 Header.propTypes = {
   inverse: PropTypes.bool,
   logout: PropTypes.func,
+  tabs: PropTypes.bool,
+  changeTab: PropTypes.func,
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),

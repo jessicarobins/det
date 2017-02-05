@@ -7,11 +7,19 @@ import Header from '../../components/Header/Header';
 
 // actions
 import { logOut as logoutAction } from '../../../User/UserActions';
+import { changeTab } from '../../AppActions';
+
+import { getUser } from '../../../User/UserReducer';
+import { getTab } from '../../AppReducer';
 
 export class AppWithHeader extends Component {
 
   handleLogout = () => {
     this.props.dispatch(logoutAction());
+  }
+  
+  handleChangeTab = (tab) => {
+    this.props.dispatch(changeTab(tab));
   }
 
   render() {
@@ -19,7 +27,10 @@ export class AppWithHeader extends Component {
       <StickyContainer>
         <Sticky className='top'>
           <Header
-            user={this.props.user.data}
+            tabs
+            changeTab={this.handleChangeTab}
+            currentTab={this.props.currentTab}
+            user={this.props.user}
             logout={this.handleLogout}
           />
         </Sticky>
@@ -34,13 +45,15 @@ export class AppWithHeader extends Component {
 AppWithHeader.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
+  currentTab: PropTypes.object,
   user: PropTypes.object.isRequired,
 };
 
 // Retrieve data from store as props
-function mapStateToProps(store) {
+function mapStateToProps(state) {
   return {
-    user: store.user
+    user: getUser(state),
+    currentTab: getTab(state)
   };
 }
 

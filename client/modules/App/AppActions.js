@@ -6,6 +6,7 @@ export const TOGGLE_SPINNER_OFF = 'TOGGLE_SPINNER_OFF';
 export const TOGGLE_ADD_WARNING = 'TOGGLE_ADD_WARNING';
 export const ADD_SYSTEM_MESSAGE = 'ADD_SYSTEM_MESSAGE';
 export const REMOVE_SYSTEM_MESSAGE = 'REMOVE_SYSTEM_MESSAGE';
+export const CHANGE_TAB = 'CHANGE_TAB';
 
 // Export Actions
 export function addSystemMessage(message, type) {
@@ -20,24 +21,18 @@ export function addSystemMessage(message, type) {
   };
 }
 
+export function changeTab(tab) {
+  return {
+    type: CHANGE_TAB,
+    tab: tab
+  }
+}
+
 export function removeSystemMessage() {
   return {
     type: REMOVE_SYSTEM_MESSAGE
   };
 }
-
-// export function addAppWarning(message) {
-//   return {
-//     type: ADD_APP_WARNING,
-//     message
-//   };
-// }
-
-// export function removeAppWarning() {
-//   return {
-//     type: REMOVE_APP_WARNING
-//   };
-// }
 
 export function toggleAddWarning() {
   return {

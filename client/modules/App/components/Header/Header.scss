@@ -1,5 +1,10 @@
 .header {
-  background-color: $primary-lightest;
+  background-color: white;
+  
+  &:not(.navbar-inverse) {
+    border-bottom: 1px solid $divider;
+    padding: 0px;
+  }
   
   &.navbar-inverse {
     background-color: $primary-dark;

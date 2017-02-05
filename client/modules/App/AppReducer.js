@@ -29,20 +29,6 @@ const showAddWarning = (
   }
 };
 
-// const appWarning = (
-//   state = '',
-//   action
-// ) => {
-//   switch (action.type) {
-//     case appActions.ADD_APP_WARNING:
-//       return action.message;
-//     case appActions.REMOVE_APP_WARNING:
-//       return '';
-//     default:
-//       return state;
-//   }
-// };
-
 const systemMessages = (
   state = [],
   action
@@ -57,7 +43,20 @@ const systemMessages = (
   }
 };
 
+const currentTab = (
+  state = null,
+  action
+) => {
+  switch (action.type) {
+    case appActions.CHANGE_TAB:
+      return action.tab;
+    default:
+      return state;
+  }
+};
+
 const AppReducer = combineReducers({
+  currentTab,
   showSpinner,
   showAddWarning,
   systemMessages
@@ -70,7 +69,7 @@ export const getShowSpinner = state => state.app.showSpinner;
 
 export const getShowAddWarning = state => state.app.showAddWarning;
 
-// export const systemMessages = state => state.app.systemMessages;
+export const getTab = state => state.app.currentTab;
 
 // Export Reducer
 export default AppReducer;
