@@ -4,7 +4,7 @@ import { Route, IndexRoute } from 'react-router';
 import App from './modules/App/App';
 import AppWithHeader from './modules/App/components/AppWithHeader/AppWithHeader';
 
-import { toggleSpinnerOn } from './modules/App/AppActions';
+import { toggleSpinnerOn, changeTab } from './modules/App/AppActions';
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -46,6 +46,7 @@ export function createRoutes(store) {
     }
     else {
       store.dispatch(toggleSpinnerOn());
+      store.dispatch(changeTab('home'));
     }
     callback();
   };
@@ -86,6 +87,7 @@ export function createRoutes(store) {
     if (authenticated) {
       if(data && data.username) {
         store.dispatch(toggleSpinnerOn());
+        store.dispatch(changeTab('home'));
         replace({
           pathname: '/'
         });

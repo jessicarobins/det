@@ -52,7 +52,7 @@ class PostDetailPage extends Component {
   
   render() {
     return (
-      <div className='list-detail-page'>
+      <div className='post-list-page'>
         <Helmet 
           title={this.props.list ? `I want to ${this.props.list.name}` : '404: List not found'}/>
         {this.props.list ?

@@ -4,6 +4,7 @@ import { Container, Navbar, NavbarBrand, Nav, NavItem, NavLink,
   NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import classnames from 'classnames';
 import FontAwesome from 'react-fontawesome';
+import { browserHistory } from 'react-router';
 
 import Brand from '../Brand/Brand'
 
@@ -19,7 +20,7 @@ export function Header(props, context) {
         <Tabs 
           currentTab={props.currentTab}
           changeTab={props.changeTab}/> : null }
-        <NavbarBrand tag={Link} to="/"><Brand light={props.inverse}/>.io</NavbarBrand>
+        <NavbarBrand><Brand light={props.inverse}/>.io</NavbarBrand>
         <Nav navbar>
           { props.user ? <UserLink logout={props.logout} user={props.user} /> :
             <NavItem>
@@ -34,6 +35,11 @@ export function Header(props, context) {
 
 class Tabs extends Component {
   
+  goHome = () => {
+    this.toggle('home');
+    browserHistory.push('/');
+  }
+  
   toggle(tab) {
     if (this.props.activeTab !== tab) {
       this.props.changeTab(tab);
@@ -46,7 +52,7 @@ class Tabs extends Component {
         <NavItem>
           <NavLink
             className={classnames({ active: this.props.currentTab === 'home' })}
-            onClick={() => { this.toggle('home'); }} >
+            onClick={this.goHome} >
             <FontAwesome name='home' /> Home
           </NavLink>
         </NavItem>

@@ -45,7 +45,7 @@ export class AppWithHeader extends Component {
 AppWithHeader.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
-  currentTab: PropTypes.object,
+  currentTab: PropTypes.string,
   user: PropTypes.object.isRequired,
 };
 

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
+import { browserHistory } from 'react-router';
 
 require('./ListList.css');
 
@@ -13,8 +14,8 @@ function PostList(props) {
           <ListGroupItem
             className="justify-content-between"
             key={list.cuid}
-            tag={Link}
-            to={`/lists/${list.cuid}`}>
+            tag="a"
+            onClick={() => goToList(props, list)}>
             {list.name}
             { list.percentComplete < 100 ?
               <Badge pill>{list.percentComplete}%</Badge> :
@@ -25,6 +26,11 @@ function PostList(props) {
       }
     </ListGroup>
   );
+}
+
+function goToList(props, list) {
+  props.changeTab('');
+  browserHistory.push(`/lists/${list.cuid}`);
 }
 
 PostList.propTypes = {

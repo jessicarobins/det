@@ -33,6 +33,7 @@ export function addListRequest(list, endpoint='lists/find_or_create') {
     }).then( (res) =>  {
       if(res.list){
         dispatch(addPost(res.list));
+        dispatch(appActions.changeTab(''));
         browserHistory.push(`/lists/${res.list.cuid}`);
       }
       else {
@@ -48,6 +49,7 @@ export function cloneListRequest(props) {
       .then(res => {
         dispatch(addPost(res.list));
         browserHistory.push(`/lists/${res.list.cuid}`);
+        dispatch(appActions.changeTab(''));
         dispatch(appActions.toggleSpinnerOff());
       });
   };

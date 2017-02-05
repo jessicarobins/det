@@ -44,7 +44,7 @@ const systemMessages = (
 };
 
 const currentTab = (
-  state = null,
+  state = '',
   action
 ) => {
   switch (action.type) {

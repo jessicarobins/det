@@ -15,7 +15,7 @@ import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget
 // Import Actions
 import { addListRequest, fetchPosts, fetchRecentLists } from '../../ListActions';
 import * as templateActions from '../../../Template/TemplateActions';
-import { toggleAddWarning } from '../../../App/AppActions';
+import { toggleAddWarning, changeTab } from '../../../App/AppActions';
 
 // Import Selectors
 import { getShowAddWarning } from '../../../App/AppReducer';
@@ -52,11 +52,16 @@ class PostListPage extends Component {
     this.props.dispatch(templateActions.removeSelected());
   };
   
+  handleChangeTab = (tab) => {
+    this.props.dispatch(changeTab(''));
+  }
+  
   lists() {
     return (
       <Row>
         <Col>
           <PostList 
+            changeTab={this.handleChangeTab}
             lists={this.props.lists} />
         </Col>
       </Row>
