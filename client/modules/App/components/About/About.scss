@@ -69,7 +69,8 @@
     .contact {
         text-align: center;
         padding: 20px;
-        background-color: rgba(189, 189, 189, .1);
+        background-color: $divider;
+        margin-top: -1px;
     }
     
     .recent-section {

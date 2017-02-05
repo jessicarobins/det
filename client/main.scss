@@ -29,6 +29,10 @@ a {
 	align-items: center;
 }
 
-.container {
+.tall {
 	padding-top: 40px;
+}
+
+.top {
+	z-index: 999999999;
 }

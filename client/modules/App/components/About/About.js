@@ -3,10 +3,12 @@ import { Link } from 'react-router';
 import { Col, Row, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
 import { SocialIcon } from 'react-social-icons';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 import * as _ from 'lodash';
 
 import UnAuthWidget from './UnAuthWidget/UnAuthWidget';
+import Header from '../Header/Header';
 import Brand from '../Brand/Brand';
 
 if (process.env.BROWSER) {
@@ -15,13 +17,18 @@ if (process.env.BROWSER) {
 
 function About(props) {
   return (
-    <div className='about'>
-      {TypeaheadWidgetSection(props)}
-      {WhatIsEvereeSection()}
-      {StepsSection()}
-      {RecentListsSection(props)}
-      {ContactSection()}
-    </div>  
+    <StickyContainer>
+      <div className='about'>
+        {TypeaheadWidgetSection(props)}
+        <Sticky className='top'>
+          <Header inverse />
+        </Sticky>
+        {WhatIsEvereeSection()}
+        {StepsSection()}
+        {RecentListsSection(props)}
+        {ContactSection()}
+      </div>  
+    </StickyContainer>
   )
 }
 

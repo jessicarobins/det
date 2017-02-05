@@ -10,9 +10,9 @@ if (process.env.BROWSER) {
 
 export function Header(props, context) {
   return (
-    <Navbar color="faded" full toggleable className='header'>
+    <Navbar toggleable inverse={props.inverse} className='header'>
       <Container>
-        <NavbarBrand tag={Link} to="/"><Brand />.io</NavbarBrand>
+        <NavbarBrand tag={Link} to="/"><Brand light={props.inverse}/>.io</NavbarBrand>
         <Nav className="ml-auto" navbar>
           { props.user ? <UserLink logout={props.logout} user={props.user} /> :
             <NavItem>
@@ -64,10 +64,11 @@ Header.contextTypes = {
 };
 
 Header.propTypes = {
-  logout: PropTypes.func.isRequired,
-  // user: PropTypes.shape({
-  //   name: PropTypes.string.isRequired,
-  // }).isRequired,
+  inverse: PropTypes.bool,
+  logout: PropTypes.func,
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }),
 };
 
 export default Header;
