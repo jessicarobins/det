@@ -4,11 +4,13 @@ import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import { browserHistory } from 'react-router';
 
-require('./ListList.css');
+if (process.env.BROWSER) {
+  require('./ListList.scss');
+}
 
 function PostList(props) {
   return (
-    <ListGroup>
+    <ListGroup className='list-list'>
       {
         props.lists.map(list => (
           <ListGroupItem
@@ -18,8 +20,8 @@ function PostList(props) {
             onClick={() => goToList(props, list)}>
             {list.name}
             { list.percentComplete < 100 ?
-              <Badge pill>{list.percentComplete}%</Badge> :
-              <FontAwesome name='trophy'/>
+              <Badge className='percent-span'>{list.percentComplete}%</Badge> :
+              <FontAwesome name='trophy' className='percent-trophy percent-span'/>
             }
           </ListGroupItem>
         ))

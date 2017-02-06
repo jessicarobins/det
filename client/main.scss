@@ -5,6 +5,7 @@
 // @import url('//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css');
 // @import './bootstrap.css';
 @import '~react-typist/dist/Typist.css';
+@import '~react-bootstrap-typeahead/css/Typeahead.css';
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import url('https://fonts.googleapis.com/css?family=Arima+Madurai');
 
@@ -34,5 +35,9 @@ a {
 }
 
 .top {
-	z-index: 999999999;
+	z-index: 1000;
+}
+
+.Loader {
+	background-color: $gray-lightest;
 }

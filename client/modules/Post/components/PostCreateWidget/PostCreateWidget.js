@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Button, Form, FormGroup, Input } from 'reactstrap';
-import Typeahead from 'react-bootstrap-typeahead';
+import { Typeahead } from 'react-bootstrap-typeahead';
 import * as _ from 'lodash';
 
 // Import Style
@@ -57,7 +57,7 @@ export class PostCreateWidget extends Component {
         selectedTemplate={this.props.selectedTemplate} />
     );
   }
-
+  
   render() {
     return (
       <div className='wantto'>
