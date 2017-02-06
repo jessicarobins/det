@@ -36,12 +36,14 @@ export function Header(props, context) {
 class Tabs extends Component {
   
   goHome = () => {
-    this.toggle('home');
-    browserHistory.push('/');
+    if(this.props.currentTab !== 'home') {
+      this.toggle('home');
+      browserHistory.push('/');
+    }
   }
   
   toggle(tab) {
-    if (this.props.activeTab !== tab) {
+    if (this.props.currentTab !== tab) {
       this.props.changeTab(tab);
     }
   }
@@ -51,14 +53,20 @@ class Tabs extends Component {
       <Nav tabs>
         <NavItem>
           <NavLink
-            className={classnames({ active: this.props.currentTab === 'home' })}
+            className={classnames({ 
+              active: this.props.currentTab === 'home',
+              'tab-link': true
+            })}
             onClick={this.goHome} >
             <FontAwesome name='home' /> Home
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink
-            className={classnames({ active: this.props.currentTab === 'explore' })}
+            className={classnames({ 
+              active: this.props.currentTab === 'explore',
+              'tab-link': true
+            })}
             onClick={() => { this.toggle('explore'); }} >
             <FontAwesome name='compass' /> Explore
           </NavLink>

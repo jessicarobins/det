@@ -46,7 +46,7 @@ AppWithHeader.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   currentTab: PropTypes.string,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
 };
 
 // Retrieve data from store as props

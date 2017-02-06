@@ -26,7 +26,7 @@ export class ListDetails extends Component {
   
   render() {
     return (
-      <Container>
+      <Container className='list-details'>
         <StickyContainer>
           <Row>
             <Col xs={12} md={5}>
