@@ -11,6 +11,7 @@
 
 body {
 	color: $primary-text !important;
+	background-color: $gray-lightest;
 }
 
 a, a:hover {
@@ -36,8 +37,4 @@ a {
 
 .top {
 	z-index: 1000;
-}
-
-.Loader {
-	background-color: $gray-lightest;
 }
