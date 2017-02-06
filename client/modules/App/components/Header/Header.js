@@ -20,7 +20,7 @@ export function Header(props, context) {
         <Tabs 
           currentTab={props.currentTab}
           changeTab={props.changeTab}/> : null }
-        <NavbarBrand><Brand light={props.inverse}/>.io</NavbarBrand>
+        <Brand light={props.inverse}/>
         <Nav navbar>
           { props.user ? <UserLink logout={props.logout} user={props.user} /> :
             <NavItem>

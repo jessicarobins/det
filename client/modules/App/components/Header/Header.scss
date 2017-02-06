@@ -1,9 +1,33 @@
+$link-border: 3px;
+
 .header {
   background-color: white;
   
   &:not(.navbar-inverse) {
     border-bottom: 1px solid $divider;
     padding: 0px;
+    
+    a {
+      border-bottom: $link-border solid white;
+      border-top: $link-border solid white;
+      border-left: none;
+      border-right: none;
+      
+      &.active {
+        border-bottom: $link-border solid $primary;
+        border-top: $link-border solid white;
+        border-left: none;
+        border-right: none;
+      }
+      
+      &:hover {
+        border-bottom: $link-border solid $accent;
+        border-top: $link-border solid white;
+        border-left: none;
+        border-right: none;
+      }
+    }
+    
   }
   
   &.navbar-inverse {
