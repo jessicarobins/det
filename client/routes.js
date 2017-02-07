@@ -24,6 +24,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('./modules/Post/pages/UnAuthPage/UnAuthPage');
   require('./modules/Help/pages/HelpPage');
   require('./modules/User/pages/CreateUsernamePage');
+  require('./modules/Post/pages/ExplorePage/ExplorePage');
   require('./modules/App/components/AppWithHeader/AppWithHeader');
 }
 
@@ -47,6 +48,20 @@ export function createRoutes(store) {
     else {
       store.dispatch(toggleSpinnerOn());
       store.dispatch(changeTab('home'));
+    }
+    callback();
+  };
+  
+  const exploreRedirect = (nextState, replace, callback) => {
+    const { user: { authenticated, data } } = store.getState();
+    if (authenticated && data && !data.username) {
+      replace({
+        pathname: '/username'
+      });
+    }
+    else {
+      store.dispatch(toggleSpinnerOn());
+      store.dispatch(changeTab('explore'));
     }
     callback();
   };
@@ -135,6 +150,15 @@ export function createRoutes(store) {
           getComponent={(nextState, cb) => {
             require.ensure([], require => {
               cb(null, require('./modules/Help/pages/HelpPage').default);
+            });
+          }}
+        />
+        <Route
+          onEnter={exploreRedirect}
+          path="/explore"
+          getComponent={(nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./modules/Post/pages/ExplorePage/ExplorePage').default);
             });
           }}
         />

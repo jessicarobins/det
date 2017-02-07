@@ -42,6 +42,13 @@ class Tabs extends Component {
     }
   }
   
+  goExplore = () => {
+    if(this.props.currentTab !== 'expore') {
+      this.toggle('explore');
+      browserHistory.push('/explore');
+    }
+  }
+  
   toggle(tab) {
     if (this.props.currentTab !== tab) {
       this.props.changeTab(tab);
@@ -67,7 +74,7 @@ class Tabs extends Component {
               active: this.props.currentTab === 'explore',
               'tab-link': true
             })}
-            onClick={() => { this.toggle('explore'); }} >
+            onClick={this.goExplore} >
             <FontAwesome name='compass' /> Explore
           </NavLink>
         </NavItem>
