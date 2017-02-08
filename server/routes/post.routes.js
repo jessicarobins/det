@@ -14,6 +14,8 @@ router.use(function (req, res, next) {
 // lists
 router.route('/lists').get(ListController.getLists);
 router.route('/lists/demo').get(ListController.getDemoLists);
+router.route('/lists/count').get(ListController.count);
+router.route('/lists/recent/:page').get(ListController.paginateLists);
 router.route('/lists/recent').get(ListController.getRecentLists);
 router.route('/lists').post(ListController.addEmptyList);
 router.route('/lists/find_or_create').post(ListController.findOrCreateListTemplate);

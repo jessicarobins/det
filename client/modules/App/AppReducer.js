@@ -55,8 +55,21 @@ const currentTab = (
   }
 };
 
+const loading = (
+  state = false,
+  action
+) => {
+  switch (action.type) {
+    case appActions.TOGGLE_LOADING:
+      return action.value;
+    default:
+      return state;
+  }
+};
+
 const AppReducer = combineReducers({
   currentTab,
+  loading,
   showSpinner,
   showAddWarning,
   systemMessages
@@ -70,6 +83,8 @@ export const getShowSpinner = state => state.app.showSpinner;
 export const getShowAddWarning = state => state.app.showAddWarning;
 
 export const getTab = state => state.app.currentTab;
+
+export const isLoading = state => state.app.loading;
 
 // Export Reducer
 export default AppReducer;

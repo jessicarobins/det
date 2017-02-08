@@ -47,10 +47,39 @@ const recentLists = (
   }
 };
 
+const paginatedLists = (
+  state = [],
+  action
+) => {
+  switch (action.type) {
+    case actions.ADD_PAGINATED_LISTS :
+      return [...state, ...action.lists];
+    case actions.RESET_PAGINATED_LISTS:
+      return [...action.lists];
+    default:
+      return state;
+  }
+};
+
+const count = (
+  state = 0,
+  action
+) => {
+  switch (action.type) {
+    case actions.SET_COUNT :
+      return action.count;
+    default:
+      return state;
+  }
+};
+
+
 const ListReducer = combineReducers({
+  count,
   lists,
   demoLists,
-  recentLists
+  recentLists,
+  paginatedLists
 });
 
 /* Selectors */
@@ -66,6 +95,8 @@ export const getPost = (state, cuid) => {
 
 export const getDemoLists = state => state.lists.demoLists;
 export const getRecentLists = state => state.lists.recentLists;
+export const getPaginatedLists = state => state.lists.paginatedLists;
+export const getCount = state => state.lists.count;
 
 // Export Reducer
 export default ListReducer;

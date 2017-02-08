@@ -11,9 +11,12 @@ export const TOGGLE_LIST_ITEM = 'TOGGLE_LIST_ITEM';
 export const DELETE_LIST_ITEM = 'DELETE_LIST_ITEM';
 export const ADD_LISTS = 'ADD_LISTS';
 export const ADD_RECENT_LISTS = 'ADD_RECENT_LISTS';
+export const ADD_PAGINATED_LISTS = 'ADD_PAGINATED_LISTS';
+export const RESET_PAGINATED_LISTS = 'RESET_PAGINATED_LISTS';
 export const ADD_DEMO_LISTS = 'ADD_DEMO_LISTS';
 export const ADD_TEMPLATES = 'ADD_TEMPLATES';
 export const DELETE_POST = 'DELETE_POST';
+export const SET_COUNT = 'SET_COUNT';
 
 // Export Actions
 export function addPost(list) {
@@ -126,6 +129,27 @@ export function addRecentLists(lists) {
   };
 }
 
+export function addPaginatedLists(lists) {
+  return {
+    type: ADD_PAGINATED_LISTS,
+    lists,
+  };
+}
+
+export function resetPaginatedLists(lists) {
+  return {
+    type: RESET_PAGINATED_LISTS,
+    lists,
+  };
+}
+
+export function setCount(count) {
+  return {
+    type: SET_COUNT,
+    count,
+  };
+}
+
 export function fetchPosts() {
   return (dispatch) => {
     return callApi('lists').then(res => {
@@ -152,12 +176,38 @@ export function fetchRecentLists() {
   };
 }
 
+export function fetchPaginatedLists(page) {
+  const pageToLoad = page || 1;
+  return (dispatch) => {
+    return callApi(`lists/recent/${pageToLoad}`).then(res => {
+      if(page) {
+        dispatch(addPaginatedLists(res.lists));
+      }
+      else {
+        dispatch(resetPaginatedLists(res.lists));
+      }
+      dispatch(appActions.toggleSpinnerOff());
+      dispatch(appActions.toggleLoading(false));
+    });
+  };
+}
+
 
 export function fetchList(cuid) {
   return (dispatch) => {
     return callApi(`lists/${cuid}`).then(res => {
       if(res.list){
         dispatch(addPost(res.list));
+      }
+    });
+  };
+}
+
+export function fetchCount() {
+  return (dispatch) => {
+    return callApi('lists/count').then(res => {
+      if(res.count){
+        dispatch(setCount(res.count));
       }
     });
   };

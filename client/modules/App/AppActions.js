@@ -7,6 +7,7 @@ export const TOGGLE_ADD_WARNING = 'TOGGLE_ADD_WARNING';
 export const ADD_SYSTEM_MESSAGE = 'ADD_SYSTEM_MESSAGE';
 export const REMOVE_SYSTEM_MESSAGE = 'REMOVE_SYSTEM_MESSAGE';
 export const CHANGE_TAB = 'CHANGE_TAB';
+export const TOGGLE_LOADING = 'TOGGLE_LOADING';
 
 // Export Actions
 export function addSystemMessage(message, type) {
@@ -49,5 +50,12 @@ export function toggleSpinnerOn() {
 export function toggleSpinnerOff() {
   return {
     type: TOGGLE_SPINNER_OFF
+  };
+}
+
+export function toggleLoading(value) {
+  return {
+    type: TOGGLE_LOADING,
+    value: value
   };
 }

@@ -9,7 +9,11 @@ if (process.env.BROWSER) {
 function ListCard(props) {
   const { list } = props;
   return (
-    <Card block className='list-card' onClick={() => goToList(props, list)}>
+    <Card 
+      style={{width: '300px'}}
+      block 
+      className='list-card' 
+      onClick={() => goToList(props, list)}>
       <CardTitle>{list.fullName}</CardTitle>
       <CardSubtitle>{list.items.length} items</CardSubtitle>
       <Progress value={list.percentComplete} />
