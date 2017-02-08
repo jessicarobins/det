@@ -11,7 +11,7 @@ import { changeTab, toggleLoading } from '../../../App/AppActions';
 // Import Selectors
 import { getPaginatedLists, getCount } from '../../ListReducer';
 import { getUser } from '../../../User/UserReducer';
-import { isLoading } from '../../../App/AppReducer';
+import { isLoading, getShowSpinner } from '../../../App/AppReducer';
 
 if (process.env.BROWSER) {
   require('./ExplorePage.scss');
@@ -39,6 +39,7 @@ class ExplorePage extends Component {
   render() {
     return (
       <div className='explore-page tall'>
+        {this.props.showSpinner ? null :
         <Container>
           <Explore 
             count={this.props.count}
@@ -48,6 +49,7 @@ class ExplorePage extends Component {
             changeTab={this.handleChangeTab}
             lists={this.props.recentLists} />
         </Container>
+        }
       </div>
       
     );
@@ -66,6 +68,7 @@ function mapStateToProps(state) {
     count: getCount(state),
     loading: isLoading(state),
     recentLists: getPaginatedLists(state),
+    showSpinner: getShowSpinner(state),
     user: getUser(state)
   };
 }
@@ -77,6 +80,7 @@ ExplorePage.propTypes = {
   })).isRequired,
   dispatch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  showSpinner: PropTypes.bool.isRequired,
   user: PropTypes.object,
 };
 
