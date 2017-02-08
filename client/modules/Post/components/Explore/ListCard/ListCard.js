@@ -10,7 +10,9 @@ function ListCard(props) {
   const { list } = props;
   return (
     <Card 
-      style={{width: '300px'}}
+      style={{width: '356px', 
+        minHeight: '200px'
+      }}
       block 
       className='list-card' 
       onClick={() => goToList(props, list)}>

@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { CardColumns } from 'reactstrap';
 import MasonryLayout from 'react-masonry-layout';
+import FontAwesome from 'react-fontawesome';
+
 import * as Q from 'q';
 
 import ListCard from './ListCard/ListCard';
@@ -14,9 +16,10 @@ export class Explore extends Component {
     };
   }
   
+  end = () => this.props.lists.length >= this.props.count
 
   getItems = () => {
-    if (this.props.lists.length >= this.props.count) return;
+    if (this.end()) return;
     const setState = Q.nbind(this.setState, this);
     this.props.toggleLoading(true);
     setState({page: this.state.page+1})
@@ -24,16 +27,30 @@ export class Explore extends Component {
         this.props.addMoreLists(this.state.page);
       });
   }
+  
+  spinner = () => {
+    return (
+      <div className='text-center p-3'>
+        <FontAwesome name='spinner' className='fa-spin fa-2x' />
+      </div>
+    )
+  }
+  
+  endIndicator = () => {
+    return <div className='p-3' />;
+  }
 
   render() {
     return (
       <MasonryLayout
         style={{width: '100%'}}
         id="items"
-        sizes={[ { columns: 3, gutter: 20 } ]}
+        sizes={[ { columns: 3, gutter: 30 } ]}
         infiniteScroll={this.getItems}
-        infiniteScrollLoading={this.props.loading} >
-        
+        infiniteScrollLoading={this.props.loading} 
+        infiniteScrollEnd={this.end()}
+        infiniteScrollSpinner={this.spinner()}
+        infiniteScrollEndIndicator={this.endIndicator()} >
         {
           this.props.lists.map((list, i) => (
           <ListCard 
