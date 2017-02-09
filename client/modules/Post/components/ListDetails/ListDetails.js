@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Container, Col, Row, Card } from 'reactstrap';
+import { Container, Col, Row, Card, CardBlock, CardHeader } from 'reactstrap';
 import { StickyContainer, Sticky } from 'react-sticky';
 import * as _ from 'lodash';
 
@@ -31,17 +31,24 @@ export class ListDetails extends Component {
           <Row>
             <Col xs={12} md={5}>
               <Sticky>
-                <Card block>
-                  <ListDetailHeader 
-                    list={this.props.list}
-                    belongsToUser={!!this.belongsToUser()}
-                    loggedIn={this.loggedIn()}
-                    cloneList={this.props.cloneList} />
-                  <Progress list={this.props.list}/>
-                  <Tiles list={this.props.list} />
-                  { this.belongsToUser() ? 
-                  <ListItemCreateWidget addListItem={this.props.addListItem} />
-                  : null }
+                <Card>
+                  <CardHeader>
+                    <ListDetailHeader 
+                      list={this.props.list}
+                      belongsToUser={!!this.belongsToUser()}
+                      loggedIn={this.loggedIn()}
+                      cloneList={this.props.cloneList} />
+                  </CardHeader>
+                  <CardBlock>
+                    <p className='card-avatar'>
+                      <img src={this.props.list._users[0].picture} className='rounded' />
+                    </p>
+                    <Tiles list={this.props.list} />
+                    <Progress list={this.props.list}/>
+                    { this.belongsToUser() ? 
+                    <ListItemCreateWidget addListItem={this.props.addListItem} />
+                    : null }
+                  </CardBlock>
                 </Card>
               </Sticky>
             </Col>

@@ -8,7 +8,7 @@ require('./ListItem.css');
 function ListItem(props) {
   return (
     <div>
-      <h3 className='list-list-item'>
+      <h5 className='list-list-item'>
         <FontAwesome
           className='item-icon'
           name='angle-right' />
@@ -21,7 +21,7 @@ function ListItem(props) {
           <Label className='pull-right percent-span'>{props.post.percentComplete}%</Label> :
           <FontAwesome name='trophy' className='pull-right percent-span percent-trophy'/>
         }
-      </h3>
+      </h5>
     </div>
   );
 }

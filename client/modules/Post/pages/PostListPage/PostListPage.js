@@ -18,7 +18,7 @@ import * as templateActions from '../../../Template/TemplateActions';
 import { toggleAddWarning, changeTab } from '../../../App/AppActions';
 
 // Import Selectors
-import { getShowAddWarning } from '../../../App/AppReducer';
+import { getShowAddWarning, getShowSpinner } from '../../../App/AppReducer';
 import { getPosts, getRecentLists } from '../../ListReducer';
 import { getTemplates, getSelected } from '../../../Template/TemplateReducer';
 import { getAuth, getUser } from '../../../User/UserReducer';
@@ -97,28 +97,30 @@ class PostListPage extends Component {
     return (
       <div className='post-list-page'>
         <div className='post-list-page-container'>
-          <Container>
-            <Row>
-              <Col md='6' xs='12'>
-                <PostCreateWidget 
-                  selectedTemplate={this.props.selectedTemplate}
-                  addSelectedTemplate={this.handleAddSelectedTemplate}
-                  removeSelectedTemplate={this.handleRemoveSelectedTemplate}
-                  toggleAddWarning={this.handleToggleAddWarning}
-                  showAddWarning={this.props.showAddWarning}
-                  addPost={this.handleAddList} 
-                  addEmptyList={this.handleAddEmptyList}
-                  showAddPost={true} 
-                  templates={this.props.templates} />
-              </Col>
-              <Col md='6' xs='12'>
-                {this.props.lists.length ?
-                  this.lists() :
-                  this.noLists() 
-                }
-              </Col>
-            </Row>
-          </Container>
+          {this.props.showSpinner ? null :
+            <Container>
+              <Row>
+                <Col md='6' xs='12'>
+                  <PostCreateWidget 
+                    selectedTemplate={this.props.selectedTemplate}
+                    addSelectedTemplate={this.handleAddSelectedTemplate}
+                    removeSelectedTemplate={this.handleRemoveSelectedTemplate}
+                    toggleAddWarning={this.handleToggleAddWarning}
+                    showAddWarning={this.props.showAddWarning}
+                    addPost={this.handleAddList} 
+                    addEmptyList={this.handleAddEmptyList}
+                    showAddPost={true} 
+                    templates={this.props.templates} />
+                </Col>
+                <Col md='6' xs='12'>
+                  {this.props.lists.length ?
+                    this.lists() :
+                    this.noLists() 
+                  }
+                </Col>
+              </Row>
+            </Container>
+          }
         </div>
       </div>
       
@@ -142,6 +144,7 @@ function mapStateToProps(state) {
     showAddWarning: getShowAddWarning(state),
     selectedTemplate: getSelected(state),
     authorized: getAuth(state),
+    showSpinner: getShowSpinner(state),
     user: getUser(state)
   };
 }
@@ -158,8 +161,9 @@ PostListPage.propTypes = {
   })).isRequired,
   dispatch: PropTypes.func.isRequired,
   showAddWarning: PropTypes.bool.isRequired,
+  showSpinner: PropTypes.bool.isRequired,
   authorized: PropTypes.bool.isRequired,
-  // user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   selectedTemplate: PropTypes.string.isRequired,
 };
 

@@ -20,7 +20,7 @@ export class ListItemCreateWidget extends Component {
                 inputRef={ref => {this.textRef = ref}}
                 type="text" />
               <InputGroup.Button>
-                <Button onClick={this.addListItem}>Add</Button>
+                <Button onClick={this.addListItem}>Add Item</Button>
               </InputGroup.Button>
             </InputGroup>
           </FormGroup>

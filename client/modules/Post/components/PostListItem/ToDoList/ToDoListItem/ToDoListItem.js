@@ -29,7 +29,7 @@ export class ToDoListItem extends Component {
   
   render() {
     return (
-      <h4 className='todo-list-item'>
+      <h5 className='todo-list-item'>
         <WrapperCheckbox 
           disabled={this.props.readOnly}
           checked={this.checked()}
@@ -41,7 +41,7 @@ export class ToDoListItem extends Component {
           className='trash-icon'
           name='trash'/>
         }
-      </h4>
+      </h5>
     )
   }
 }

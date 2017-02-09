@@ -2,4 +2,16 @@
   .sticky {
     top: 50px !important;
   }
+  
+  .card-header {
+    background-color: $primary-dark;
+  }
+  
+  .card-avatar {
+    margin-top: -40px;
+    
+    img {
+      border: 3px solid $text;
+    }
+  }
 }

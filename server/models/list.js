@@ -65,7 +65,7 @@ listSchema.query.byPage = function(page, limit=15) {
           .sort('-dateAdded')
           .skip(skipped)
           .limit(limit)
-          .populate('_users', 'username');
+          .populate('_users', 'name picture username');
 };
 
 listSchema.methods.addListItem = function(item, user) {

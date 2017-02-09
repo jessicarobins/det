@@ -8,6 +8,10 @@ if (process.env.BROWSER) {
 
 class Tiles extends Component {
   
+  complete() {
+    return this.props.list.percentComplete === 100;
+  }
+  
   percentLabel() {
     switch(this.props.list.percentComplete) {
       case 100:
@@ -19,31 +23,28 @@ class Tiles extends Component {
   
   render() {
     return (
-      <Row className='align-items-center tiles'>
-        <Col>
-          <div className='detail-tile'>
-            <p className='detail'><img src={this.props.list._users[0].picture} className='rounded' /></p>
-            <p className='caption'>{this.props.list._users[0].username}</p>
-          </div>
-        </Col>
-        <Col>
+      <div className='tiles'>
+        <div>
           <div className='detail-tile'>
             <p className='detail'>{this.percentLabel()}</p>
+            <p className='caption text-muted'>complete</p>
           </div>
-        </Col>
-        <Col>
+        </div>
+        { this.complete() ? null :
+        <div>
           <div className='detail-tile'>
             <p className='detail'>{this.props.list.fractionComplete.numerator}</p>
-            <p className='caption'>complete</p>
+            <p className='caption text-muted'>complete</p>
           </div>
-        </Col>
-        <Col>
+        </div>
+        }
+        <div>
           <div className='detail-tile'>
             <p className='detail'>{this.props.list.fractionComplete.denominator}</p>
-            <p className='caption'>total</p>
+            <p className='caption text-muted'>total</p>
           </div>
-        </Col>
-      </Row>
+        </div>
+      </div>
     )
   }
 }

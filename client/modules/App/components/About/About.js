@@ -45,8 +45,7 @@ function StepsSection(props) {
               </span>
             </div>
             <p className='step-text'>
-              Think of an action and a collection of things. For example, 
-              <strong>visit</strong> every <strong>continent</strong>, or <strong>say hello in</strong> every <strong>language</strong>.
+              Think of an action and a collection of things. For example, <strong>visit</strong> every <strong>continent</strong>, or <strong>say hello in</strong> every <strong>language</strong>.
             </p>
           </Col>
           <Col md='4' xs='12' className='step'>

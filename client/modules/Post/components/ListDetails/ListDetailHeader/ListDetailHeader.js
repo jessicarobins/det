@@ -1,17 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 
-require('./ListDetailHeader.css');
+if (process.env.BROWSER) {
+  require('./ListDetailHeader.scss');
+}
 
 export class ListDetailHeader extends Component {
   
   myList() {
-    return <h2>I want to <strong>{this.props.list.name}</strong></h2>
+    return <h2 className='list-detail-header'>I want to <strong>{this.props.list.name}</strong></h2>
   }
   
   yourList() {
     return (
       <div>
-        <h2>
+        <h2 className='list-detail-header'>
           {this.props.list._users[0].username} wants to <strong>{this.props.list.name}</strong>
         </h2>
         {this.showCloneList()}
