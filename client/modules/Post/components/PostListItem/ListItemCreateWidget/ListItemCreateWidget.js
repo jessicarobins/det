@@ -1,7 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap';
+import { Card, Collapse, Button, Form, FormGroup, Input } from 'reactstrap';
 
 export class ListItemCreateWidget extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = { collapse: false };
+  }
+
+  toggle = () => {
+    this.setState({ collapse: !this.state.collapse });
+  }
+
   addListItem = (e) => {
     e.preventDefault();
     if (this.textRef.value) {
@@ -12,20 +22,21 @@ export class ListItemCreateWidget extends Component {
 
   render() {
     return (
-      <div className='list-item-create'>
+      <Card block className='list-item-create'>
         <Form onSubmit={this.addListItem}>
           <FormGroup>
-            <InputGroup>
-              <FormControl 
-                inputRef={ref => {this.textRef = ref}}
-                type="text" />
-              <InputGroup.Button>
-                <Button onClick={this.addListItem}>Add Item</Button>
-              </InputGroup.Button>
-            </InputGroup>
+            <Input
+              onFocus={this.toggle}
+              onBlur={this.toggle}
+              placeholder="A new item..."
+              getRef={ref => {this.textRef = ref}}
+              type="text" />
           </FormGroup>
+          <Collapse isOpen={this.state.collapse}>
+            <Button onMouseDown={this.addListItem}>Add Item</Button>
+          </Collapse>
         </Form>
-      </div>
+      </Card>
     );
   }
 }

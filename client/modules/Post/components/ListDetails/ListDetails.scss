@@ -3,6 +3,19 @@
     top: 50px !important;
   }
   
+  .list-item-create {
+    margin-top: 1rem;
+    text-align: right;
+    
+    .form-group {
+      margin: 0;
+    }
+    
+    .btn {
+      margin-top: 1rem;
+    }
+  }
+  
   .card-header {
     background-color: $primary-dark;
   }
@@ -22,9 +35,5 @@
     img {
       border: 3px solid $text;
     }
-  }
-  
-  .list-item-create {
-    margin-top: 35px;
   }
 }

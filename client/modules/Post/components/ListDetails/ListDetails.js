@@ -45,11 +45,11 @@ export class ListDetails extends Component {
                       <Progress list={this.props.list}/>
                     </div>
                     <Tiles list={this.props.list} />
-                    { this.belongsToUser() ? 
-                    <ListItemCreateWidget addListItem={this.props.addListItem} />
-                    : null }
                   </CardBlock>
                 </Card>
+                { this.belongsToUser() ?
+                  <ListItemCreateWidget addListItem={this.props.addListItem} />
+                  : null }
               </Sticky>
             </Col>
             <Col xs={12} md={7}>
