@@ -40,11 +40,11 @@ export class ListDetails extends Component {
                       cloneList={this.props.cloneList} />
                   </CardHeader>
                   <CardBlock>
-                    <p className='card-avatar'>
+                    <div className='avatar-container'>
                       <img src={this.props.list._users[0].picture} className='rounded' />
-                    </p>
+                      <Progress list={this.props.list}/>
+                    </div>
                     <Tiles list={this.props.list} />
-                    <Progress list={this.props.list}/>
                     { this.belongsToUser() ? 
                     <ListItemCreateWidget addListItem={this.props.addListItem} />
                     : null }
