@@ -31,7 +31,7 @@ export class ListDetails extends Component {
           <Row>
             <Col xs={12} md={5}>
               <Sticky>
-                <Card block className='list-card'>
+                <Card block>
                   <ListDetailHeader 
                     list={this.props.list}
                     belongsToUser={!!this.belongsToUser()}

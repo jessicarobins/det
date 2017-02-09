@@ -1,6 +1,10 @@
 .list-card {
     cursor: pointer;
     
+    &:hover {
+        border-color: $accent;
+    }
+    
     .card-text {
         overflow: hidden;
         display: -webkit-box;
@@ -10,6 +14,10 @@
     
     .card-subtitle {
         margin: 10px 0;
+    }
+    
+    .card-title {
+        color: $primary-dark;
     }
     
     .progress {

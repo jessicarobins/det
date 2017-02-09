@@ -206,28 +206,23 @@ export function deleteListItem(req, res) {
 }
 
 export function paginateLists(req, res) {
-  const skipped = (req.params.page-1)*10;
-  List.find()
-      .sort('-dateAdded')
-      .skip(skipped)
-      .limit(10)
-      .populate('_users', 'username')
+  List.find().byPage(req.params.page)
     .then( lists => {
-      res.json({lists: lists})
+      res.json({lists: lists});
     })
     .catch( err => {
       res.status(500).send(err);
-    })
+    });
 }
 
 export function count(req, res) {
   List.count()
     .then( count => {
-      res.json({count: count})
+      res.json({count: count});
     })
     .catch( err => {
       res.status(500).send(err);
-    })
+    });
 }
 
 /**

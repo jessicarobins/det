@@ -89,7 +89,7 @@ export const getPosts = state => state.lists.lists;
 
 // Get post by cuid
 export const getPost = (state, cuid) => {
-  const lists = _.concat(state.lists.lists, state.lists.recentLists);
+  const lists = [...state.lists.lists, ...state.lists.recentLists, ...state.lists.paginatedLists];
   return lists.filter(list => list.cuid === cuid)[0];
 }
 

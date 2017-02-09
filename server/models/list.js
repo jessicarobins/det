@@ -7,7 +7,6 @@ import PendingItem from './pendingItem';
 const Schema = mongoose.Schema;
 import * as _ from 'lodash';
 import cuid from 'cuid';
-import mongoosePaginate from 'mongoose-paginate';
 
 const ADD_ITEM_THRESHOLD = 1;
 const DELETE_ITEM_THRESHOLD = 1;
@@ -22,8 +21,6 @@ const listSchema = new Schema({
   dateAdded: { type: 'Date', default: Date.now, required: true },
   dateModified: { type: 'Date', default: Date.now, required: false },
 });
-
-listSchema.plugin(mongoosePaginate);
 
 listSchema.virtual('name').get( function() {
   return `${this.verb} every ${this.action}`;
@@ -61,20 +58,14 @@ listSchema.query.byRecent = function() {
           .limit(20);
 };
 
-listSchema.query.byPage = function(page, limit=5) {
-  const options = {
-    sort: { dateAdded: -1 },
-    populate: '_users',
-    lean: false,
-    page: page, 
-    limit: 5
-  };
-  return this.paginate({}, options);
-  // const skipped = page*limit;
-  // return this
-  //         .find()
-  //         .sort('-dateAdded')
-  //         .limit(10);
+listSchema.query.byPage = function(page, limit=15) {
+  const skipped = (page-1)*limit;
+  return this
+          .find()
+          .sort('-dateAdded')
+          .skip(skipped)
+          .limit(limit)
+          .populate('_users', 'username');
 };
 
 listSchema.methods.addListItem = function(item, user) {

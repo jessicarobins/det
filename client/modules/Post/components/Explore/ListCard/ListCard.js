@@ -17,7 +17,7 @@ function ListCard(props) {
       className='list-card' 
       onClick={() => goToList(props, list)}>
       <CardTitle>{list.fullName}</CardTitle>
-      <CardSubtitle>{list.items.length} items</CardSubtitle>
+      <CardSubtitle className='text-muted'>{list.items.length} items</CardSubtitle>
       <Progress value={list.percentComplete} />
       <CardText>{items(list)}</CardText>
     </Card>
