@@ -12,7 +12,7 @@ export class ListItemCreateWidget extends Component {
 
   render() {
     return (
-      <div>
+      <div className='list-item-create'>
         <Form onSubmit={this.addListItem}>
           <FormGroup>
             <InputGroup>

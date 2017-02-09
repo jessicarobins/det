@@ -12,8 +12,8 @@ export class ListDetailHeader extends Component {
   
   yourList() {
     return (
-      <div>
-        <h2 className='list-detail-header'>
+      <div className='list-detail-header'>
+        <h2>
           {this.props.list._users[0].username} wants to <strong>{this.props.list.name}</strong>
         </h2>
         {this.showCloneList()}
