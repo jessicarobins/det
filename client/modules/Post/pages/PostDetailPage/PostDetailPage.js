@@ -67,7 +67,7 @@ class PostDetailPage extends Component {
         <Container>
           <Row>
             <Col>
-              <h2>404: List not found</h2>
+              <h2>List not found</h2>
             </Col>
           </Row>
         </Container>}

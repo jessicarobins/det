@@ -71,7 +71,10 @@ export function addListItemRequest(props) {
       item: props.text,
     }).then( (res) => {
       if(res.list) {
+        const successMessage = `${props.text} successfully added to list 
+          ${res.list.name}`;
         dispatch(addListItem(res.list));
+        dispatch(appActions.addSystemMessage(successMessage, 'success'));
       }
       else {
         dispatch(appActions.addSystemMessage(res, 'danger'));
