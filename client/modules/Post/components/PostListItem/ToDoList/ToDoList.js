@@ -11,21 +11,40 @@ function ToDoList(props) {
     <div className='todo-list'>
       <ListGroup>
       {
-        props.todos.map(todo => (
-          <ListGroupItem 
-            key={todo._id}>
-            <PostListItem
-              readOnly={props.readOnly}
-              todo={todo}
-              toggleListItem={props.toggleListItem}
-              deleteListItem={props.deleteListItem}
-            />
-          </ListGroupItem>
-        ))
+        props.todos.length ? ToDosPresent(props) :
+          ToDosAbsent()
       }
       </ListGroup>
     </div>
   );
+}
+
+function ToDosAbsent() {
+  return (
+    <div>
+      <p className='lead'>This list has no items.</p>
+    </div>
+  )
+}
+
+function ToDosPresent(props) {
+  return (
+    <ListGroup>
+    {
+      props.todos.map(todo => (
+        <ListGroupItem 
+          key={todo._id}>
+          <PostListItem
+            readOnly={props.readOnly}
+            todo={todo}
+            toggleListItem={props.toggleListItem}
+            deleteListItem={props.deleteListItem}
+          />
+        </ListGroupItem>
+      ))
+    }
+    </ListGroup>
+  )
 }
 
 ToDoList.propTypes = {

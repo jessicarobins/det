@@ -1,7 +1,9 @@
 .list-detail-header {
     color: $text;
     padding: 15px 0;
-    font-weight: normal;
+    h2 {
+        font-weight: normal;
+    }
 }
 
 .clone-list {

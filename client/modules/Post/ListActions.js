@@ -174,7 +174,6 @@ export function fetchRecentLists() {
   return (dispatch) => {
     return callApi('lists/recent').then(res => {
       dispatch(addRecentLists(res.lists));
-      dispatch(appActions.toggleSpinnerOff());
     });
   };
 }

@@ -18,6 +18,21 @@ a, a:hover {
 	cursor: pointer;
 }
 
+.social-icon:hover {
+	transform: scale(1.1);
+	box-shadow: 1px 1px 4px rgba(0,0,0,.5);
+}
+
+.social-svg:hover {
+    .social-svg-mask {
+        fill: $primary !important;
+    }
+}
+
+.social-svg-mask {
+    fill: $accent !important;
+}
+
 .vertical-align {
 	display: flex;
 	align-items: center;
@@ -33,4 +48,15 @@ a, a:hover {
 
 .fa-spin {
    color: $primary;
+}
+
+.list-item {
+	margin: 0px;
+	font-weight: normal;
+}
+
+.has-error {
+	box-shadow: 1px 1px 4px rgba(0,0,0,.5);
+	border: 1px solid $accent;
+	border-radius: 4px;
 }

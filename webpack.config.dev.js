@@ -6,7 +6,9 @@ var postcssReporter = require('postcss-reporter');
 var path = require('path');
 
 module.exports = {
-
+  
+  devtool: 'source-map',
+  
   entry: {
     app: [
       'eventsource-polyfill',

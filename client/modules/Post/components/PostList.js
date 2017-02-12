@@ -18,11 +18,12 @@ function PostList(props) {
             key={list.cuid}
             tag="a"
             onClick={() => goToList(props, list)}>
-            {list.name}
-            { list.percentComplete < 100 ?
-              <Badge className='percent-span'>{list.percentComplete}%</Badge> :
-              <FontAwesome name='trophy' className='percent-trophy percent-span'/>
-            }
+              <h5 className='list-item'>{list.name}</h5>
+              { list.percentComplete < 100 ?
+                <Badge className='percent-span'>{list.percentComplete}%</Badge> :
+                <FontAwesome name='trophy' className='percent-trophy percent-span'/>
+              }
+            
           </ListGroupItem>
         ))
       }

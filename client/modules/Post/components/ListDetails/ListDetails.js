@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 
 import ListDetailHeader from './ListDetailHeader/ListDetailHeader';
 import Tiles from '../../components/PostListItem/Tiles/Tiles';
+import Social from '../../components/PostListItem/Social/Social';
 import ToDoList from '../../components/PostListItem/ToDoList/ToDoList';
 import Progress from '../../components/PostListItem/Progress/Progress';
 import ListItemCreateWidget from '../../components/PostListItem/ListItemCreateWidget/ListItemCreateWidget';
@@ -50,6 +51,7 @@ export class ListDetails extends Component {
                 { this.belongsToUser() ?
                   <ListItemCreateWidget addListItem={this.props.addListItem} />
                   : null }
+                <Social list={this.props.list} />
               </Sticky>
             </Col>
             <Col xs={12} md={7}>
