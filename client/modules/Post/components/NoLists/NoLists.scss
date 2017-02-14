@@ -1,0 +1,35 @@
+.no-lists-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+    
+    h1 {
+        margin-bottom: 1.5rem;
+    }
+    
+    .no-lists-card {
+        width: $card-width;
+        justify-content: center;
+        max-height: 150px;
+        
+        .btn {
+            margin-bottom: -85px;
+        }
+        
+        .card-title {
+            text-align: center;
+            font-weight: 200;
+        }
+    }
+    
+    a {
+    	color: $accent !important;
+    	font-weight: bold;
+    	
+    	&:hover {
+        	text-decoration: underline !important;
+        }
+    }
+}

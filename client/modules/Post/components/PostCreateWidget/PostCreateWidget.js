@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Button, Form, FormGroup, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Card, CardText } from 'reactstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import classnames from 'classnames';
 import * as _ from 'lodash';
@@ -77,11 +77,14 @@ export class PostCreateWidget extends Component {
   render() {
     return (
       <div className='wantto'>
-          <Form className='wantto-form-container'>
-            <h1>
+        <Form className='wantto-form-container'>
+          <Card block>
+            <h1 className='display-2'>
               I want to
             </h1>
-            <h1 className={classnames({'has-error': this.state.verbError})}>
+            <h1 className={classnames({
+              'display-2': true,
+              'has-error': this.state.verbError})}>
               <FormGroup>
                 <Input
                   onChange={() => this.setState({verbError: false})}
@@ -92,8 +95,10 @@ export class PostCreateWidget extends Component {
                   placeholder="climb" />
               </FormGroup>
             </h1>
-            <h1>every</h1>
-            <h1 className={classnames({'has-error': this.state.templateError})}>
+            <h1 className='display-2'>every</h1>
+            <h1 className={classnames({
+              'display-2': true,
+              'has-error': this.state.templateError})}>
               <FormGroup>
                 <Typeahead
                   ref="typeahead"
@@ -108,14 +113,20 @@ export class PostCreateWidget extends Component {
                 />
               </FormGroup>
             </h1>
+            <CardText>
               <Button 
                 size="lg"
+                color="info"
                 disabled={this.state.isLoading || this.props.showAddWarning}
                 onClick={!this.state.isLoading ? this.addList : null}>
-                 {(this.state.isLoading && !this.props.showAddWarning) ? 'Creating...' : 'Create!'}
+                 {(this.state.isLoading && !this.props.showAddWarning) ? 'Creating...' : 'Create List'}
               </Button>
-          </Form>
-          { this.props.showAddWarning ? this.renderAlert() : ''}
+            </CardText>
+          </Card>
+          
+        </Form>
+        
+        { this.props.showAddWarning ? this.renderAlert() : ''}
       </div>
     );
   }

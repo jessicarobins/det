@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 
 if (process.env.BROWSER) {
   require('./ListListPage.scss')
@@ -8,18 +8,17 @@ if (process.env.BROWSER) {
 
 // Import Components
 import PostList from '../../components/PostList';
-import RecentLists from '../../components/RecentLists/RecentLists';
-import Collections from '../../components/Collections/Collections';
 import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget';
+import NoLists from '../../components/NoLists/NoLists';
 
 // Import Actions
-import { addListRequest, fetchPosts, fetchRecentLists } from '../../ListActions';
+import { addListRequest, fetchPosts, fetchRandomList } from '../../ListActions';
 import * as templateActions from '../../../Template/TemplateActions';
 import { toggleAddWarning, changeTab } from '../../../App/AppActions';
 
 // Import Selectors
 import { getShowAddWarning, getShowSpinner } from '../../../App/AppReducer';
-import { getPosts, getRecentLists } from '../../ListReducer';
+import { getPosts, getRandomList } from '../../ListReducer';
 import { getTemplates, getSelected } from '../../../Template/TemplateReducer';
 import { getAuth, getUser } from '../../../User/UserReducer';
 
@@ -29,7 +28,7 @@ class PostListPage extends Component {
     this.props.dispatch(templateActions.removeSelected());
     this.props.dispatch(fetchPosts());
     this.props.dispatch(templateActions.fetchTemplates());
-    this.props.dispatch(fetchRecentLists());
+    this.props.dispatch(fetchRandomList());
   }
 
   handleAddList = (verb, action) => {
@@ -56,6 +55,10 @@ class PostListPage extends Component {
     this.props.dispatch(changeTab(''));
   }
   
+  handleGetRandomList = () => {
+    this.props.dispatch(fetchRandomList());
+  }
+  
   lists() {
     return (
       <Row>
@@ -66,31 +69,6 @@ class PostListPage extends Component {
         </Col>
       </Row>
     )
-  }
-  
-  noLists() {
-    return (
-      <div className='no-lists-container'>
-        <Row>
-          <Col>
-            <h3>
-              You have no lists. Need some inspiration?
-            </h3>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Collections 
-              templates={this.props.templates}
-              addSelectedTemplate={this.handleAddSelectedTemplate}/>
-          </Col>
-          <Col>
-            <RecentLists
-              lists={this.props.recentLists} />
-          </Col>
-        </Row>
-      </div>
-      )
   }
   
   render() {
@@ -115,7 +93,10 @@ class PostListPage extends Component {
                 <Col md='6' xs='12'>
                   {this.props.lists.length ?
                     this.lists() :
-                    this.noLists() 
+                    <NoLists 
+                      getRandomList={this.handleGetRandomList}
+                      list={this.props.randomList}
+                      changeTab={this.handleChangeTab}/>
                   }
                 </Col>
               </Row>
@@ -131,15 +112,15 @@ class PostListPage extends Component {
 // Actions required to provide data for this component to render in sever side.
 PostListPage.need = [
   () => { return fetchPosts(); },
+  () => { return fetchRandomList(); },
   () => { return templateActions.fetchTemplates(); },
-  () => { return fetchRecentLists(); },
 ];
 
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
     lists: getPosts(state),
-    recentLists: getRecentLists(state),
+    randomList: getRandomList(state),
     templates: getTemplates(state),
     showAddWarning: getShowAddWarning(state),
     selectedTemplate: getSelected(state),
@@ -153,9 +134,7 @@ PostListPage.propTypes = {
   lists: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired
   })).isRequired,
-  recentLists: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired
-  })).isRequired,
+  randomList: PropTypes.object.isRequired,
   templates: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired
   })).isRequired,

@@ -73,13 +73,27 @@ const count = (
   }
 };
 
+const randomList = (
+  state = '',
+  action
+) => {
+  switch (action.type) {
+    case actions.ADD_RANDOM_LIST :
+      return action.list;
+    default:
+      return state;
+  }
+};
+
+
 
 const ListReducer = combineReducers({
   count,
   lists,
   demoLists,
   recentLists,
-  paginatedLists
+  paginatedLists,
+  randomList
 });
 
 /* Selectors */
@@ -89,7 +103,7 @@ export const getPosts = state => state.lists.lists;
 
 // Get post by cuid
 export const getPost = (state, cuid) => {
-  const lists = [...state.lists.lists, ...state.lists.recentLists, ...state.lists.paginatedLists];
+  const lists = [...state.lists.lists, ...state.lists.recentLists, ...state.lists.paginatedLists, state.lists.randomList];
   return lists.filter(list => list.cuid === cuid)[0];
 }
 
@@ -97,6 +111,7 @@ export const getDemoLists = state => state.lists.demoLists;
 export const getRecentLists = state => state.lists.recentLists;
 export const getPaginatedLists = state => state.lists.paginatedLists;
 export const getCount = state => state.lists.count;
+export const getRandomList = state => state.lists.randomList;
 
 // Export Reducer
 export default ListReducer;

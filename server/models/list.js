@@ -276,6 +276,16 @@ listSchema.methods.deleteListItem = function(_id) {
     });
 };
 
+listSchema.statics.random = function() {
+  return this.count()
+    .then( count => {
+      const random = Math.floor(Math.random() * count);
+      return this.findOne()
+                  .skip(random)
+                  .populate('_users', 'name picture username');
+    });
+};
+
 listSchema.statics.demoLists = function() {
   return [
     {name: 'watch every Harry Potter movie'},

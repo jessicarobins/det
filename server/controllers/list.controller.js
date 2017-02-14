@@ -225,6 +225,16 @@ export function count(req, res) {
     });
 }
 
+export function random(req, res) {
+  List.random()
+    .then( list => {
+      res.json({list: list});
+    })
+    .catch( err => {
+      res.status(500).send(err);
+    });
+}
+
 /**
  * Delete a list
  * @param req

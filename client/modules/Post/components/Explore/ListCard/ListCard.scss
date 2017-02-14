@@ -1,5 +1,17 @@
 .list-card {
     cursor: pointer;
+    width: 356px;
+    min-height: 200px;
+    
+    &.short {
+        .card-text {
+             -webkit-line-clamp: 3;
+        }
+        
+        .card-header {
+            font-weight: 200;
+        }
+    }
     
     &:hover {
         border-color: $accent;

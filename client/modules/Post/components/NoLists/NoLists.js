@@ -1,27 +1,55 @@
 import React, { Component, PropTypes } from 'react';
-import * as _ from 'lodash';
+import { browserHistory } from 'react-router';
+import { Button, Card, CardText, CardTitle } from 'reactstrap';
 
-import Collections from '../Collections/Collections';
+import ListCard from '../Explore/ListCard/ListCard';
+
+if (process.env.BROWSER) {
+  require('./NoLists.scss');
+}
 
 class NoLists extends Component {
   
+  goExplore = (e) => {
+    e.preventDefault();
+    e.stopPropogation();
+    this.props.changeTab('explore');
+    browserHistory.push('/explore');
+  }
+  
+  footer() {
+    return <a onClick={this.props.getRandomList}>Give me another random list!</a>
+  }
+  
   render() {
     return (
-      <div className="list-list">
-        <h3>You have no lists. Need some inspiration?</h3>
-        <Collections
-          templates={this.props.templates}
-          addSelectedTemplate={this.props.addSelectedTemplate} />
+      <div className='no-lists-container'>
+        
+        <Card block className='no-lists-card'>
+          <CardTitle>You have no lists.</CardTitle>
+          <CardText>
+            <Button 
+              color="primary"
+              size="lg" 
+              onMouseDown={this.goExplore}>Explore Lists</Button>
+          </CardText>
+        </Card>
+        <ListCard
+          header='Need some inspiration?'
+          footer={this.footer()}
+          small
+          list={this.props.list}
+          changeTab={this.props.changeTab} />
       </div>
     );
   }
 }
 
 NoLists.propTypes = {
-  templates: PropTypes.arrayOf(PropTypes.shape({
+  list: PropTypes.shape({
     name: PropTypes.string.isRequired,
-  })).isRequired,
-  addSelectedTemplate: PropTypes.func.isRequired,
+  }).isRequired,
+  getRandomList: PropTypes.func.isRequired,
 };
 
 export default NoLists;

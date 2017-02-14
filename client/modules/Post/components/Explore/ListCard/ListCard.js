@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
-import { Card, CardTitle, CardText, CardSubtitle, Progress } from 'reactstrap';
+import { Card, CardTitle, CardText, CardHeader, 
+  CardBlock, CardFooter, CardSubtitle, Progress } from 'reactstrap';
 import { browserHistory } from 'react-router';
+import classnames from 'classnames';
 
 if (process.env.BROWSER) {
   require('./ListCard.scss');
@@ -10,16 +12,19 @@ function ListCard(props) {
   const { list } = props;
   return (
     <Card 
-      style={{width: '356px', 
-        minHeight: '200px'
-      }}
-      block 
-      className='list-card' 
+      className={classnames({ 
+        short: props.small,
+        'list-card': true
+      })}
       onClick={() => goToList(props, list)}>
-      <CardTitle>{list.fullName}</CardTitle>
-      <CardSubtitle className='text-muted'>{list.items.length} items</CardSubtitle>
-      <Progress value={list.percentComplete} />
-      <CardText>{items(list)}</CardText>
+      {props.header ? <CardHeader tag="h3">{props.header}</CardHeader> : null}
+      <CardBlock>
+        <CardTitle>{list.fullName}</CardTitle>
+        <CardSubtitle className='text-muted'>{list.items.length} items</CardSubtitle>
+        <Progress value={list.percentComplete} />
+        <CardText>{items(list)}</CardText>
+      </CardBlock>
+      {props.footer ? <CardFooter>{props.footer}</CardFooter> : null}
     </Card>
   );
 }
