@@ -9,24 +9,29 @@ if (process.env.BROWSER) {
 
 class Social extends Component {
   
+  message() {
+    const message = 'Check out everee, a crowd-sourced bucket list app!';
+    return this.props.list ? this.props.list.fullName : message;
+  }
+  
   render() {
     return (
       <div className='social-section text-center'>
         <FacebookButton
-          message={this.props.list.fullName}
+          message={this.message()}
           className="btn btn-link"
           windowOptions={['status=0', 'toolbar=0', 'width=480', 'height=350']}
           appId={1821098288164182}>
           <SocialIcon network="facebook" />
         </FacebookButton>
         <TwitterButton
-          message={this.props.list.fullName}
+          message={this.message()}
           className="btn btn-link"
           windowOptions={['status=0', 'toolbar=0', 'width=480', 'height=350']} >
           <SocialIcon network="twitter" />
         </TwitterButton>
         <EmailButton
-          message={this.props.list.fullName}
+          message={this.message()}
           className="btn btn-link" >
           <SocialIcon network="email" />
         </EmailButton>
@@ -38,7 +43,7 @@ class Social extends Component {
 Social.propTypes = {
   list: PropTypes.shape({
     cuid: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
 };
 
 export default Social;

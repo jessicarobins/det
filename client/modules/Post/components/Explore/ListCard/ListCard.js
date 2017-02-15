@@ -15,10 +15,9 @@ function ListCard(props) {
       className={classnames({ 
         short: props.small,
         'list-card': true
-      })}
-      onClick={() => goToList(props, list)}>
+      })}>
       {props.header ? <CardHeader tag="h3">{props.header}</CardHeader> : null}
-      <CardBlock>
+      <CardBlock onClick={() => goToList(props, list)}>
         <CardTitle>{list.fullName}</CardTitle>
         <CardSubtitle className='text-muted'>{list.items.length} items</CardSubtitle>
         <Progress value={list.percentComplete} />

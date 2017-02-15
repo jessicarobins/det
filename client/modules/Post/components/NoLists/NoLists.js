@@ -10,9 +10,7 @@ if (process.env.BROWSER) {
 
 class NoLists extends Component {
   
-  goExplore = (e) => {
-    e.preventDefault();
-    e.stopPropogation();
+  goExplore = () => {
     this.props.changeTab('explore');
     browserHistory.push('/explore');
   }

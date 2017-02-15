@@ -1,7 +1,10 @@
 .list-card {
-    cursor: pointer;
     width: 356px;
     min-height: 200px;
+    
+    .card-block {
+        cursor: pointer;
+    }
     
     &.short {
         .card-text {
