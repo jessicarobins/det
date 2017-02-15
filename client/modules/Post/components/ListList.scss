@@ -1,4 +1,15 @@
 .list-list {
+  
+  &.full {
+    height: 100%;
+
+    .you-wanna {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+  }
+  
   .percent-trophy {
     color: $accent;
   }
@@ -10,5 +21,24 @@
   
   .card-header {
     border-bottom: none;
+  }
+  
+  .card-footer {
+    border-top: none;
+  }
+  
+  .paginate-button {
+    text-align: center;
+    padding: 5px;
+    color: $primary-darkest;
+    
+    &.up {
+      border-top: 1px solid rgba(0, 0, 0, 0.125);
+    }
+    
+    &:hover {
+      cursor: pointer;
+      color: $accent;
+    }
   }
 }

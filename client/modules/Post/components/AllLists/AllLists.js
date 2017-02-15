@@ -8,6 +8,25 @@ import ListCard from '../Explore/ListCard/ListCard';
 
 class AllLists extends Component {
   
+  social() {
+    return (
+      
+          <Row>
+            <Col xs='12' md='2'>
+              <Social />
+            </Col>
+            <Col xs='12' md='10'>
+               <ListCard
+                header='Need some inspiration?'
+                footer={<a onClick={this.props.getRandomList}>Give me another random list!</a>}
+                small
+                list={this.props.randomList}
+                changeTab={this.props.changeTab} />
+            </Col>
+          </Row>
+    )
+  }
+  
   render() {
     return (
       <Row>
@@ -24,19 +43,6 @@ class AllLists extends Component {
               addEmptyList={this.props.addEmptyList}
               showAddPost={true} 
               templates={this.props.templates} />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs='12' md='2'>
-              <Social />
-            </Col>
-            <Col xs='12' md='10'>
-               <ListCard
-                header='Need some inspiration?'
-                footer={<a onClick={this.props.getRandomList}>Give me another random list!</a>}
-                small
-                list={this.props.randomList}
-                changeTab={this.props.changeTab} />
             </Col>
           </Row>
         </Col>
