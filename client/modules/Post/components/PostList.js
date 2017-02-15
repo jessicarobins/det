@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
-import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
-import { Link } from 'react-router';
+import { Card, CardHeader, ListGroup, ListGroupItem, Badge } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
 import { browserHistory } from 'react-router';
 
@@ -10,24 +9,27 @@ if (process.env.BROWSER) {
 
 function PostList(props) {
   return (
-    <ListGroup className='list-list'>
-      {
-        props.lists.map(list => (
-          <ListGroupItem
-            className="justify-content-between"
-            key={list.cuid}
-            tag="a"
-            onClick={() => goToList(props, list)}>
-              <h5 className='list-item'>{list.name}</h5>
-              { list.percentComplete < 100 ?
-                <Badge className='percent-span'>{list.percentComplete}%</Badge> :
-                <FontAwesome name='trophy' className='percent-trophy percent-span'/>
-              }
-            
-          </ListGroupItem>
-        ))
-      }
-    </ListGroup>
+    <Card className='list-list'>
+      <CardHeader tag="h3">You want to...</CardHeader>
+      <ListGroup className='list-group-flush'>
+        {
+          props.lists.map(list => (
+            <ListGroupItem
+              className="justify-content-between"
+              key={list.cuid}
+              tag="a"
+              onClick={() => goToList(props, list)}>
+                <h5 className='list-item'>{list.name}</h5>
+                { list.percentComplete < 100 ?
+                  <Badge className='percent-span'>{list.percentComplete}%</Badge> :
+                  <FontAwesome name='trophy' className='percent-trophy percent-span'/>
+                }
+              
+            </ListGroupItem>
+          ))
+        }
+      </ListGroup>
+    </Card>
   );
 }
 
