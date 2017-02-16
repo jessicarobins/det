@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 export class UsernameCreateForm extends Component {
   
@@ -22,10 +22,10 @@ export class UsernameCreateForm extends Component {
     return (
       <Form onSubmit={this.createUsername}>
         <FormGroup>
-          <ControlLabel>First, create a public-facing username</ControlLabel>
-          <FormControl
+          <Label>First, create a public-facing username</Label>
+          <Input
             autoFocus={true}
-            inputRef={ref => {this.usernameRef = ref}} 
+            getRef={ref => {this.usernameRef = ref}} 
             type="text" 
             placeholder="username" />
         </FormGroup>
