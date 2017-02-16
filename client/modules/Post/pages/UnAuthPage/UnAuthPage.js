@@ -7,6 +7,7 @@ import About from '../../../App/components/About/About';
 
 // Import Actions
 import { fetchDemoLists, fetchRecentLists } from '../../ListActions';
+import { changeTab } from '../../../App/AppActions';
 
 // Import Selectors
 import { getDemoLists, getRecentLists } from '../../ListReducer';
@@ -17,11 +18,16 @@ class UnAuthPage extends Component {
     this.props.dispatch(fetchDemoLists());
     this.props.dispatch(fetchRecentLists());
   }
+  
+  handleChangeTab = (tab) => {
+    this.props.dispatch(changeTab(''));
+  }
 
   render() {
     return (
       <div>
         <About 
+          changeTab={this.handleChangeTab}
           recentLists={this.props.recentLists}
           demoLists={this.props.lists}/>
       </div>

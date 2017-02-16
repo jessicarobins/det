@@ -4,6 +4,7 @@ import { Col, Row, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
 import { SocialIcon } from 'react-social-icons';
 import { StickyContainer, Sticky } from 'react-sticky';
+import { browserHistory } from 'react-router';
 
 import * as _ from 'lodash';
 
@@ -102,7 +103,9 @@ function RecentListsSection(props) {
           <p className='subtitle'>
             Want some <strong>examples</strong>? Get started with these recently created lists.
           </p>
-          <div className='button'>{GetStartedButton('Sign up with Google')}</div>
+          <div className='button'>
+            <Button size='lg' onClick={()=>goExplore(props)}>Explore More Lists</Button>
+          </div>
         </Col>
         <Col md='5' xs='12'>
           <ListGroup>
@@ -151,6 +154,11 @@ function GetStartedButton(text) {
   return (
     <Button size='lg' href="/auth/google">{text}</Button>
   )
+}
+
+function goExplore(props) {
+  props.changeTab('explore');
+  browserHistory.push('/explore');
 }
 
 export default About;
