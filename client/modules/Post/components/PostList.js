@@ -18,7 +18,6 @@ class PostList extends Component {
     
     this.state = {
       startItemIndex: 0,
-      filter: '',
       displayedLists: props.lists
     };
   }
@@ -29,7 +28,7 @@ class PostList extends Component {
   }
   
   lastItemIndex() {
-    return this.state.startItemIndex + this.perPage;
+    return this.state.startItemIndex + this.perPage -1;
   }
   
   showFooter() {
@@ -50,12 +49,12 @@ class PostList extends Component {
   }
   
   filter = () => {
-    this.setState({filter: this.searchRef.value});
+    const filter = this.searchRef.value;
     const lists =  _.filter(this.props.lists, o => { 
-      if (!this.state.filter.length) {
+      if (!filter.length) {
         return true;
       }
-      return o.name.includes(this.state.filter);
+      return o.name.includes(filter);
     });
     this.setState({
       startItemIndex: 0,
@@ -67,6 +66,10 @@ class PostList extends Component {
     return !this.showHeader() && this.state.displayedLists.length > this.perPage;
   }
   
+  placeholder() {
+    return _.sample(this.props.lists).name;
+  }
+  
   render() {
     return (
       <Card 
@@ -74,14 +77,14 @@ class PostList extends Component {
           full: this.full(),
           'list-list': true
         })}>
-        <CardHeader tag="h3" className='you-wanna'>
-          You want to... 
+        <CardHeader tag="h4" className='you-wanna'>
+          <span>You want to...</span>
           <Input
             getRef={ref => {this.searchRef = ref}} 
             onChange={this.filter}
             name="search" 
             id="search" 
-            placeholder="placeholder" />
+            placeholder={this.placeholder()} />
         </CardHeader>
         { 
           this.showHeader() &&
@@ -94,7 +97,7 @@ class PostList extends Component {
         <ListGroup className='list-group-flush'>
           {
             _.chain(this.state.displayedLists)
-              .slice(this.state.startItemIndex, this.lastItemIndex())
+              .slice(this.state.startItemIndex, this.lastItemIndex()+1)
               .map(list => (
                 <ListGroupItem
                   className="justify-content-between"
