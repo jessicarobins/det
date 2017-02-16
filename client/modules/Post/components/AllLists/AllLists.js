@@ -1,57 +1,48 @@
 import React, { Component, PropTypes } from 'react';
-import { Row, Col } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 
 import PostList from '../PostList';
 import PostCreateWidget from '../PostCreateWidget/PostCreateWidget';
 import Social from '../PostListItem/Social/Social';
-import ListCard from '../Explore/ListCard/ListCard';
+
+if (process.env.BROWSER) {
+  require('./AllLists.scss');
+}
 
 class AllLists extends Component {
   
-  social() {
-    return (
-      
-          <Row>
-            <Col xs='12' md='2'>
-              <Social />
-            </Col>
-            <Col xs='12' md='10'>
-               <ListCard
-                header='Need some inspiration?'
-                footer={<a onClick={this.props.getRandomList}>Give me another random list!</a>}
-                small
-                list={this.props.randomList}
-                changeTab={this.props.changeTab} />
-            </Col>
-          </Row>
-    )
-  }
-  
   render() {
     return (
-      <Row>
-        <Col md='7' xs='12'>
-          <Row>
-            <Col md='12'>
-            <PostCreateWidget 
-              selectedTemplate={this.props.selectedTemplate}
-              addSelectedTemplate={this.props.addSelectedTemplate}
-              removeSelectedTemplate={this.props.removeSelectedTemplate}
-              toggleAddWarning={this.props.toggleAddWarning}
-              showAddWarning={this.props.showAddWarning}
-              addPost={this.props.addList} 
-              addEmptyList={this.props.addEmptyList}
-              showAddPost={true} 
-              templates={this.props.templates} />
-            </Col>
-          </Row>
-        </Col>
-        <Col md='5' xs='12'>
-          <PostList 
-            changeTab={this.props.changeTab}
-            lists={this.props.lists} />
-        </Col>
-      </Row>
+      <Container className='all-lists'>
+        <Row>
+          <Col md='7' xs='12'>
+            <Row>
+              <Col md='12'>
+              <PostCreateWidget 
+                selectedTemplate={this.props.selectedTemplate}
+                addSelectedTemplate={this.props.addSelectedTemplate}
+                removeSelectedTemplate={this.props.removeSelectedTemplate}
+                toggleAddWarning={this.props.toggleAddWarning}
+                showAddWarning={this.props.showAddWarning}
+                addPost={this.props.addList} 
+                addEmptyList={this.props.addEmptyList}
+                showAddPost={true} 
+                templates={this.props.templates} />
+              </Col>
+            </Row>
+          </Col>
+          <Col md='5' xs='12'>
+            <PostList 
+              changeTab={this.props.changeTab}
+              lists={this.props.lists} />
+          </Col>
+        </Row>
+        <Row className='social-row'>
+          <Col md='12'>
+            <Social />
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

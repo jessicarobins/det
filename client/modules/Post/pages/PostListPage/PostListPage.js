@@ -63,38 +63,36 @@ class PostListPage extends Component {
       <div className='post-list-page'>
         <div className='post-list-page-container'>
           {this.props.showSpinner ? null :
-            <Container>
-            {
-              this.props.lists.length ?
-                <AllLists 
-                  selectedTemplate={this.props.selectedTemplate}
-                  addSelectedTemplate={this.handleAddSelectedTemplate}
-                  removeSelectedTemplate={this.handleRemoveSelectedTemplate}
-                  toggleAddWarning={this.handleToggleAddWarning}
-                  showAddWarning={this.props.showAddWarning}
-                  addList={this.handleAddList} 
-                  addEmptyList={this.handleAddEmptyList}
-                  showAddPost={true} 
-                  templates={this.props.templates} 
-                  changeTab={this.handleChangeTab} 
-                  lists={this.props.lists}
-                  randomList={this.props.randomList}
-                  getRandomList={this.handleGetRandomList} /> :
-                <NoLists
-                  selectedTemplate={this.props.selectedTemplate}
-                  addSelectedTemplate={this.handleAddSelectedTemplate}
-                  removeSelectedTemplate={this.handleRemoveSelectedTemplate}
-                  toggleAddWarning={this.handleToggleAddWarning}
-                  showAddWarning={this.props.showAddWarning}
-                  addList={this.handleAddList} 
-                  addEmptyList={this.handleAddEmptyList}
-                  showAddPost={true} 
-                  templates={this.props.templates}
-                  changeTab={this.handleChangeTab} 
-                  list={this.props.randomList}
-                  getRandomList={this.handleGetRandomList}/>
-              }
-            </Container>
+            
+            this.props.lists.length ?
+              <AllLists 
+                selectedTemplate={this.props.selectedTemplate}
+                addSelectedTemplate={this.handleAddSelectedTemplate}
+                removeSelectedTemplate={this.handleRemoveSelectedTemplate}
+                toggleAddWarning={this.handleToggleAddWarning}
+                showAddWarning={this.props.showAddWarning}
+                addList={this.handleAddList} 
+                addEmptyList={this.handleAddEmptyList}
+                showAddPost={true} 
+                templates={this.props.templates} 
+                changeTab={this.handleChangeTab} 
+                lists={this.props.lists}
+                randomList={this.props.randomList}
+                getRandomList={this.handleGetRandomList} /> :
+              <NoLists
+                selectedTemplate={this.props.selectedTemplate}
+                addSelectedTemplate={this.handleAddSelectedTemplate}
+                removeSelectedTemplate={this.handleRemoveSelectedTemplate}
+                toggleAddWarning={this.handleToggleAddWarning}
+                showAddWarning={this.props.showAddWarning}
+                addList={this.handleAddList} 
+                addEmptyList={this.handleAddEmptyList}
+                showAddPost={true} 
+                templates={this.props.templates}
+                changeTab={this.handleChangeTab} 
+                list={this.props.randomList}
+                getRandomList={this.handleGetRandomList}/>
+              
           }
         </div>
       </div>
