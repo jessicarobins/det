@@ -28,6 +28,7 @@ export class ListItemCreateWidget extends Component {
             <Input
               onFocus={this.toggle}
               onBlur={this.toggle}
+              autoFocus={this.props.autoFocus}
               placeholder="A new item..."
               getRef={ref => {this.textRef = ref}}
               type="text" />
@@ -43,6 +44,7 @@ export class ListItemCreateWidget extends Component {
 
 ListItemCreateWidget.propTypes = {
   addListItem: PropTypes.func.isRequired,
+  autoFocus: PropTypes.bool.isRequired,
 };
 
 export default ListItemCreateWidget;

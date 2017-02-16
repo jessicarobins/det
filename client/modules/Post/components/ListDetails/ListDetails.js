@@ -49,7 +49,7 @@ export class ListDetails extends Component {
                   </CardBlock>
                 </Card>
                 { this.belongsToUser() ?
-                  <ListItemCreateWidget addListItem={this.props.addListItem} />
+                  <ListItemCreateWidget autoFocus={!this.props.list.length} addListItem={this.props.addListItem} />
                   : null }
                 <Social list={this.props.list} />
               </Sticky>
