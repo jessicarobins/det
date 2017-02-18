@@ -54,7 +54,7 @@ module.exports = {
         loader: 'babel',
       }, {
         test: /\.(jpe?g|gif|png|svg)$/i,
-        loader: 'url-loader?limit=10000',
+        loader: 'url-loader',
       }, {
         test: /\.json$/,
         loader: 'json-loader',
