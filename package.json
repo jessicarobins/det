@@ -111,6 +111,7 @@
     "react-router-redux": "^4.0.7",
     "react-social": "^1.7.1",
     "react-social-icons": "^2.5.1",
+    "react-spark-scroll-gsap": "^2.0.3",
     "react-sticky": "^5.0.5",
     "react-typist": "^1.0.3",
     "reactstrap": "^4.0.1",

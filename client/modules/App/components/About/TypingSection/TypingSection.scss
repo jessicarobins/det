@@ -1,0 +1,14 @@
+@import "background";
+
+.typeahead-section {
+    position: relative;
+    margin-top: -20px;
+    height: 100vh;
+    
+    &:before {
+        @extend .static-background;
+        background-image: url(../../../../../resources/dream.jpeg);
+        background-position: 64% 0%;
+    }
+    
+}

@@ -5,11 +5,11 @@ import FontAwesome from 'react-fontawesome';
 import { SocialIcon } from 'react-social-icons';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { browserHistory } from 'react-router';
-import smoothScroll from 'smoothscroll';
 
-import UnAuthWidget from './UnAuthWidget/UnAuthWidget';
 import Header from '../Header/Header';
 import Brand from '../Brand/Brand';
+import TypingSection from './TypingSection/TypingSection';
+import DownButton from './DownButton/DownButton';
 
 if (process.env.BROWSER) {
   require('./About.scss');
@@ -19,7 +19,7 @@ function About(props) {
   return (
     <StickyContainer>
       <div className='about'>
-        <TypeaheadWidgetSection {...props} />
+        <TypingSection {...props} />
         <Sticky className='top'>
           <Header inverse />
         </Sticky>
@@ -34,7 +34,7 @@ function About(props) {
 
 function StepsSection(props) {
   return (
-    <section className="steps">
+    <section className="steps" id="steps">
       <div className='container'>
         <Row>
           <Col md='4' xs='12' className='step'>
@@ -137,28 +137,9 @@ function WhatIsEvereeSection() {
         </p>
         {GetStartedButton('Get Started!')}
       </div>
+      <DownButton light selector="#steps" />
     </section>
   )
-}
-
-class TypeaheadWidgetSection extends Component {
-  
-  handleScrollClick = (event) => {
-    const scrollElement = document.querySelector("#what-is");
-    smoothScroll(scrollElement);
-    event.preventDefault();
-  }
-  
-  render() {
-    return (
-      <section className='tall-section typeahead-section'>
-        <UnAuthWidget lists={this.props.demoLists}/> 
-        <Button color="link" className='down-btn' onClick={this.handleScrollClick}>
-          <FontAwesome name='chevron-down' className='fa-2x'/>
-        </Button>
-      </section>
-    )
-  }
 }
 
 function GetStartedButton(text) {
