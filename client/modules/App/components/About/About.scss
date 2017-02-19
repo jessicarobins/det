@@ -92,33 +92,28 @@
             background-position: 35% 50%;
         }
         
-        .display-4 {
-            color: $primary-dark;
-            text-align: right;
-        }
-        
-        .subtitle {
-            margin-bottom: 50px;
-            text-align: right;
-            font-weight: 200;
+        .list-cards {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            overflow: hidden;
         }
         
         .button {
-            text-align: right;
+            margin-top: 20px;
         }
         
-        .list-group {
-            font-size: 20px;
-            
-            .list-group-item {
-                border: none;
-                color: $primary;
-                background-color: rgba(255, 255, 255, 0.6);
-                
-                &:hover {
-                    color: $accent;
-                }
-            }
+        .display-4 {
+            color: $primary-dark;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 200;
         }
     }
     

@@ -6,10 +6,14 @@ import { SocialIcon } from 'react-social-icons';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { browserHistory } from 'react-router';
 
+import * as _ from 'lodash';
+
 import Header from '../Header/Header';
 import Brand from '../Brand/Brand';
 import TypingSection from './TypingSection/TypingSection';
 import DownButton from './DownButton/DownButton';
+import ListCard from '../../../Post/components/Explore/ListCard/ListCard';
+
 
 if (process.env.BROWSER) {
   require('./About.scss');
@@ -99,28 +103,22 @@ function ContactSection(props) {
 function RecentListsSection(props) {
   return (
     <section className='tall-section recent-section' id="recent">
-      <Row>
-        <Col md={{size: '4', offset:'3'}} xs='12' className='align-self-center'>
-          <h1 className='display-4'>
-            Want some examples?
-          </h1>
-          <h4 className="text-muted subtitle">Get started with these recently created lists.</h4>
-          <div className='button'>
-            <Button size='lg' onClick={()=>goExplore(props)}>Explore More Lists</Button>
-          </div>
-        </Col>
-        <Col md='5' xs='12'>
-          <ListGroup>
-          {
-            props.recentLists.map(list => (
-              <ListGroupItem key={list.cuid} action tag={Link} to={`/lists/${list.cuid}`}>
-                  {list.fullName}
-              </ListGroupItem>
-            ))
-          }
-          </ListGroup>
-        </Col>
-      </Row>
+        <div>
+        <h1 className='display-4'>
+          Want some examples?
+        </h1>
+        <h4 className="text-muted subtitle">Get started with these recently created lists.</h4>
+      </div>
+      <div className="list-cards">          
+        {
+          _.take(props.recentLists, 4).map(list => (
+            <ListCard key={list._id} list={list} changeTab={props.changeTab} />
+          ))
+        }
+      </div>
+      <div className='button'>
+        <Button color="primary" size='lg' onClick={()=>goExplore(props)}>Explore More Lists</Button>
+      </div>
       <DownButton selector="#contact" />
     </section>
   )
