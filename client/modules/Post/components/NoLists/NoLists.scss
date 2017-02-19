@@ -24,6 +24,11 @@
         }
     }
     
+    .list-card {
+        min-height: 333.5px;
+        max-height: 333.5px;
+    }
+    
     a {
     	color: $accent !important;
     	font-weight: bold;

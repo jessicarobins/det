@@ -27,6 +27,7 @@
   "author": "Jess",
   "license": "MIT",
   "dependencies": {
+    "animate.css": "^3.5.2",
     "ava": "^0.15.2",
     "axios": "^0.15.3",
     "babel-core": "^6.9.1",

@@ -18,14 +18,19 @@ class DownButton extends Component {
   
   render() {
     return (
-      <Button color="link" 
+      <div 
         className={cx({ 
           light: !!this.props.light,
           'down-btn': true
-        })}
-        onClick={this.handleScrollClick}>
-        <FontAwesome name='chevron-down' className='fa-2x'/>
-      </Button>
+        })}>
+        <span
+          onClick={this.handleScrollClick}
+          className="down-clickable">
+          <Button color="link" className="animated infinite pulse">
+            <FontAwesome name='chevron-down' className='fa-2x'/>
+          </Button>
+        </span>
+      </div>
     )
   }
 }

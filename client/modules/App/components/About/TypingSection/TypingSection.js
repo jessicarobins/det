@@ -13,7 +13,7 @@ class TypingSection extends Component {
     return (
       <section className='tall-section typing-section'>
         <UnAuthWidget lists={this.props.demoLists}/> 
-        <DownButton selector='#what-is' />
+        <DownButton selector='#what-is' text="what?" />
       </section>
     )
   }

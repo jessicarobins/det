@@ -31,6 +31,12 @@
     .steps {
         background-color: $text;
         color: $secondary-text;
+        padding: 60px 20px 150px 20px;
+        position: relative;
+        
+        .display-4 {
+            text-align: center;
+        }
         
         .step {
             display: flex;
@@ -79,16 +85,22 @@
     
     .recent-section {
         position: relative;
+        height: 100vh;
         
         &:before {
             @extend .dream;
             background-position: 35% 50%;
         }
         
-        .subtitle {
+        .display-4 {
             color: $primary-dark;
+            text-align: right;
+        }
+        
+        .subtitle {
             margin-bottom: 50px;
             text-align: right;
+            font-weight: 200;
         }
         
         .button {

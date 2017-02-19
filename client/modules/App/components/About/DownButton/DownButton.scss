@@ -3,16 +3,38 @@
   bottom: 10px;
   left: 0px;
   width: 100%;
+  text-align: center;
   
-  &:focus {
-      box-shadow: none !important;
+  .down-txt {
+    text-transform: uppercase;
+    margin-bottom: -15px;
+    font-weight: 200;
+  }
+  
+  .down-clickable, .btn {
+    color: $primary;
+    
+    &:hover {
+      cursor: pointer;
+      color: $primary-dark;
+    }
   }
   
   &.light {
-    color: $primary-light;
     
-    &:hover {
-      color: $divider;
+    .down-clickable, .btn {
+      color: $primary-light;
+      
+      &:hover {
+        color: $divider;
+      }
     }
+  }
+  
+  .btn {
+    &:focus {
+        box-shadow: none !important;
+    }
+    
   }
 }

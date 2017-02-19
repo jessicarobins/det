@@ -36,6 +36,7 @@ function StepsSection(props) {
   return (
     <section className="steps" id="steps">
       <div className='container'>
+        <h1 className='display-4'>How does everee work?</h1>
         <Row>
           <Col md='4' xs='12' className='step'>
             <FontAwesome name='plus' className='fa-4x fa-fw step-icon'/>
@@ -72,6 +73,7 @@ function StepsSection(props) {
           </Col>
         </Row>
       </div>
+      <DownButton selector="#recent" text="show me!" />
     </section>
   )
 }
@@ -82,7 +84,7 @@ function ContactSection(props) {
     twitter: 'http://twitter.com/evereeapp'
   };
   return (
-    <section className='contact'>
+    <section className='contact' id="contact">
       <div className='container'>
         <p className='subtitle'>Questions? Comments? Heaps of praise? Reach out via email or Twitter!</p>
         <div>
@@ -96,12 +98,13 @@ function ContactSection(props) {
 
 function RecentListsSection(props) {
   return (
-    <section className='tall-section recent-section'>
+    <section className='tall-section recent-section' id="recent">
       <Row>
         <Col md={{size: '4', offset:'3'}} xs='12' className='align-self-center'>
-          <p className='subtitle'>
-            Want some <strong>examples</strong>? Get started with these recently created lists.
-          </p>
+          <h1 className='display-4'>
+            Want some examples?
+          </h1>
+          <h4 className="text-muted subtitle">Get started with these recently created lists.</h4>
           <div className='button'>
             <Button size='lg' onClick={()=>goExplore(props)}>Explore More Lists</Button>
           </div>
@@ -118,6 +121,7 @@ function RecentListsSection(props) {
           </ListGroup>
         </Col>
       </Row>
+      <DownButton selector="#contact" />
     </section>
   )
 }
@@ -126,7 +130,7 @@ function WhatIsEvereeSection() {
   return (
     <section className='tall-section what-is' id="what-is">
       <div className='container'>
-        <h2 className='what-is-title'>
+        <h2 className='display-4 what-is-title'>
           <Brand light /> is a <strong>crowd-sourced bucket list</strong> for <strong>completionists</strong>.
         </h2>
         <p className='subtitle'>
@@ -137,7 +141,7 @@ function WhatIsEvereeSection() {
         </p>
         {GetStartedButton('Get Started!')}
       </div>
-      <DownButton light selector="#steps" />
+      <DownButton light selector="#steps" text="how?" />
     </section>
   )
 }
