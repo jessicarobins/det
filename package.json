@@ -125,6 +125,7 @@
     "sanitize-html": "^1.11.4",
     "sass-loader": "^4.1.1",
     "sinon": "^1.17.4",
+    "smoothscroll": "^0.3.0",
     "style-loader": "^0.13.1",
     "supertest": "^1.2.0",
     "url-loader": "^0.5.7",

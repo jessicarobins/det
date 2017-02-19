@@ -128,5 +128,14 @@
         &:before {
             @extend .dream;
         }
+        
+        .down-btn {
+            position: absolute;
+            bottom: 10px;
+            
+            &:focus {
+                box-shadow: none;
+            }
+        }
     }
 }
