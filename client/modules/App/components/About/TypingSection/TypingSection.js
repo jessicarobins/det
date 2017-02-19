@@ -11,7 +11,7 @@ class TypingSection extends Component {
   
   render() {
     return (
-      <section className='tall-section typeahead-section'>
+      <section className='tall-section typing-section'>
         <UnAuthWidget lists={this.props.demoLists}/> 
         <DownButton selector='#what-is' />
       </section>

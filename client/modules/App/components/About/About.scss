@@ -111,31 +111,15 @@
     }
     
     .what-is {
+        position: relative;
         background-color: $primary-dark;
         color: $primary-light;
         text-align: center;
+        height: 100vh;
         
         .what-is-title {
             padding: 20px;
             color: $text;
-        }
-    }
-    
-    .typeahead-section {
-        position: relative;
-        margin-top: -20px;
-        
-        &:before {
-            @extend .dream;
-        }
-        
-        .down-btn {
-            position: absolute;
-            bottom: 10px;
-            
-            &:focus {
-                box-shadow: none;
-            }
         }
     }
 }
